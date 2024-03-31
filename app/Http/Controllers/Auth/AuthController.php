@@ -23,8 +23,8 @@ class AuthController extends Controller
     public function dashboard()
     {
 
-        dd('welcome to dashbaord');
-        return view("analytics.analytics");
+
+        return view("analytics");
     }
 
 
@@ -162,6 +162,13 @@ class AuthController extends Controller
 
         //return redirect()->away(url('/user/order/page#no'));
     }
+
+    public function LoginPage()
+    {
+
+        return view("landingpage.login");
+    }
+
     public function login(Request $request)
     {
         // Validation

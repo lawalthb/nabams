@@ -31,7 +31,7 @@
       <i class="bi bi-list mobile-nav-toggle"></i>
     </nav><!-- .navbar -->
 
-    <a href="{{route('login)}}" class="appointment-btn scrollto"><span class="d-none d-md-inline">Login to</span> Dashbaord</a>
+    <a href="{{route('login.page')}}" class="appointment-btn scrollto"><span class="d-none d-md-inline">Login to</span> Dashbaord</a>
 
   </div>
 </header><!-- End Header -->
