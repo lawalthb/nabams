@@ -30,8 +30,13 @@
       </ul>
       <i class="bi bi-list mobile-nav-toggle"></i>
     </nav><!-- .navbar -->
+    @if(auth()->check())
 
+    <a href="{{route('login.page')}}" class="appointment-btn scrollto"><span class="d-none d-md-inline">Back to </span>Dashboard</a>
+    @else
     <a href="{{route('login.page')}}" class="appointment-btn scrollto"><span class="d-none d-md-inline">Login to</span> Dashbaord</a>
+    @endif
+
 
   </div>
 </header><!-- End Header -->

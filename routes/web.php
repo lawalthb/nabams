@@ -4,12 +4,17 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\AuthController;
 
 Route::post('/register', [AuthController::class, 'register'])->name('register');
-Route::get('/dashboard', [AuthController::class, 'dashboard'])->name('dashboard')->middleware('auth.member');
+Route::get('/home', [AuthController::class, 'dashboard'])->name('dashboard')->middleware('auth.member');
 Route::get('/payment_url', [AuthController::class, 'PaymentCallback'])->name('callback_url');
 
-Route::get('/loginPage', [AuthController::class, 'LoginPage'])->name('login.page');
-Route::post('/login', [AuthController::class, 'login'])->name('login');
 
+Route::group(['middleware' => 'guest'], function () {
+  Route::get('/loginPage', [AuthController::class, 'LoginPage'])->name('login.page');
+  // Add other authentication-related routes here
+});
+
+
+Route::post('/login', [AuthController::class, 'login'])->name('login');
 
 
 
