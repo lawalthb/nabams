@@ -14,7 +14,7 @@
         <li class="dropdown"><a href="#"><span>Membership</span> <i class="bi bi-chevron-down"></i></a>
           <ul>
             <li><a href="#benefit">Benefits</a></li>
-            <li><a href="#appointment">Registration</a></li>
+            <li><a href="#registration">Registration</a></li>
             <li><a href="/executives">Executives</a></li>
             <li><a href="#gallery">Gallery</a></li>
             <li><a href="#testimonials">Testimonials</a></li>
@@ -31,7 +31,7 @@
       <i class="bi bi-list mobile-nav-toggle"></i>
     </nav><!-- .navbar -->
 
-    <a href="#appointment" class="appointment-btn scrollto"><span class="d-none d-md-inline">Login to</span> Dashbaord</a>
+    <a href="#registration" class="appointment-btn scrollto"><span class="d-none d-md-inline">Login to</span> Dashbaord</a>
 
   </div>
 </header><!-- End Header -->

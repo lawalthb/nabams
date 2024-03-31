@@ -1,7 +1,38 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Auth\AuthController;
 
+Route::get('/register', [AuthController::class, 'showRegistrationForm']);
+Route::post('/register', [AuthController::class, 'register'])->name('register');
+Route::get('/dashboard', [AuthController::class, 'dashboard'])->name('dashboard');
+
+Route::get('/login', [AuthController::class, 'showLoginForm']);
+Route::post('/login', [AuthController::class, 'login'])->name('login');
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+## template Route
 //Route::view('/', 'index');
 Route::view('/', 'landingpage.index');
 Route::view('/analytics', 'analytics');

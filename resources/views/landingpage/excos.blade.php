@@ -12,17 +12,17 @@
       <div class="col-lg-3 col-md-6 d-flex align-items-stretch">
         <div class="member" data-aos="fade-up" data-aos-delay="100">
           <div class="member-img">
-            <img src="{{asset('landingpage/assets/img/doctors/doctors-1.jpg')}}" class="img-fluid" alt="">
-            <div class="social">
+            <img src="{{asset('landingpage/assets/img/event1.png')}}" class="img-fluid" alt="">
+            <!-- <div class="social">
               <a href=""><i class="bi bi-twitter"></i></a>
               <a href=""><i class="bi bi-facebook"></i></a>
               <a href=""><i class="bi bi-instagram"></i></a>
               <a href=""><i class="bi bi-linkedin"></i></a>
-            </div>
+            </div> -->
           </div>
           <div class="member-info">
-            <h4>Walter White</h4>
-            <span>Chief Medical Officer</span>
+            <h4>President Name</h4>
+            <span>President</span>
           </div>
         </div>
       </div>
@@ -30,17 +30,17 @@
       <div class="col-lg-3 col-md-6 d-flex align-items-stretch">
         <div class="member" data-aos="fade-up" data-aos-delay="200">
           <div class="member-img">
-            <img src="{{asset('landingpage/assets/img/doctors/doctors-2.jpg')}}" class="img-fluid" alt="">
-            <div class="social">
+            <img src="{{asset('landingpage/assets/img/event2.png')}}" class="img-fluid" alt="">
+            <!-- <div class="social">
               <a href=""><i class="bi bi-twitter"></i></a>
               <a href=""><i class="bi bi-facebook"></i></a>
               <a href=""><i class="bi bi-instagram"></i></a>
               <a href=""><i class="bi bi-linkedin"></i></a>
-            </div>
+            </div> -->
           </div>
           <div class="member-info">
-            <h4>Sarah Jhonson</h4>
-            <span>Anesthesiologist</span>
+            <h4>Vice President Name</h4>
+            <span>Vice President</span>
           </div>
         </div>
       </div>
@@ -48,17 +48,17 @@
       <div class="col-lg-3 col-md-6 d-flex align-items-stretch">
         <div class="member" data-aos="fade-up" data-aos-delay="300">
           <div class="member-img">
-            <img src="{{asset('landingpage/assets/img/doctors/doctors-3.jpg')}}" class="img-fluid" alt="">
-            <div class="social">
+            <img src="{{asset('landingpage/assets/img/event3.png')}}" class="img-fluid" alt="">
+            <!-- <div class="social">
               <a href=""><i class="bi bi-twitter"></i></a>
               <a href=""><i class="bi bi-facebook"></i></a>
               <a href=""><i class="bi bi-instagram"></i></a>
               <a href=""><i class="bi bi-linkedin"></i></a>
-            </div>
+            </div> -->
           </div>
           <div class="member-info">
-            <h4>William Anderson</h4>
-            <span>Cardiology</span>
+            <h4>Person Name</h4>
+            <span>Position name</span>
           </div>
         </div>
       </div>
@@ -66,17 +66,17 @@
       <div class="col-lg-3 col-md-6 d-flex align-items-stretch">
         <div class="member" data-aos="fade-up" data-aos-delay="400">
           <div class="member-img">
-            <img src="{{asset('landingpage/assets/img/doctors/doctors-4.jpg')}}" class="img-fluid" alt="">
-            <div class="social">
+            <img src="{{asset('landingpage/assets/img/event4.png')}}" class="img-fluid" alt="">
+            <!-- <div class="social">
               <a href=""><i class="bi bi-twitter"></i></a>
               <a href=""><i class="bi bi-facebook"></i></a>
               <a href=""><i class="bi bi-instagram"></i></a>
               <a href=""><i class="bi bi-linkedin"></i></a>
-            </div>
+            </div> -->
           </div>
           <div class="member-info">
-            <h4>Amanda Jepson</h4>
-            <span>Neurosurgeon</span>
+            <h4>Person name</h4>
+            <span>Position Name</span>
           </div>
         </div>
       </div>

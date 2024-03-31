@@ -35,7 +35,7 @@
       </div>
       <div class="col-lg-4 col-md-6 icon-box" data-aos="zoom-in" data-aos-delay="300">
         <div class="icon"><i class="fas fa-notes-medical"></i></div>
-        <h4 class="title"><a href="">School/Departmental Brochure </a></h4>
+        <h4 class="title"><a href="">AOCs, Course Note and Others </a></h4>
         <p class="description">Et harum quidem rerum facilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi</p>
       </div>
     </div>
