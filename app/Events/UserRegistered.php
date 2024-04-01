@@ -16,12 +16,14 @@ class UserRegistered
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
     public $user;
+    public $payment_link;
     /**
      * Create a new event instance.
      */
-    public function __construct(User $user)
+    public function __construct(User $user,  $payment_link)
     {
         $this->user = $user;
+        $this->payment_link = $payment_link;
     }
 
     /**

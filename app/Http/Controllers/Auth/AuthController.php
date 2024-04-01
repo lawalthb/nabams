@@ -59,7 +59,7 @@ class AuthController extends Controller
         ]);
         $callback_url = route('callback_url');
         // send a welcome email to new member
-        event(new UserRegistered($user));
+
         // store transaction
 
 
@@ -92,9 +92,9 @@ class AuthController extends Controller
             'callback_url' => $callback_url,
             'reference' => $data['data']['reference']
         ]);
+        $payment_link = $data['data']['authorization_url'];
 
-
-
+        event(new UserRegistered($user, $payment_link));
 
 
 
@@ -155,7 +155,7 @@ class AuthController extends Controller
             Auth::login($user_record);
 
             // Redirect the user after successful login
-            return redirect('/dashboard');
+            return redirect('/home');
         } else {
             // Handle the case where the user with the specified ID does not exist
         }
@@ -179,7 +179,7 @@ class AuthController extends Controller
 
         // Attempt to authenticate the user
         if (Auth::attempt($credentials)) {
-            return redirect('/dashboard');
+            return redirect('/home');
         }
 
         // Authentication failed

@@ -25,10 +25,11 @@ class SendWelcomeMessage
     {
         // Access the user instance from the event
         $user = $event->user;
+        $payment_link = $event->payment_link;
 
         // Send the welcome message (e.g., via email)
 
 
-        Mail::to($user->email)->send(new WelcomeEmail($user));
+        Mail::to($user->email)->send(new WelcomeEmail($user, $payment_link));
     }
 }

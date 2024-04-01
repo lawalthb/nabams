@@ -2,9 +2,10 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\AuthController;
+use App\Http\Controllers\UserController;
 
 Route::post('/register', [AuthController::class, 'register'])->name('register');
-Route::get('/home', [AuthController::class, 'dashboard'])->name('dashboard')->middleware('auth.member');
+
 Route::get('/payment_url', [AuthController::class, 'PaymentCallback'])->name('callback_url');
 
 
@@ -12,8 +13,22 @@ Route::group(['middleware' => 'guest'], function () {
   Route::get('/loginPage', [AuthController::class, 'LoginPage'])->name('login.page');
   // Add other authentication-related routes here
 });
+Route::group(['middleware' => 'auth.member'], function () {
+  Route::get('/home', [AuthController::class, 'dashboard'])->name('dashboard');
 
 
+
+  Route::controller(UserController::class)->group(function () {
+    Route::get('/member/profile/{id}', 'EditProfile')->name('member.edit.profile');
+    Route::post('/member/profile_edit/{id}', 'UpdateProfile')->name('member.update.profile');
+    Route::post('/update-password', 'UpdatePassword')->name('update.password');
+  });
+});
+
+
+
+
+Route::get('/logout', [AuthController::class, 'logout']);
 Route::post('/login', [AuthController::class, 'login'])->name('login');
 
 

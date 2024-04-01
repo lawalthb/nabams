@@ -1,13 +1,10 @@
 <x-mail::message>
   # Introduction
 
-  <body>
-    <h1>Welcome to our site, {{ $user->firstname }}!</h1>
-    <p>Thank you for registering. We're excited to have you as part of our community.</p>
-  </body>
+  Welcome to association name {{$user->firstname}}
 
-  <x-mail::button :url="''">
-    Button Text
+  <x-mail::button :url="$payment_link">
+    Pay for registration
   </x-mail::button>
 
   Thanks,<br>
