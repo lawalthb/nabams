@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Member;
 
 use App\Http\Controllers\Controller;
 use App\Models\Transactions;
+use App\Models\WebColours;
 use Illuminate\Http\Request;
 
 class TransactionController extends Controller
@@ -33,6 +34,8 @@ class TransactionController extends Controller
 
     public function Blank()
     {
+
+        WebColours::
         return view("member.transactions.blank");
     }
 }

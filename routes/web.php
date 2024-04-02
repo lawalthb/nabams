@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\AuthController;
+use App\Http\Controllers\LandingpageController;
 use App\Http\Controllers\UserController;
 
 
@@ -14,7 +15,8 @@ Route::group(['middleware' => 'guest'], function () {
 
   Route::post('/login', [AuthController::class, 'login'])->name('login');
 
-  Route::view('/', 'landingpage.index');
+  //landing page
+  Route::get('/', [LandingpageController::class, 'LandingPage'])->name('index');
 });
 
 Route::get('/logout_new', [AuthController::class, 'Logout_new'])->name('logout_new');
@@ -40,7 +42,6 @@ require __DIR__ . '/member_routes.php';
 
 ## template Route
 Route::view('/sales', 'index');
-Route::view('/', 'landingpage.index');
 Route::view('/analytics', 'analytics');
 Route::view('/finance', 'finance');
 Route::view('/crypto', 'crypto');
