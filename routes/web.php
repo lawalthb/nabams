@@ -18,18 +18,10 @@ Route::group(['middleware' => 'guest'], function () {
 });
 
 
-//login members
-Route::group(['middleware' => 'auth.member'], function () {
-  Route::get('/home', [AuthController::class, 'dashboard'])->name('dashboard');
-
-  Route::controller(UserController::class)->group(function () {
-    Route::get('/member/profile/{id}', 'EditProfile')->name('member.edit.profile');
-    Route::post('/member/profile_edit/{id}', 'UpdateProfile')->name('member.update.profile');
-    Route::post('/update-password', 'UpdatePassword')->name('update.password');
-  });
-});
 
 require __DIR__ . '/admin_routes.php';
+
+require __DIR__ . '/member_routes.php';
 
 
 

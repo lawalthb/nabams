@@ -53,19 +53,19 @@
     </button>
     <ul x-cloak x-show="activeDropdown === 'transactions'" x-collapse class="sub-menu text-gray-500">
       <li>
-        <a href="/apps/invoice/list">Registration</a>
+        <a href="{{route('member.transactions', 'registration fee')}}">Registration</a>
       </li>
       <li>
-        <a href="/apps/invoice/preview">Election</a>
+        <a href="{{route('member.blank')}}">Election</a>
       </li>
       <li>
-        <a href="/apps/invoice/add">Contest</a>
+        <a href="{{route('member.blank')}}">Contest</a>
       </li>
       <li>
-        <a href="/apps/invoice/edit">Resources</a>
+        <a href="{{route('member.blank')}}">Resources</a>
       </li>
       <li>
-        <a href="/apps/invoice/edit">Tickets</a>
+        <a href="{{route('member.blank')}}">Tickets</a>
       </li>
     </ul>
   </li>
@@ -96,16 +96,16 @@
     </button>
     <ul x-cloak x-show="activeDropdown === 'resources'" x-collapse class="sub-menu text-gray-500">
       <li>
-        <a href="/apps/invoice/list">All</a>
+        <a href="{{route('member.blank')}}">All</a>
       </li>
       <li>
-        <a href="/apps/invoice/preview">Free</a>
+        <a href="{{route('member.blank')}}">Free</a>
       </li>
       <li>
-        <a href="/apps/invoice/add">Paid For</a>
+        <a href="{{route('member.blank')}}">Paid For</a>
       </li>
       <li>
-        <a href="/apps/invoice/edit">Resources</a>
+        <a href="{{route('member.blank')}}">Resources</a>
       </li>
 
     </ul>
@@ -134,16 +134,16 @@
     </button>
     <ul x-cloak x-show="activeDropdown === 'election'" x-collapse class="sub-menu text-gray-500">
       <li>
-        <a href="/apps/invoice/list">Positions</a>
+        <a href="{{route('member.blank')}}">Positions</a>
       </li>
       <li>
-        <a href="/apps/invoice/preview">Aspirants</a>
+        <a href="{{route('member.blank')}}">Aspirants</a>
       </li>
       <li>
-        <a href="/apps/invoice/add">Vote</a>
+        <a href="{{route('member.blank')}}">Vote</a>
       </li>
       <li>
-        <a href="/apps/invoice/edit">Live Results</a>
+        <a href="{{route('member.blank')}}">Live Results</a>
       </li>
 
     </ul>
@@ -174,16 +174,16 @@
     </button>
     <ul x-cloak x-show="activeDropdown === 'contest'" x-collapse class="sub-menu text-gray-500">
       <li>
-        <a href="/apps/invoice/list">Positions</a>
+        <a href="{{route('member.blank')}}">Positions</a>
       </li>
       <li>
-        <a href="/apps/invoice/preview">Contestants</a>
+        <a href="{{route('member.blank')}}">Contestants</a>
       </li>
       <li>
-        <a href="/apps/invoice/add">Vote</a>
+        <a href="{{route('member.blank')}}">Vote</a>
       </li>
       <li>
-        <a href="/apps/invoice/edit">Live Results</a>
+        <a href="{{route('member.blank')}}">Live Results</a>
       </li>
 
     </ul>
@@ -210,13 +210,13 @@
     </button>
     <ul x-cloak x-show="activeDropdown === 'events'" x-collapse class="sub-menu text-gray-500">
       <li>
-        <a href="/apps/invoice/list">Upcoming Events</a>
+        <a href="{{route('member.blank')}}">Upcoming Events</a>
       </li>
       <li>
-        <a href="/apps/invoice/preview">Ticket</a>
+        <a href="{{route('member.blank')}}">Ticket</a>
       </li>
       <li>
-        <a href="/apps/invoice/add">Passed Events</a>
+        <a href="{{route('member.blank')}}">Passed Events</a>
       </li>
 
     </ul>
