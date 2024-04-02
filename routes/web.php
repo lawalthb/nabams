@@ -4,19 +4,23 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\UserController;
 
-Route::post('/register', [AuthController::class, 'register'])->name('register');
-
-Route::get('/payment_url', [AuthController::class, 'PaymentCallback'])->name('callback_url');
 
 
+//visitors and auth
 Route::group(['middleware' => 'guest'], function () {
   Route::get('/loginPage', [AuthController::class, 'LoginPage'])->name('login.page');
-  // Add other authentication-related routes here
+  Route::post('/register', [AuthController::class, 'register'])->name('register');
+  Route::get('/payment_url', [AuthController::class, 'PaymentCallback'])->name('callback_url');
+  Route::get('/logout', [AuthController::class, 'logout']);
+  Route::post('/login', [AuthController::class, 'login'])->name('login');
+
+  Route::view('/', 'landingpage.index');
 });
+
+
+//login members
 Route::group(['middleware' => 'auth.member'], function () {
   Route::get('/home', [AuthController::class, 'dashboard'])->name('dashboard');
-
-
 
   Route::controller(UserController::class)->group(function () {
     Route::get('/member/profile/{id}', 'EditProfile')->name('member.edit.profile');
@@ -25,17 +29,7 @@ Route::group(['middleware' => 'auth.member'], function () {
   });
 });
 
-
-
-
-Route::get('/logout', [AuthController::class, 'logout']);
-Route::post('/login', [AuthController::class, 'login'])->name('login');
-
-
-
-
-
-
+require __DIR__ . '/admin_routes.php';
 
 
 
@@ -53,7 +47,7 @@ Route::post('/login', [AuthController::class, 'login'])->name('login');
 
 
 ## template Route
-//Route::view('/', 'index');
+Route::view('/sales', 'index');
 Route::view('/', 'landingpage.index');
 Route::view('/analytics', 'analytics');
 Route::view('/finance', 'finance');

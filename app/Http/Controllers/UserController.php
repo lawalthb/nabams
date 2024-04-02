@@ -16,7 +16,7 @@ class UserController extends Controller
     public function EditProfile($id)
     {
         $user = User::findOrFail($id);
-        return view('users.user-account-settings', compact('user'));
+        return view('users.member-profile', compact('user'));
     }
 
     public function UpdateProfile(Request $request, $id)
@@ -78,7 +78,7 @@ class UserController extends Controller
         $user = User::findOrFail($id);
 
         session()->flash('success', 'Profile updated successfully.');
-        return view('users.user-account-settings', compact('user'));
+        return view('users.member-profile', compact('user'));
     }
 
 

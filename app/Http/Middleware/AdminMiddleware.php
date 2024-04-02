@@ -4,10 +4,9 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Symfony\Component\HttpFoundation\Response;
 
-class AuthenticateMember
+class AdminMiddleware
 {
     /**
      * Handle an incoming request.
@@ -16,11 +15,8 @@ class AuthenticateMember
      */
     public function handle(Request $request, Closure $next)
     {
-        if (!Auth::check()) {
-            // Redirect or abort if the user is not authenticated
-            return redirect()->route('login.page');
-            // Alternatively, you can return a 401 Unauthorized response
-            // return response()->json(['error' => 'Unauthenticated'], 401);
+        if (!$request->user() || $request->user()->role !== 'Admin') {
+            abort(403, 'Unauthorized.');
         }
 
         return $next($request);

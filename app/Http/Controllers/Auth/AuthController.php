@@ -23,8 +23,16 @@ class AuthController extends Controller
     public function dashboard()
     {
 
-
+        if (auth()->user()->role == "Admin") {
+            return redirect()->route('admin.dashboard');
+        }
         return view("analytics");
+    }
+
+    public function AdminDashboard()
+    {
+
+        return view("index");
     }
 
 
@@ -90,7 +98,8 @@ class AuthController extends Controller
             'fullname' =>   $validatedData['lastname'] . " " . $validatedData['firstname'],
             'phone_number' =>  $validatedData['phone'],
             'callback_url' => $callback_url,
-            'reference' => $data['data']['reference']
+            'reference' => $data['data']['reference'],
+            'authorization_url' => $data['data']['authorization_url'],
         ]);
         $payment_link = $data['data']['authorization_url'];
 
@@ -179,6 +188,7 @@ class AuthController extends Controller
 
         // Attempt to authenticate the user
         if (Auth::attempt($credentials)) {
+
             return redirect('/home');
         }
 

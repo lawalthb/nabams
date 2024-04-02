@@ -24,6 +24,7 @@
         <!-- <li><a class="nav-link scrollto" href="#services">Services</a></li> -->
 
         <li><a class="nav-link scrollto" href="#services">Resources</a></li>
+        <li><a class="nav-link scrollto" href="#services">Articles</a></li>
 
 
         <li><a class="nav-link scrollto" href="#contact">Support</a></li>
