@@ -11,13 +11,13 @@ Route::group(['middleware' => 'guest'], function () {
   Route::get('/loginPage', [AuthController::class, 'LoginPage'])->name('login.page');
   Route::post('/register', [AuthController::class, 'register'])->name('register');
   Route::get('/payment_url', [AuthController::class, 'PaymentCallback'])->name('callback_url');
-  Route::get('/logout', [AuthController::class, 'logout']);
+
   Route::post('/login', [AuthController::class, 'login'])->name('login');
 
   Route::view('/', 'landingpage.index');
 });
 
-
+Route::get('/logout_new', [AuthController::class, 'Logout_new'])->name('logout_new');
 
 require __DIR__ . '/admin_routes.php';
 

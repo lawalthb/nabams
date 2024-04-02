@@ -196,8 +196,9 @@ class AuthController extends Controller
         return back()->withErrors(['email' => 'Invalid credentials']);
     }
 
-    public function logout()
+    public function Logout_new()
     {
+        //dd("i will logout out pls wait");
         Auth::logout();
         return redirect('/');
     }
