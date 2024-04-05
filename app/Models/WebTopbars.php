@@ -5,8 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class WebColours extends Model
+class WebTopbars extends Model
 {
     use HasFactory;
-    protected $guarded = [];
 }

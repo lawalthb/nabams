@@ -143,8 +143,6 @@
               showAlert(` {{ session('success') }}`);
             </script>
 
-
-
             @endif
             <form class="border border-[#ebedf2] dark:border-[#191e3a] rounded-md p-4 bg-white dark:bg-[#0e1726]">
               <h6 class="text-lg font-bold mb-5">Social</h6>

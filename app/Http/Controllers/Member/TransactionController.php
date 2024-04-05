@@ -35,7 +35,7 @@ class TransactionController extends Controller
     public function Blank()
     {
 
-        WebColours::
+
         return view("member.transactions.blank");
     }
 }

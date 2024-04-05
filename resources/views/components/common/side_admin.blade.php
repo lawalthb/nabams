@@ -292,7 +292,7 @@
     </button>
     <ul x-cloak x-show="activeDropdown === 'website'" x-collapse class="sub-menu text-gray-500">
       <li>
-        <a href="{{route('admin.blank')}}">Edit Website</a>
+        <a href="{{route('admin.website')}}">Edit Website</a>
       </li>
       <li>
         <a href="{{route('admin.blank')}}">Setting</a>
