@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\WebColours;
+use App\Models\WebTopbars;
 use Illuminate\Http\Request;
 
 class LandingpageController extends Controller
@@ -23,9 +24,9 @@ class LandingpageController extends Controller
             $text = WebColours::where('id', 3)->select('colour', 'id')->first();
             return  view('admin.landingpage.edit_colour', compact('fill', 'main', 'text'));
         } elseif ($page == "Edit Topbar") {
-            $topbar = WebTopbar::where('id', 1)->select('colour', 'id')->first();
+            $topbar = WebTopbars::where('id', 1)->select('current_session', 'support_phone')->first();
 
-            return view('admin.landingpage.edit_topbar');
+            return view('admin.landingpage.edit_topbar', compact('topbar'));
         } elseif ($page == "Edit Header") {
             return  view('admin.landingpage.edit_colour');
         } elseif ($page == "Edit Slider") {
@@ -71,6 +72,28 @@ class LandingpageController extends Controller
 
 
         session()->flash('success', 'Website Colours Updated Successfully.');
+        return view('admin.landingpage.index');
+    }
+
+    public function UpdateTopbar(Request $request)
+    {
+        $validatedData = $request->validate([
+            'support_phone' => 'required|string|max:50',
+            'current_session' => 'required|string|max:50',
+
+
+        ]);
+
+
+        WebTopbars::findOrFail(1)->update([
+            'current_session' => $validatedData['current_session'],
+            'support_phone' => $validatedData['support_phone'],
+            'updated_by' => auth()->user()->id,
+        ]);
+
+
+
+        session()->flash('success', 'Website Topbar Updated Successfully.');
         return view('admin.landingpage.index');
     }
 }

@@ -44,7 +44,7 @@
 
             @if(session()->has('success'))
             <script>
-              showAlert(` {{ session('success') }}`);
+              showAlert(`{{ session('success') }}`);
             </script>
 
 

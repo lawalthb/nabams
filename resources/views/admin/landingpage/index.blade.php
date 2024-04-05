@@ -38,13 +38,32 @@
           cursor: pointer;
         }
       </style>
+      @if(session()->has('success'))
+      <script>
+        alert(5)
+        showAlert(`{{ session('success') }}`);
+      </script>
+      <script>
+        async function showAlert(msg) {
+          const toast = window.Swal.mixin({
+            toast: true,
+            position: 'top-end',
+            showConfirmButton: false,
+            timer: 3000,
+            padding: '2em',
+            customClass: 'sweet-alerts',
+          });
+          toast.fire({
+            icon: 'success',
+            title: msg,
+            padding: '2em',
+            customClass: 'sweet-alerts',
+          });
+        }
+      </script>
+      @endif
       <div class="invoice-table">
-        @if(session()->has('success'))
-        <script>
-          showAlert(` {{ session('success') }}`);
-        </script>
 
-        @endif
         <form method="post" action="{{route('admin.website.edit')}}">
           @csrf
           <select name="page_to_edit">
@@ -85,23 +104,6 @@
   </div>
   </div>
 
-  <!-- script -->
-  <script>
-    async function showAlert(msg) {
-      const toast = window.Swal.mixin({
-        toast: true,
-        position: 'top-end',
-        showConfirmButton: false,
-        timer: 3000,
-        padding: '2em',
-        customClass: 'sweet-alerts',
-      });
-      toast.fire({
-        icon: 'success',
-        title: msg,
-        padding: '2em',
-        customClass: 'sweet-alerts',
-      });
-    }
-  </script>
+
+
 </x-layout.default>

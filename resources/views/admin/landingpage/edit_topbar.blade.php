@@ -18,19 +18,16 @@
       <div class="panel px-0 border-[#e0e6ed] dark:border-[#1b2e4b]">
         <div class="px-5">
 
-          <form method="post" action="{{route('admin.website.update.colour')}}">
+          <form method="post" action="{{route('admin.website.update.topbar')}}">
             @csrf
-            <h1>Fill Colour: </h1>
-            <input type="color" class=" colour" value="{{$fill->colour}}" name="fill_colour">
-            <input type="hidden" value="{{$fill->id}}" name="fill_id">
-            <h1>Main Background: </h1>
-            <input type="color" class=" colour" value="{{$main->colour}}" name="main_background">
-            <input type="hidden" value="{{$main->id}}" name="main_id">
-            <h1>Text Colour: </h1>
-            <input type="color" class=" colour" value="{{$text->colour}}" name="text">
-            <input type="hidden" value="{{$text->id}}" name="text_id">
+            <h1>Current Session: </h1>
+            <input type="text" class="form-control" value="{{$topbar->current_session}}" name="current_session" required>
+
+            <h1>Support Phone: </h1>
+            <input type="text" value="{{$topbar->support_phone}}" name="support_phone" required>
+
             <br />
-            <button type="submit" class="bbt">Update Colours</button>
+            <button type="submit" class="bbt">Update Topbar</button>
 
 
           </form>

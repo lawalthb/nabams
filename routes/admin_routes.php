@@ -21,6 +21,7 @@ Route::prefix('admin')->middleware('auth.member', 'admin')->group(function () {
   Route::get('/website/edit', [LandingpageController::class, 'index'])->name('admin.website');
   Route::post('/website/edit/page', [LandingpageController::class, 'EditPage'])->name('admin.website.edit');
   Route::post('/website/edit/colour', [LandingpageController::class, 'UpdateColour'])->name('admin.website.update.colour');
+  Route::post('/website/edit/topbar', [LandingpageController::class, 'UpdateTopbar'])->name('admin.website.update.topbar');
 
 
   // Route::view('/forms/basic',
