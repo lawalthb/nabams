@@ -24,6 +24,9 @@ Route::prefix('admin')->middleware('auth.member', 'admin')->group(function () {
   Route::post('/website/edit/topbar', [LandingpageController::class, 'UpdateTopbar'])->name('admin.website.update.topbar');
   Route::post('/website/edit/header', [LandingpageController::class, 'UpdateHeader'])->name('admin.website.update.header');
   Route::post('/website/edit/slider', [LandingpageController::class, 'UpdateSlider'])->name('admin.website.update.slider');
+  Route::post('/website/edit/vission', [LandingpageController::class, 'UpdateVission'])->name('admin.website.update.vission');
+  Route::post('/website/edit/cta', [LandingpageController::class, 'UpdateCta'])->name('admin.website.update.cta');
+  Route::post('/website/edit/about', [LandingpageController::class, 'UpdateAbout'])->name('admin.website.update.about');
 
   
   

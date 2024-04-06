@@ -3,10 +3,13 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\WebAbouts;
 use App\Models\WebColours;
+use App\Models\WebCta;
 use App\Models\WebHeaders;
 use App\Models\WebSliders;
 use App\Models\WebTopbars;
+use App\Models\WebVissions;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Intervention\Image\ImageManager;
@@ -41,8 +44,16 @@ class LandingpageController extends Controller
             $sliders = WebSliders::get();
             return  view('admin.landingpage.edit_slider' , compact('sliders'));
         } elseif ($page == "Edit Mission_Vission") {
+            $vissions = WebVissions::get();
+            return  view('admin.landingpage.edit_vission' , compact('vissions'));
         } elseif ($page == "Edit Call To Action") {
+            $cta= WebCta::where('id', 1)->first();
+
+            return view('admin.landingpage.edit_ctas', compact('cta'));
         } elseif ($page == "Edit About") {
+            $about= WebAbouts::where('id', 1)->first();
+
+            return view('admin.landingpage.edit_about', compact('about'));
         } elseif ($page == "Edit Counter") {
         } elseif ($page ==  "Edit Benefit") {
         } elseif ($page ==  "Edit Resources") {
@@ -174,4 +185,49 @@ if ($request->logo != "") {
     }
 
 
+    public function UpdateVission(Request $request)
+    {
+        
+        $validatedData = $request->validate([
+            'text' => 'string|max:150',
+            'name' => 'required|string|max:50',
+        ]);
+
+        
+        WebVissions::findOrFail($request->id)->update([
+            'icon' =>$request->icon,
+            'name' => $validatedData['name'],
+            'text' => $validatedData['text'],
+            'updated_by' => auth()->user()->id,
+        ]);
+
+
+
+        session()->flash('success', 'Website Vission Mission Updated Successfully.');
+        return view('admin.landingpage.index');
+    }
+
+    
+    public function UpdateCta(Request $request)
+    {
+        $validatedData = $request->validate([
+            'title' => 'required|string|max:100',
+            'button_text' => 'required|string|max:50',
+            'text' => 'required|string|max:255',
+
+
+        ]);
+
+        WebCta::findOrFail(1)->update([
+            'title' => $validatedData['title'],
+            'text' => $validatedData['text'],
+            'button_text' => $validatedData['button_text'],
+            'updated_by' => auth()->user()->id,
+        ]);
+
+
+
+        session()->flash('success', 'Website CTA Updated Successfully.');
+        return view('admin.landingpage.index');
+    }
 }
