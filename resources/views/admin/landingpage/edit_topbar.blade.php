@@ -23,6 +23,8 @@
             <h1>Current Session: </h1>
             <input type="text" class="form-control" value="{{$topbar->current_session}}" name="current_session" required>
 
+            <br/>
+            
             <h1>Support Phone: </h1>
             <input type="text" value="{{$topbar->support_phone}}" name="support_phone" required>
 

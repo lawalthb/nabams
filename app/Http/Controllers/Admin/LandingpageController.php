@@ -4,8 +4,14 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\WebColours;
+use App\Models\WebHeaders;
 use App\Models\WebTopbars;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
+use Intervention\Image\ImageManager;
+use Intervention\Image\Drivers\Gd\Driver;
+
+use Illuminate\Support\Facades\Hash;
 
 class LandingpageController extends Controller
 {
@@ -28,7 +34,8 @@ class LandingpageController extends Controller
 
             return view('admin.landingpage.edit_topbar', compact('topbar'));
         } elseif ($page == "Edit Header") {
-            return  view('admin.landingpage.edit_colour');
+            $header = WebHeaders::where('id', 1)->first();
+            return  view('admin.landingpage.edit_header' , compact('header'));
         } elseif ($page == "Edit Slider") {
             dd('go back there!');
         } elseif ($page == "Edit Mission_Vission") {
@@ -94,6 +101,39 @@ class LandingpageController extends Controller
 
 
         session()->flash('success', 'Website Topbar Updated Successfully.');
+        return view('admin.landingpage.index');
+    }
+
+
+    public function UpdateHeader(Request $request)
+    {
+        
+        $validatedData = $request->validate([
+          
+            'site_name' => 'string|max:100',
+]);
+
+if ($request->logo != "") {
+    //dd('yes');
+    $new_image = $request->file('logo');
+    $manager = new ImageManager(new Driver());
+    $name_gen = hexdec(uniqid()) . '.' .  $new_image->getClientOriginalExtension();
+    $img = $manager->read($new_image);
+    $img = $img->resize(150, 150);
+    $img->toJpeg(80)->save(base_path('public/website/site_logo/' .   $name_gen));
+    $save_url = 'website/site_logo/' .   $name_gen;
+} else {
+    $save_url = $request->old_logo;
+}
+        WebHeaders::findOrFail(1)->update([
+            'logo' => $save_url,
+            'site_name' => $validatedData['site_name'],
+            'updated_by' => auth()->user()->id,
+        ]);
+
+
+
+        session()->flash('success', 'Website Header Updated Successfully.');
         return view('admin.landingpage.index');
     }
 }

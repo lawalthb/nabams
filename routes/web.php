@@ -68,13 +68,13 @@ Route::view('/components/countdown', 'ui-components.countdown');
 Route::view('/components/counter', 'ui-components.counter');
 Route::view('/components/sweetalert', 'ui-components.sweetalert');
 Route::view('/components/timeline', 'ui-components.timeline');
-Route::view('/components/notifications', 'ui-components.notifications');
+//Route::view('/components/notifications', 'ui-components.notifications');
 Route::view('/components/media-object', 'ui-components.media-object');
 Route::view('/components/list-group', 'ui-components.list-group');
 Route::view('/components/pricing-table', 'ui-components.pricing-table');
 Route::view('/components/lightbox', 'ui-components.lightbox');
 
-Route::view('/elements/alerts', 'elements.alerts');
+
 Route::view('/elements/avatar', 'elements.avatar');
 Route::view('/elements/badges', 'elements.badges');
 Route::view('/elements/breadcrumbs', 'elements.breadcrumbs');

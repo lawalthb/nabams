@@ -1,10 +1,14 @@
+@php
+$header = App\Models\WebHeaders::where('id', 1)->first();
+
+@endphp
 <!-- ======= Header ======= -->
 <header id="header" class="fixed-top">
   <div class="container d-flex align-items-center">
 
     <!-- <a href="index.html" class="logo me-auto"><img src="{{asset('landingpage/assets/img/logo.png')}}" alt=""></a> -->
     <!-- Uncomment below if you prefer to use an image logo -->
-    <h1 class="logo me-auto"><a href="index.html">(logo) Association Name</a></h1>
+    <h1 class="logo me-auto"><a href="index.html"><img src="{{$header->logo}}">{{$header->site_name}}</a></h1>
 
     <nav id="navbar" class="navbar order-last order-lg-0">
       <ul>

@@ -2,7 +2,20 @@
 
 
   <div x-data="invoiceList">
-    <script src="/assets/js/simple-datatables.js"></script>
+
+    @if(session()->has('success'))
+
+
+    <span class="flex items-center p-3.5 rounded text-primary bg-primary-light dark:bg-primary-dark-light">
+      <span class="ltr:pr-2 rtl:pl-2"><strong class="ltr:mr-1 rtl:ml-1">Success!</strong>{{ session('success') }}</span>
+      <button type="button" class="ltr:ml-auto rtl:mr-auto hover:opacity-80">
+
+      </button>
+    </span>
+
+
+
+    @endif
     <div x-data="sales">
       <ul class="flex space-x-2 rtl:space-x-reverse">
         <li>
@@ -38,33 +51,10 @@
           cursor: pointer;
         }
       </style>
-      @if(session()->has('success'))
-      <script>
-        alert(5)
-        showAlert(`{{ session('success') }}`);
-      </script>
-      <script>
-        async function showAlert(msg) {
-          const toast = window.Swal.mixin({
-            toast: true,
-            position: 'top-end',
-            showConfirmButton: false,
-            timer: 3000,
-            padding: '2em',
-            customClass: 'sweet-alerts',
-          });
-          toast.fire({
-            icon: 'success',
-            title: msg,
-            padding: '2em',
-            customClass: 'sweet-alerts',
-          });
-        }
-      </script>
-      @endif
+
       <div class="invoice-table">
 
-        <form method="post" action="{{route('admin.website.edit')}}">
+        <form method="get" action="{{route('admin.website.edit')}}">
           @csrf
           <select name="page_to_edit">
             <option>Select Section to update</option>
