@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\WebColours;
 use App\Models\WebHeaders;
+use App\Models\WebSliders;
 use App\Models\WebTopbars;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -37,7 +38,8 @@ class LandingpageController extends Controller
             $header = WebHeaders::where('id', 1)->first();
             return  view('admin.landingpage.edit_header' , compact('header'));
         } elseif ($page == "Edit Slider") {
-            dd('go back there!');
+            $sliders = WebSliders::get();
+            return  view('admin.landingpage.edit_slider' , compact('sliders'));
         } elseif ($page == "Edit Mission_Vission") {
         } elseif ($page == "Edit Call To Action") {
         } elseif ($page == "Edit About") {
@@ -136,4 +138,40 @@ if ($request->logo != "") {
         session()->flash('success', 'Website Header Updated Successfully.');
         return view('admin.landingpage.index');
     }
+
+
+    public function UpdateSlider(Request $request)
+    {
+        
+        $validatedData = $request->validate([
+            'text' => 'string|max:150',
+            'caption' => 'string|max:100',
+        ]);
+
+        if ($request->image != "") {
+            //dd('yes');
+            $new_image = $request->file('image');
+            $manager = new ImageManager(new Driver());
+            $name_gen = hexdec(uniqid()) . '.' .  $new_image->getClientOriginalExtension();
+            $img = $manager->read($new_image);
+            $img = $img->resize(1920, 1152);
+            $img->toJpeg(80)->save(base_path('public/website/slide/' .   $name_gen));
+            $save_url = 'website/slide/' .   $name_gen;
+        } else {
+            $save_url = $request->old_image;
+        }
+        WebSliders::findOrFail($request->id)->update([
+            'image' => $save_url,
+            'caption' => $validatedData['caption'],
+            'text' => $validatedData['text'],
+            'updated_by' => auth()->user()->id,
+        ]);
+
+
+
+        session()->flash('success', 'Website Slider Updated Successfully.');
+        return view('admin.landingpage.index');
+    }
+
+
 }

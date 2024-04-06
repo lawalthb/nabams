@@ -23,6 +23,11 @@ Route::prefix('admin')->middleware('auth.member', 'admin')->group(function () {
   Route::post('/website/edit/colour', [LandingpageController::class, 'UpdateColour'])->name('admin.website.update.colour');
   Route::post('/website/edit/topbar', [LandingpageController::class, 'UpdateTopbar'])->name('admin.website.update.topbar');
   Route::post('/website/edit/header', [LandingpageController::class, 'UpdateHeader'])->name('admin.website.update.header');
+  Route::post('/website/edit/slider', [LandingpageController::class, 'UpdateSlider'])->name('admin.website.update.slider');
+
+  
+  
+  
   Route::view('/elements/alerts', 'elements.alerts');
   Route::view('/components/notifications', 'ui-components.notifications');
   Route::view('/forms/basic',
