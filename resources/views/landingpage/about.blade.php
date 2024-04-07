@@ -14,7 +14,7 @@ $abouts = App\Models\Webabouts::where('id', 1)->first();
 
     <div class="row">
       <div class="col-lg-6" data-aos="fade-right">
-        <img src="{{asset('website/about/image1.png')}}" class="img-fluid" alt="">
+        <img src="{{asset($abouts->image)}}" class="img-fluid" alt="">
       </div>
       <div class="col-lg-6 pt-4 pt-lg-0 content" data-aos="fade-left">
       {!!$abouts->body!!}

@@ -54,4 +54,9 @@ Route::prefix('admin')->middleware('auth.member', 'admin')->group(function () {
   Route::view('/forms/clipboard', 'forms.clipboard');
 
 
+
+  Route::view('/forms/file-upload', 'forms.file-upload');
+Route::view('/forms/quill-editor', 'forms.quill-editor');
+Route::view('/forms/markdown-editor', 'forms.markdown-editor');
+
 });

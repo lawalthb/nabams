@@ -1,5 +1,7 @@
 <x-layout.default>
 
+<link rel="stylesheet" type="text/css" href="{{ Vite::asset('resources/css/quill.snow.css') }}" />
+    <script src="/assets/js/quill.js"></script>
 
   <div x-data="invoiceList">
     <script src="/assets/js/simple-datatables.js"></script>
@@ -21,20 +23,26 @@
           <form method="post" action="{{route('admin.website.update.about')}}" enctype="multipart/form-data">
             @csrf
             <h1>Title: </h1>
-            <input type="text" class="form-control" value="{{$cta->text}}" name="text" >
-
+            <input type="text" class="form-control" value="{{$about->text}}" name="text" >
+            @error('text')
+                    <p class="error_msg">{{ $message }}</p>
+                    @enderror
             <br/>
             
             <h1>Text: </h1>
-            <input type="text" value="{{$cta->body}}" name="body" required>
-
+           
+            <div id="editor1" cols="30" rows="10">{!!$about->body!!}</div>
+            <input type="hidden" id="quill_html" name="body"></input>
+            @error('body')
+                    <p class="error_msg">{{ $message }}</p>
+                    @enderror
             <br />
             <h1>About Image: </h1>
             <input type="file" class="form-control" name="image" >
-            <input type="text" value="{{$cta->image}}" name="old_image" >
+            <input type="hidden" value="{{$about->image}}" name="old_image" >
 
             <br />
-            <button type="submit" class="bbt">Update CTA</button>
+            <button type="submit" class="bbt">Update About</button>
 
 
           </form>
@@ -89,5 +97,26 @@
   </div>
   </div>
 
+  
 
+    <!-- script -->
+    <script>
+        var quill = new Quill('#editor1', {
+            theme: 'snow',
+            
+        });
+        quill.on('text-change', function(delta, oldDelta, source) {
+        document.getElementById("quill_html").value = quill.root.innerHTML;
+    });
+        var toolbar = quill.container.previousSibling;
+        toolbar.querySelector('.ql-picker').setAttribute('title', 'Font Size');
+        toolbar.querySelector('button.ql-bold').setAttribute('title', 'Bold');
+        toolbar.querySelector('button.ql-italic').setAttribute('title', 'Italic');
+        toolbar.querySelector('button.ql-link').setAttribute('title', 'Link');
+        toolbar.querySelector('button.ql-underline').setAttribute('title', 'Underline');
+        toolbar.querySelector('button.ql-clean').setAttribute('title', 'Clear Formatting');
+        toolbar.querySelector('[value=ordered]').setAttribute('title', 'Ordered List');
+        toolbar.querySelector('[value=bullet]').setAttribute('title', 'Bullet List');
+    </script>
+    
 </x-layout.default>

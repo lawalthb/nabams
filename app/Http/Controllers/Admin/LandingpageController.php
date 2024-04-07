@@ -230,4 +230,52 @@ if ($request->logo != "") {
         session()->flash('success', 'Website CTA Updated Successfully.');
         return view('admin.landingpage.index');
     }
+
+    public function UpdateAbout(Request $request)
+    {
+        
+        $validatedData = $request->validate([
+          
+            'text' => 'string|max:500',
+            'body' => 'max:5000'
+        ]);
+
+        if ($request->image != "") {
+           
+            $new_image = $request->file('image');
+            $manager = new ImageManager(new Driver());
+            $name_gen = hexdec(uniqid()) . '.' .  $new_image->getClientOriginalExtension();
+            $img = $manager->read($new_image);
+            $img = $img->resize(1024, 768);
+            $img->toJpeg(80)->save(base_path('public/website/about/' .   $name_gen));
+            $save_url = 'website/about/' .   $name_gen;
+        } else {
+            $save_url = $request->old_image;
+        }
+        WebAbouts::findOrFail(1)->update([
+            'image' => $save_url,
+            'text' => $validatedData['text'],
+            'body' => $validatedData['body'],
+            'updated_by' => auth()->user()->id,
+        ]);
+
+
+
+        session()->flash('success', 'Website About Updated Successfully.');
+        return view('admin.landingpage.index');
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }
