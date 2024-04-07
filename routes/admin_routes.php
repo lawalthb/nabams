@@ -29,6 +29,7 @@ Route::prefix('admin')->middleware('auth.member', 'admin')->group(function () {
   Route::post('/website/edit/about', [LandingpageController::class, 'UpdateAbout'])->name('admin.website.update.about');
   Route::post('/website/edit/counter', [LandingpageController::class, 'UpdateCounter'])->name('admin.website.update.counter');
   Route::post('/website/edit/benefit', [LandingpageController::class, 'UpdateBenefit'])->name('admin.website.update.benefit');
+  Route::post('/website/edit/resources', [LandingpageController::class, 'UpdateResources'])->name('admin.website.update.resources');
 
   
   

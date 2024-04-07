@@ -9,6 +9,7 @@ use App\Models\WebColours;
 use App\Models\WebCounters;
 use App\Models\WebCta;
 use App\Models\WebHeaders;
+use App\Models\WebResources;
 use App\Models\WebSliders;
 use App\Models\WebTopbars;
 use App\Models\WebVissions;
@@ -63,6 +64,8 @@ class LandingpageController extends Controller
             $benefits = WebBenefits::get();
             return  view('admin.landingpage.edit_benefits' , compact('benefits'));
         } elseif ($page ==  "Edit Resources") {
+            $resources = WebResources::get();
+            return  view('admin.landingpage.edit_resources' , compact('resources'));
         } elseif ($page == "Edit Registration") {
         } elseif ($page == "Edit Events") {
         } elseif ($page == "Edit Testimonial") {
@@ -335,6 +338,30 @@ if ($request->logo != "") {
         return view('admin.landingpage.index');
     }
 
+
+    public function UpdateResources(Request $request)
+    {
+        
+        $validatedData = $request->validate([
+            'text' => 'string|max:150',
+            'title' => 'required|string|max:100',
+            'position' => 'required|integer|max:50',
+        ]);
+
+    
+        WebResources::findOrFail($request->id)->update([
+            'icon' =>$request->icon,
+            'title' => $validatedData['title'],
+            'text' => $validatedData['text'],
+            'position' => $validatedData['position'],
+            'updated_by' => auth()->user()->id,
+        ]);
+
+
+
+        session()->flash('success', 'Website Resources Updated Successfully.');
+        return view('admin.landingpage.index');
+    }
 
 
 
