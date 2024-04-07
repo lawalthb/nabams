@@ -8,6 +8,7 @@ use App\Models\WebBenefits;
 use App\Models\WebColours;
 use App\Models\WebCounters;
 use App\Models\WebCta;
+use App\Models\WebEvents;
 use App\Models\WebHeaders;
 use App\Models\WebRegistrations;
 use App\Models\WebResources;
@@ -73,6 +74,8 @@ class LandingpageController extends Controller
 
             return view('admin.landingpage.edit_registration', compact('reg'));
         } elseif ($page == "Edit Events") {
+            $events = WebEvents::get();
+            return  view('admin.landingpage.edit_events' , compact('events'));
         } elseif ($page == "Edit Testimonial") {
         } elseif ($page == "Edit Excos") {
         } elseif ($page == "Edit Gallery") {
@@ -393,6 +396,46 @@ if ($request->logo != "") {
 
 
 
+
+    public function UpdateEvents(Request $request)
+    {
+        
+        $validatedData = $request->validate([
+            'short_text' => 'string|max:250',
+            'long_text' => 'string|max:1000',
+            'title' => 'required|string|max:100',
+            'position' => 'required|integer|max:50',
+        ]);
+
+        if ($request->image != "") {
+           
+            $new_image = $request->file('image');
+            $manager = new ImageManager(new Driver());
+            $name_gen = hexdec(uniqid()) . '.' .  $new_image->getClientOriginalExtension();
+            $img = $manager->read($new_image);
+            $img = $img->resize(600, 525);
+            $img->toJpeg(80)->save(base_path('public/website/events/' .   $name_gen));
+            $save_url = 'website/events/' .   $name_gen;
+        } else {
+            $save_url = $request->old_image;
+        }
+
+
+        
+        WebEvents::findOrFail($request->id)->update([
+            'short_text' =>$validatedData['short_text'],
+            'image' =>$save_url,
+            'long_text' => $validatedData['long_text'],
+            'title' => $validatedData['title'],
+            'position' => $validatedData['position'],
+            'updated_by' => auth()->user()->id,
+        ]);
+
+
+
+        session()->flash('success', 'Website Event Updated Successfully.');
+        return view('admin.landingpage.index');
+    }
 
 
 
