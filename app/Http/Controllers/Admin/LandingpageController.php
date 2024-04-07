@@ -13,6 +13,7 @@ use App\Models\WebHeaders;
 use App\Models\WebRegistrations;
 use App\Models\WebResources;
 use App\Models\WebSliders;
+use App\Models\WebTestimonials;
 use App\Models\WebTopbars;
 use App\Models\WebVissions;
 use Illuminate\Http\Request;
@@ -77,6 +78,8 @@ class LandingpageController extends Controller
             $events = WebEvents::get();
             return  view('admin.landingpage.edit_events' , compact('events'));
         } elseif ($page == "Edit Testimonial") {
+            $testys = WebTestimonials::get();
+            return  view('admin.landingpage.edit_testys' , compact('testys'));
         } elseif ($page == "Edit Excos") {
         } elseif ($page == "Edit Gallery") {
         } elseif ($page ==  "Edit Contact") {
@@ -434,6 +437,45 @@ if ($request->logo != "") {
 
 
         session()->flash('success', 'Website Event Updated Successfully.');
+        return view('admin.landingpage.index');
+    }
+
+
+    public function UpdateTesty(Request $request)
+    {
+        
+        $validatedData = $request->validate([
+            'testimony' => 'string|max:1050',
+            'name' => 'string|max:200',
+           
+            'position' => 'required|integer|max:50',
+        ]);
+
+        if ($request->image != "") {
+           
+            $new_image = $request->file('image');
+            $manager = new ImageManager(new Driver());
+            $name_gen = hexdec(uniqid()) . '.' .  $new_image->getClientOriginalExtension();
+            $img = $manager->read($new_image);
+            $img = $img->resize(200, 200);
+            $img->toJpeg(80)->save(base_path('public/website/testy/' .   $name_gen));
+            $save_url = 'website/testy/' .   $name_gen;
+        } else {
+            $save_url = $request->old_image;
+        }
+
+        WebTestimonials::findOrFail($request->id)->update([
+            'testimony' =>$validatedData['testimony'],
+            'picture' =>$save_url,
+            'name' => $validatedData['name'],
+           
+            'position' => $validatedData['position'],
+            'updated_by' => auth()->user()->id,
+        ]);
+
+
+
+        session()->flash('success', 'Website Testimony Updated Successfully.');
         return view('admin.landingpage.index');
     }
 
