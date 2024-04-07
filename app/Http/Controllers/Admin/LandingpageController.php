@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\WebAbouts;
 use App\Models\WebColours;
+use App\Models\WebCounters;
 use App\Models\WebCta;
 use App\Models\WebHeaders;
 use App\Models\WebSliders;
@@ -55,6 +56,8 @@ class LandingpageController extends Controller
 
             return view('admin.landingpage.edit_about', compact('about'));
         } elseif ($page == "Edit Counter") {
+            $counters = WebCounters::get();
+            return  view('admin.landingpage.edit_counters' , compact('counters'));
         } elseif ($page ==  "Edit Benefit") {
         } elseif ($page ==  "Edit Resources") {
         } elseif ($page == "Edit Registration") {
@@ -265,7 +268,29 @@ if ($request->logo != "") {
         return view('admin.landingpage.index');
     }
 
+    public function UpdateCounter(Request $request)
+    {
+        
+        $validatedData = $request->validate([
+            'text' => 'string|max:150',
+            'count' => 'required|string|max:50',
+            'position' => 'required|integer|max:50',
+        ]);
 
+        
+        WebCounters::findOrFail($request->id)->update([
+            'icon' =>$request->icon,
+            'count' => $validatedData['count'],
+            'text' => $validatedData['text'],
+            'position' => $validatedData['position'],
+            'updated_by' => auth()->user()->id,
+        ]);
+
+
+
+        session()->flash('success', 'Website Counter Mission Updated Successfully.');
+        return view('admin.landingpage.index');
+    }
 
 
 
