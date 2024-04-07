@@ -9,6 +9,7 @@ use App\Models\WebColours;
 use App\Models\WebCounters;
 use App\Models\WebCta;
 use App\Models\WebHeaders;
+use App\Models\WebRegistrations;
 use App\Models\WebResources;
 use App\Models\WebSliders;
 use App\Models\WebTopbars;
@@ -29,14 +30,15 @@ class LandingpageController extends Controller
 
     public function EditPage(Request $request)
     {
-
+        //redirect to page to update website
         $page = $request->page_to_edit;
         if ($page == "Edit Colour") {
             $fill = WebColours::where('id', 1)->select('colour', 'id')->first();
             $main = WebColours::where('id', 2)->select('colour', 'id')->first();
             $text = WebColours::where('id', 3)->select('colour', 'id')->first();
             return  view('admin.landingpage.edit_colour', compact('fill', 'main', 'text'));
-        } elseif ($page == "Edit Topbar") {
+        } 
+        elseif ($page == "Edit Topbar") {
             $topbar = WebTopbars::where('id', 1)->select('current_session', 'support_phone')->first();
 
             return view('admin.landingpage.edit_topbar', compact('topbar'));
@@ -67,6 +69,9 @@ class LandingpageController extends Controller
             $resources = WebResources::get();
             return  view('admin.landingpage.edit_resources' , compact('resources'));
         } elseif ($page == "Edit Registration") {
+            $reg= WebRegistrations::where('id', 1)->first();
+
+            return view('admin.landingpage.edit_registration', compact('reg'));
         } elseif ($page == "Edit Events") {
         } elseif ($page == "Edit Testimonial") {
         } elseif ($page == "Edit Excos") {
@@ -363,6 +368,28 @@ if ($request->logo != "") {
         return view('admin.landingpage.index');
     }
 
+    public function UpdateRegistration(Request $request)
+    {
+        $validatedData = $request->validate([
+            'title' => 'required|string|max:100',
+            
+            'text' => 'required|string|max:255',
+
+
+        ]);
+
+        WebRegistrations::findOrFail(1)->update([
+            'title' => $validatedData['title'],
+            'text' => $validatedData['text'],
+           
+            'updated_by' => auth()->user()->id,
+        ]);
+
+
+
+        session()->flash('success', 'Website Registration Updated Successfully.');
+        return view('admin.landingpage.index');
+    }
 
 
 

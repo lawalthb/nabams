@@ -1,3 +1,9 @@
+
+@php
+$reg = App\Models\WebRegistrations::where('id', 1)->first();
+
+@endphp
+
 <!-- ======= Registration Section ======= -->
 <section id="registration" class="appointment section-bg">
   <style>
@@ -9,8 +15,8 @@
   <div class="container" data-aos="fade-up">
 
     <div class="section-title">
-      <h2>Registration</h2>
-      <p>Magnam dolores commodi suscipit. Necessitatibus eius consequatur ex aliquid fuga eum quidem. Sit sint consectetur velit. Quisquam quos quisquam cupiditate. Et nemo qui impedit suscipit alias ea. ₦2,500.</p>
+      <h2>{{$reg->title}}</h2>
+      <p>{{$reg->text}}</p>
     </div>
 
     <form action="{{route('register')}}#registration" method="post" role="form" class="php-email-form" data-aos="fade-up" data-aos-delay="100">
