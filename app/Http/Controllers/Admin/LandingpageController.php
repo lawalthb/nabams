@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\WebAbouts;
+use App\Models\WebBenefits;
 use App\Models\WebColours;
 use App\Models\WebCounters;
 use App\Models\WebCta;
@@ -59,6 +60,8 @@ class LandingpageController extends Controller
             $counters = WebCounters::get();
             return  view('admin.landingpage.edit_counters' , compact('counters'));
         } elseif ($page ==  "Edit Benefit") {
+            $benefits = WebBenefits::get();
+            return  view('admin.landingpage.edit_benefits' , compact('benefits'));
         } elseif ($page ==  "Edit Resources") {
         } elseif ($page == "Edit Registration") {
         } elseif ($page == "Edit Events") {
@@ -288,10 +291,49 @@ if ($request->logo != "") {
 
 
 
-        session()->flash('success', 'Website Counter Mission Updated Successfully.');
+        session()->flash('success', 'Website Counter  Updated Successfully.');
         return view('admin.landingpage.index');
     }
 
+
+    public function UpdateBenefit(Request $request)
+    {
+        
+        $validatedData = $request->validate([
+            'text' => 'string|max:150',
+            'title' => 'required|string|max:50',
+            'position' => 'required|integer|max:50',
+        ]);
+
+        if ($request->image != "") {
+           
+            $new_image = $request->file('image');
+            $manager = new ImageManager(new Driver());
+            $name_gen = hexdec(uniqid()) . '.' .  $new_image->getClientOriginalExtension();
+            $img = $manager->read($new_image);
+            $img = $img->resize(640, 640);
+            $img->toJpeg(80)->save(base_path('public/website/benefit/' .   $name_gen));
+            $save_url = 'website/benefit/' .   $name_gen;
+        } else {
+            $save_url = $request->old_image;
+        }
+
+
+        
+        WebBenefits::findOrFail($request->id)->update([
+            'icon' =>$request->icon,
+            'image' =>$save_url,
+            'title' => $validatedData['title'],
+            'text' => $validatedData['text'],
+            'position' => $validatedData['position'],
+            'updated_by' => auth()->user()->id,
+        ]);
+
+
+
+        session()->flash('success', 'Website Benefit Updated Successfully.');
+        return view('admin.landingpage.index');
+    }
 
 
 
