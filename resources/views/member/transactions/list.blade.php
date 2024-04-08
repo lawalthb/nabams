@@ -84,7 +84,7 @@
                             {
                                 select: 4,
                                 render: function(data, cell, row) {
-                                    return '<a href="/apps/invoice/preview" class="text-primary underline font-semibold hover:no-underline">#' +
+                                    return '<a href="/transactions/receipt/'+data+'" class="text-primary underline font-semibold hover:no-underline">#' +
                                         data + '</a>';
                                 }
                             },

@@ -32,6 +32,30 @@ class TransactionController extends Controller
     }
 
 
+
+    public function Receipt(Request  $request)
+    {
+        $ref = $request->receipt;
+        $user_id = auth()->user()->id;
+        $transactions = Transactions::select(
+            'id',
+            'purpose',
+            'email',
+            'amount',
+
+            'reference',
+            'status',
+            'paid_at',
+
+            'gateway_response',
+        )->where('purpose', $request->purpose)->where('user_id', $user_id)->get();
+
+        return view("member.transactions.receipt", [
+            'transactions' => $transactions,
+
+        ]);
+    }
+
     public function Blank()
     {
 

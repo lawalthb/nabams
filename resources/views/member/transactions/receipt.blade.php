@@ -1,9 +1,15 @@
+@php
+$header = App\Models\WebHeaders::where('id', 1)->first();
+$contact = App\Models\WebContacts::where('id', 1)->first();
+@endphp
+
+
 <x-layout.default>
 
 
     <div x-data="invoicePreview">
         <div class="flex items-center lg:justify-end justify-center flex-wrap gap-4 mb-6">
-            <button type="button" class="btn btn-info gap-2">
+            <!-- <button type="button" class="btn btn-info gap-2">
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"
                     class="w-5 h-5">
                     <path
@@ -12,7 +18,7 @@
                     <path opacity="0.5" d="M6 18L21 3" stroke="currentColor" stroke-width="1.5"
                         stroke-linecap="round" />
                 </svg>
-                Send Invoice </button>
+                Send Invoice </button> -->
 
             <button type="button" class="btn btn-primary gap-2" @click="print">
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"
@@ -48,7 +54,7 @@
                 </svg>
                 Download. </button>
 
-            <a href="/apps/invoice/add" class="btn btn-secondary gap-2">
+            <!-- <a href="/apps/invoice/add" class="btn btn-secondary gap-2">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" viewBox="0 0 24 24" fill="none"
                     stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"
                     class="w-5 h-5">
@@ -56,9 +62,9 @@
                     <line x1="5" y1="12" x2="19" y2="12"></line>
                 </svg>
                 Create
-            </a>
+            </a> -->
 
-            <a href="/apps/invoice/edit" class="btn btn-warning gap-2">
+            <!-- <a href="/apps/invoice/edit" class="btn btn-warning gap-2">
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
                     xmlns="http://www.w3.org/2000/svg" class="w-5 h-5">
                     <path opacity="0.5"
@@ -71,21 +77,21 @@
                         d="M16.6522 3.45508C16.6522 3.45508 16.7333 4.83381 17.9499 6.05034C19.1664 7.26687 20.5451 7.34797 20.5451 7.34797M10.1002 15.5876L8.4126 13.9"
                         stroke="currentColor" stroke-width="1.5"></path>
                 </svg>
-                Edit </a>
+                Edit </a> -->
         </div>
         <div class="panel">
             <div class="flex justify-between flex-wrap gap-4 px-4">
-                <div class="text-2xl font-semibold uppercase">Invoice</div>
+                <div class="text-2xl font-semibold uppercase">OGITECH ~ NABAMS <br /><u>Receipt</u></div>
                 <div class="shrink-0">
-                    <img src="/assets/images/logo.svg" alt="image"
+                    <img src="{{asset($header->logo)}}" alt="image"
                         class="w-14 ltr:ml-auto rtl:mr-auto" />
                 </div>
             </div>
             <div class="ltr:text-right rtl:text-left px-4">
                 <div class="space-y-1 mt-6 text-white-dark">
-                    <div>13 Tetrick Road, Cypress Gardens, Florida, 33884, US</div>
-                    <div>vristo@gmail.com</div>
-                    <div>+1 (070) 123-4567</div>
+                    <div>{{$contact->address}}</div>
+                    <div>{{$contact->email1}}</div>
+                    <div>{{$contact->phone1}}</div>
                 </div>
             </div>
 
@@ -95,50 +101,46 @@
                     <div class="space-y-1 text-white-dark">
                         <div>Issue For:</div>
                         <div class="text-black dark:text-white font-semibold">John Doe</div>
-                        <div>405 Mulberry Rd. Mc Grady, NC, 28649</div>
-                        <div>redq@company.com</div>
-                        <div>(128) 666 070</div>
+                        <div>Lawalthb@gmail.com</div>
+                        <div>08132712715</div>
+                        <div>12/45/0214</div>
                     </div>
                 </div>
                 <div class="flex justify-between sm:flex-row flex-col gap-6 lg:w-2/3">
-                    <div class="xl:1/3 lg:w-2/5 sm:w-1/2">
-                        <div class="flex items-center w-full justify-between mb-2">
-                            <div class="text-white-dark">Invoice :</div>
-                            <div>#8701</div>
+                    <div class="xl:1/3 lg:w-2/5 sm:w-1/2 ">
+                        <div class="flex items-center w-full justify-between mb-2 hidden">
+                            <div class="text-white-dark">Receipt No :</div>
+                            <div> 10056</div>
                         </div>
-                        <div class="flex items-center w-full justify-between mb-2">
-                            <div class="text-white-dark">Issue Date :</div>
-                            <div>13 Sep 2022</div>
+                        <div class="flex items-center w-full justify-between mb-2 hidden">
+                            <div class="text-white-dark">Payment Date :</div>
+                            <div>13 April 2024</div>
                         </div>
-                        <div class="flex items-center w-full justify-between mb-2">
-                            <div class="text-white-dark">Order ID :</div>
-                            <div>#OD-85794</div>
+                        <div class="flex items-center w-full justify-between mb-2 hidden">
+                            <div class="text-white-dark">Mode of Payment :</div>
+                            <div>Card</div>
                         </div>
-                        <div class="flex items-center w-full justify-between">
-                            <div class="text-white-dark">Shipment ID :</div>
-                            <div>#SHP-8594</div>
+                        <div class="flex items-center w-full justify-between ">
+                            <div class="text-white-dark"></div>
+                            
                         </div>
                     </div>
                     <div class="xl:1/3 lg:w-2/5 sm:w-1/2">
-                        <div class="flex items-center w-full justify-between mb-2 ">
-                            <div class="text-white-dark">Bank Name:</div>
-                            <div class="whitespace-nowrap">Bank Of America</div>
+                    <div class="flex items-center w-full justify-between mb-2">
+                            <div class="text-white-dark">Receipt No :</div>
+                            <div> 10056</div>
                         </div>
                         <div class="flex items-center w-full justify-between mb-2">
-                            <div class="text-white-dark">Account Number:</div>
-                            <div>1234567890</div>
+                            <div class="text-white-dark">Payment Date :</div>
+                            <div>13 April 2024</div>
                         </div>
                         <div class="flex items-center w-full justify-between mb-2">
-                            <div class="text-white-dark">SWIFT Code:</div>
-                            <div>S58K796</div>
+                            <div class="text-white-dark">Mode of Payment :</div>
+                            <div>Card</div>
                         </div>
-                        <div class="flex items-center w-full justify-between mb-2">
-                            <div class="text-white-dark">IBAN:</div>
-                            <div>L5698445485</div>
-                        </div>
-                        <div class="flex items-center w-full justify-between mb-2">
-                            <div class="text-white-dark">Country:</div>
-                            <div>United States</div>
+                        <div class="flex items-center w-full justify-between">
+                            <div class="text-white-dark">Payment Status :</div>
+                            <div>Success</div>
                         </div>
                     </div>
                 </div>
@@ -158,35 +160,25 @@
                                 <td x-text="item.id"></td>
                                 <td x-text="item.title"></td>
                                 <td x-text="item.quantity"></td>
-                                <td class="ltr:text-right rtl:text-left" x-text="`$${item.price}`"></td>
-                                <td class="ltr:text-right rtl:text-left" x-text="`$${item.amount}`"></td>
+                                <td class="ltr:text-right rtl:text-left" x-text="`${item.session}`"></td>
+                                <td class="ltr:text-right rtl:text-left" x-text="`₦${item.amount}`"></td>
                             </tr>
                         </template>
                     </tbody>
                 </table>
             </div>
             <div class="grid sm:grid-cols-2 grid-cols-1 px-4 mt-6">
-                <div></div>
+                <div>Amount in Words:</div>
                 <div class="ltr:text-right rtl:text-left space-y-2">
-                    <div class="flex items-center">
-                        <div class="flex-1">Subtotal</div>
-                        <div class="w-[37%]">$3255</div>
-                    </div>
-                    <div class="flex items-center">
-                        <div class="flex-1">Tax</div>
-                        <div class="w-[37%]">$700</div>
-                    </div>
-                    <div class="flex items-center">
-                        <div class="flex-1">Shipping Rate</div>
-                        <div class="w-[37%]">$0</div>
-                    </div>
-                    <div class="flex items-center">
-                        <div class="flex-1">Discount</div>
-                        <div class="w-[37%]">$10</div>
-                    </div>
+                  
                     <div class="flex items-center font-semibold text-lg">
                         <div class="flex-1">Grand Total</div>
-                        <div class="w-[37%]">$3945</div>
+                        <div class="w-[37%]">₦3,945</div>
+                    </div>
+                    <div class="ltr:text-right">
+                        <br >
+                        <br />
+                        <b>Sign:....................................</b>
                     </div>
                 </div>
             </div>
@@ -197,32 +189,12 @@
             Alpine.data('invoicePreview', () => ({
                 items: [{
                         id: 1,
-                        title: 'Calendar App Customization',
-                        quantity: 1,
-                        price: '120',
-                        amount: '120'
+                        title: 'Registration Fee',
+                        quantity: '2023-2024',
+                        session: 'Success',
+                        amount: '3,000'
                     },
-                    {
-                        id: 2,
-                        title: 'Chat App Customization',
-                        quantity: 1,
-                        price: '230',
-                        amount: '230'
-                    },
-                    {
-                        id: 3,
-                        title: 'Laravel Integration',
-                        quantity: 1,
-                        price: '405',
-                        amount: '405'
-                    },
-                    {
-                        id: 4,
-                        title: 'Backend UI Design',
-                        quantity: 1,
-                        price: '2500',
-                        amount: '2500'
-                    },
+                    
                 ],
                 columns: [{
                         key: 'id',
@@ -230,15 +202,15 @@
                     },
                     {
                         key: 'title',
-                        label: 'ITEMS'
+                        label: 'PAYMENT PURPOSE'
                     },
                     {
                         key: 'quantity',
-                        label: 'QTY'
+                        label: 'SESSION'
                     },
                     {
                         key: 'price',
-                        label: 'PRICE',
+                        label: 'STATUS',
                         class: 'ltr:text-right rtl:text-left'
                     },
                     {
