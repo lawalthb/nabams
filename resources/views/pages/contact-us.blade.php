@@ -1,6 +1,6 @@
 <x-layout.auth>
 
-
+ 
 
     <div
         class="flex justify-center items-center min-h-screen bg-[url('/assets/images/map.svg')] dark:bg-[url('/assets/images/map-dark.svg')] bg-cover bg-center">

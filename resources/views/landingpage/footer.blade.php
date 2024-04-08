@@ -1,3 +1,11 @@
+@php
+$contact = App\Models\WebContacts::where('id', 1)->first();
+
+$header = App\Models\WebHeaders::where('id', 1)->first();
+
+@endphp
+
+
 <!-- ======= Footer ======= -->
 <footer id="footer">
   <div class="footer-top">
@@ -6,12 +14,12 @@
 
         <div class="col-lg-3 col-md-6">
           <div class="footer-info">
-            <h3>Association Logo</h3>
-            <p>
-              Association Name<br><br>
-              <strong>Phone:</strong>0812345678<br>
-              <strong>Email:</strong> info@example.com<br>
-            </p>
+            <h3><img src="{{$header->logo}}" width="100px" >
+          
+            {{$header->site_name}}</h3>
+              <strong>Phone:</strong>{{$contact->phone}}<br>
+              <strong>Email:</strong>{{$contact->email1}}<br>
+          
             <div class="social-links mt-3">
               <a href="#" class="twitter"><i class="bx bxl-twitter"></i></a>
               <a href="#" class="facebook"><i class="bx bxl-facebook"></i></a>
@@ -59,11 +67,11 @@
 
   <div class="container">
     <div class="copyright">
-      &copy; 2024 Copyright <strong><span>Association Name</span></strong>. All Rights Reserved
+      &copy; 2024 Copyright <strong><span> {{$header->site_name}}</span></strong>. All Rights Reserved
     </div>
     <div class="credits">
 
-      <!-- Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a> -->
+     
     </div>
   </div>
 </footer><!-- End Footer -->

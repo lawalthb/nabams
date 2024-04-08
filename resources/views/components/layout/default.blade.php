@@ -1,13 +1,20 @@
+@php
+$header = App\Models\WebHeaders::where('id', 1)->first();
+
+@endphp
+
+
+
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
 
 <head>
     <meta charset='utf-8' />
     <meta http-equiv='X-UA-Compatible' content='IE=edge' />
-    <title>{{ $title ?? 'VRISTO - Multipurpose Tailwind Dashboard Template' }}</title>
+    <title>{{ $title ?? $header->site_name}}</title>
 
     <meta name='viewport' content='width=device-width, initial-scale=1' />
-    <link rel="icon" type="image/svg" href="/assets/images/favicon.svg" />
+    <link rel="icon" type="image/svg" href="{{asset($header->logo)}}" />
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />

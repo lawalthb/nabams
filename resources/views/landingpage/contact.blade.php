@@ -1,10 +1,16 @@
- <!-- ======= Contact Section ======= -->
+
+@php
+$contact = App\Models\WebContacts::where('id', 1)->first();
+
+@endphp
+
+<!-- ======= Contact Section ======= -->
  <section id="contact" class="contact">
    <div class="container">
 
      <div class="section-title">
        <h2>Contact</h2>
-       <p>Magnam dolores commodi suscipit. Necessitatibus eius consequatur ex aliquid fuga eum quidem. Sit sint consectetur velit. Quisquam quos quisquam cupiditate. Et nemo qui impedit suscipit alias ea. Quia fugiat sit in iste officiis commodi quidem hic quas.</p>
+       <p>{{$contact->text}}</p>
      </div>
 
    </div>
@@ -24,21 +30,21 @@
              <div class="info-box">
                <i class="bx bx-map"></i>
                <h3>Our Address</h3>
-               <p>School Premises</p>
+               <p>{{$contact->address}}</p>
              </div>
            </div>
            <div class="col-md-6">
              <div class="info-box mt-4">
                <i class="bx bx-envelope"></i>
                <h3>Email Us</h3>
-               <p>info@example.com<br>support@example.com</p>
+               <p>{{$contact->email1}}<br>{{$contact->email2}}</p>
              </div>
            </div>
            <div class="col-md-6">
              <div class="info-box mt-4">
                <i class="bx bx-phone-call"></i>
                <h3>Call Us</h3>
-               <p>081234567890<br>081234567890</p>
+               <p>{{$contact->phone1}}<br>{{$contact->phone2}}</p>
              </div>
            </div>
          </div>

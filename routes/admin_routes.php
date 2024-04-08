@@ -33,6 +33,9 @@ Route::prefix('admin')->middleware('auth.member', 'admin')->group(function () {
   Route::post('/website/edit/registration', [LandingpageController::class, 'UpdateRegistration'])->name('admin.website.update.registration');
   Route::post('/website/edit/events', [LandingpageController::class, 'UpdateEvents'])->name('admin.website.update.events');
   Route::post('/website/edit/testy', [LandingpageController::class, 'UpdateTesty'])->name('admin.website.update.testy');
+  Route::post('/website/edit/gallery', [LandingpageController::class, 'UpdateGallery'])->name('admin.website.update.gallery');
+  Route::post('/website/edit/contact', [LandingpageController::class, 'UpdateContact'])->name('admin.website.update.contact');
+  Route::post('/website/edit/excos', [LandingpageController::class, 'UpdateExcos'])->name('admin.website.update.excos');
 
 
   

@@ -6,9 +6,12 @@ use App\Http\Controllers\Controller;
 use App\Models\WebAbouts;
 use App\Models\WebBenefits;
 use App\Models\WebColours;
+use App\Models\WebContacts;
 use App\Models\WebCounters;
 use App\Models\WebCta;
 use App\Models\WebEvents;
+use App\Models\WebExcos;
+use App\Models\WebGalleries;
 use App\Models\WebHeaders;
 use App\Models\WebRegistrations;
 use App\Models\WebResources;
@@ -81,8 +84,14 @@ class LandingpageController extends Controller
             $testys = WebTestimonials::get();
             return  view('admin.landingpage.edit_testys' , compact('testys'));
         } elseif ($page == "Edit Excos") {
+            $excos = WebExcos::get();
+            return  view('admin.landingpage.edit_excos' , compact('excos'));
         } elseif ($page == "Edit Gallery") {
+            $galleries = WebGalleries::get();
+            return  view('admin.landingpage.edit_gallery' , compact('galleries'));
         } elseif ($page ==  "Edit Contact") {
+            $contact = WebContacts::where('id', 1)->first();
+            return  view('admin.landingpage.edit_contact' , compact('contact'));
         }
     }
 
@@ -480,7 +489,110 @@ if ($request->logo != "") {
     }
 
 
+    public function UpdateExcos(Request $request)
+    {
+        
+        $validatedData = $request->validate([
+            'post' => 'string|max:1050',
+            'name' => 'string|max:200',
+           
+            'position' => 'required|integer|max:50',
+        ]);
 
+        if ($request->image != "") {
+           
+            $new_image = $request->file('image');
+            $manager = new ImageManager(new Driver());
+            $name_gen = hexdec(uniqid()) . '.' .  $new_image->getClientOriginalExtension();
+            $img = $manager->read($new_image);
+            $img = $img->resize(600, 600);
+            $img->toJpeg(80)->save(base_path('public/website/excos/' .   $name_gen));
+            $save_url = 'website/excos/' .   $name_gen;
+        } else {
+            $save_url = $request->old_image;
+        }
+
+        WebExcos::findOrFail($request->id)->update([
+            'post' =>$validatedData['post'],
+            'image' =>$save_url,
+            'name' => $validatedData['name'],
+           
+            'position' => $validatedData['position'],
+            'updated_by' => auth()->user()->id,
+        ]);
+
+
+
+        session()->flash('success', 'Website Excos Updated Successfully.');
+        return view('admin.landingpage.index');
+    }
+
+
+
+    public function UpdateGallery(Request $request)
+    {
+        
+        $validatedData = $request->validate([
+            'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048', 
+            'position' => 'required|integer|max:50',
+        ]);
+
+        if ($request->image != "") {
+           
+            $new_image = $request->file('image');
+            $manager = new ImageManager(new Driver());
+            $name_gen = hexdec(uniqid()) . '.' .  $new_image->getClientOriginalExtension();
+            $img = $manager->read($new_image);
+            $img = $img->resize(800, 600);
+            $img->toJpeg(80)->save(base_path('public/website/gallery/' .   $name_gen));
+            $save_url = 'website/gallery/' .   $name_gen;
+        } else {
+            $save_url = $request->old_image;
+        }
+
+        WebGalleries::findOrFail($request->id)->update([
+           
+            'images' =>$save_url,
+            'position' => $validatedData['position'],
+            'updated_by' => auth()->user()->id,
+        ]);
+
+
+
+        session()->flash('success', 'Website Gallery Updated Successfully.');
+        return view('admin.landingpage.index');
+    }
+
+
+    public function UpdateContact(Request $request)
+    {
+        $validatedData = $request->validate([
+            'text' => 'required|string|max:1000',
+            'email1' => 'required|string|max:50',
+            'email2' => 'required|string|max:50',
+            'phone1' => 'required|string|max:50',
+            'phone2' => 'required|string|max:50',
+            'address' => 'required|string|max:200',
+
+
+        ]);
+
+        WebContacts::findOrFail(1)->update([
+            'email1' => $validatedData['email1'],
+            'email2' => $validatedData['email2'],
+            'phone1' => $validatedData['phone1'],
+            'phone2' => $validatedData['phone2'],
+            'text' => $validatedData['text'],
+            'address' => $validatedData['address'],
+            
+            'updated_by' => auth()->user()->id,
+        ]);
+
+
+
+        session()->flash('success', 'Website Contact Updated Successfully.');
+        return view('admin.landingpage.index');
+    }
 
 
 

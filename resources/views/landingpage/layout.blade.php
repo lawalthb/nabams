@@ -3,6 +3,7 @@ $colours = App\Models\WebColours::all();
 $fill_colour = $colours[0]->colour;
 $main_colour = $colours[1]->colour;
 $text_colour = $colours[2]->colour;
+$header = App\Models\WebHeaders::where('id', 1)->first();
 @endphp
 
 <!DOCTYPE html>
@@ -17,7 +18,7 @@ $text_colour = $colours[2]->colour;
   <meta content="" name="keywords">
 
   <!-- Favicons -->
-  <link href="{{asset('landingpage/assets/img/favicon.png')}}" rel="icon">
+  <link href="{{asset($header->logo)}}" rel="icon">
   <link href="{{asset('landingpage/assets/img/apple-touch-icon.png')}}" rel="apple-touch-icon">
 
   <!-- Google Fonts -->
