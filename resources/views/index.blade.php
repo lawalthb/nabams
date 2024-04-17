@@ -15,7 +15,7 @@
             <div class="grid xl:grid-cols-3 gap-6 mb-6">
                 <div class="panel h-full xl:col-span-2">
                     <div class="flex items-center dark:text-white-light mb-5">
-                        <h5 class="font-semibold text-lg">Revenue</h5>
+                        <h5 class="font-semibold text-lg">Election statistic </h5>
                         <div x-data="dropdown" @click.outside="open = false"
                             class="dropdown ltr:ml-auto rtl:mr-auto">
                             <a href="javascript:;" @click="toggle">
@@ -37,8 +37,8 @@
                             </ul>
                         </div>
                     </div>
-                    <p class="text-lg dark:text-white-light/90">Total Profit <span
-                            class="text-primary ml-2">$10,840</span></p>
+                    <p class="text-lg dark:text-white-light/90">Total Votes <span
+                            class="text-primary ml-2">10,840</span></p>
                     <div class="relative">
                         <div x-ref="revenueChart" class="bg-white dark:bg-black rounded-lg">
                             <!-- loader -->
@@ -53,7 +53,7 @@
 
                 <div class="panel h-full">
                     <div class="flex items-center mb-5">
-                        <h5 class="font-semibold text-lg dark:text-white-light">Sales By Category</h5>
+                        <h5 class="font-semibold text-lg dark:text-white-light">Count by Position</h5>
                     </div>
                     <div>
                         <div x-ref="salesByCategory" class="bg-white dark:bg-black rounded-lg">
@@ -71,7 +71,7 @@
             <div class="grid sm:grid-cols-2 xl:grid-cols-3 gap-6 mb-6">
                 <div class="panel h-full sm:col-span-2 xl:col-span-1">
                     <div class="flex items-center mb-5">
-                        <h5 class="font-semibold text-lg dark:text-white-light">Daily Sales <span
+                        <h5 class="font-semibold text-lg dark:text-white-light">Daily Visitors <span
                                 class="block text-white-dark text-sm font-normal">Go to columns for details.</span></h5>
                         <div class="ltr:ml-auto rtl:mr-auto relative">
                             <div
@@ -553,7 +553,7 @@
                         <div class="text-white flex justify-between items-center">
                             <p class="text-xl">Wallet Balance</p>
                             <h5 class="ltr:ml-auto rtl:mr-auto text-2xl">
-                                <span class="text-white-light">$</span>2953
+                                <span class="text-white-light">₦</span>2953
                             </h5>
                         </div>
                     </div>

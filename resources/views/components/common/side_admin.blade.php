@@ -141,7 +141,7 @@
     </button>
     <ul x-cloak x-show="activeDropdown === 'election'" x-collapse class="sub-menu text-gray-500">
       <li>
-        <a href="{{route('admin.blank')}}">Positions</a>
+        <a href="{{route('admin.positions.index')}}">Positions</a>
       </li>
       <li>
         <a href="{{route('admin.blank')}}">Aspirants</a>

@@ -2,5 +2,12 @@
     Association Name All rights reserved.</p>
 
 
+    <script>
+    function confirmDelete() {
+        return confirm('Are you sure you want to delete?');
+    }
+</script>
+
+
 
 

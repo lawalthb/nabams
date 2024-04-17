@@ -4,6 +4,8 @@ use App\Http\Controllers\Admin\LandingpageController;
 use App\Http\Controllers\Admin\TransactionController;
 use App\Http\Controllers\Auth\AuthController;
 
+use App\Http\Controllers\ElectionPositionController;
+use App\Http\Controllers\VoteController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -16,6 +18,16 @@ Route::prefix('admin')->middleware('auth.member', 'admin')->group(function () {
   Route::get('/transactions', [TransactionController::class, 'List'])->name('admin.transactions');
   Route::get('/blank', [TransactionController::class, 'Blank'])->name('admin.blank');
 
+
+
+Route::get('/positions', [ElectionPositionController::class, 'index'])->name('admin.positions.index');
+Route::get('/positions/add', [ElectionPositionController::class, 'create'])->name('admin.positions.create');
+Route::post('/positions/add', [ElectionPositionController::class, 'store'])->name('admin.positions.store');
+Route::get('/positions/edit/{id}', [ElectionPositionController::class, 'edit'])->name('admin.positions.edit');
+Route::post('/positions/edit/{id}', [ElectionPositionController::class, 'update'])->name('admin.positions.update');
+Route::get('/positions/delete/{id}', [ElectionPositionController::class, 'destroy'])->name('admin.positions.delete');
+
+Route::post('/vote', [VoteController::class, 'vote'])->name('vote');
 
   //website
   Route::get('/website/edit', [LandingpageController::class, 'index'])->name('admin.website');
