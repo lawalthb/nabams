@@ -40,7 +40,7 @@
           <a href="javascript:;" class="text-primary hover:underline">Election</a>
         </li>
         <li class="before:content-['/'] ltr:before:mr-1 rtl:before:ml-1">
-          <span>Edit Candidate</span>
+          <span>Edit Position</span>
         </li>
 
 
@@ -50,24 +50,11 @@
         <div class="px-5">
 
               <!-- input text -->
-              <form action="{{route('admin.candidates.update',$electionCandidate->id )}}" method="post">
+    <form action="{{route('admin.positions.update', $electionPosition->id )}}" method="post">
       @csrf
-
-      <div>
-            <label for="ctnSelect1">Update Payment Status</label>
-            <select  name="payment_status" id="payment_status" class="form-select text-white-dark" required>
-                
-            <option selected value="{{$electionCandidate->payment_status}}">{{$electionCandidate->payment_status}}</option>
-               <option value="pending">Pending</option>
-               <option value="approved">Approve</option>
-            </select>
-        </div>
-        <div>
-
-
     <div>
             <label for="ctnSelect1">Select Session </label>
-            <select  name="academic_session" id="academic_session" class="form-select text-white-dark" required>
+            <select id="ctnSelect1" name="academic_session" class="form-select text-white-dark" required>
                 
                 
                 @foreach ($academic_sessions as $academic_session)
@@ -76,17 +63,19 @@
             </select>
         </div>
         <div>
-        
-        <label for="ctnSelect1">Display Name</label>
-       
-        <input type="text" id="display_name" value="{{$electionCandidate->name}}" placeholder="e.g: Jagaban" name="name" class="form-input" required />
-            
-       
+        <label for="ctnSelect1">Position name</label>
+        <input type="text" placeholder="e.g: President" name="name" value="{{$electionPosition->name}}" class="form-input" required />
         </div>
-
-       
+        <div>
+        <label for="ctnSelect1">Form Amount</label>
+        <input type="number" min="500" max="50000" value="{{$electionPosition->form_amt}}" name="form_amt" class="form-input" required />
+        </div>
+        <div>
+        <label for="ctnSelect1">Arrangement post</label>
+        <input type="number" min="1" max="50" value="{{$electionPosition->order_no}}" name="order_no"  class="form-input" required />
+        </div>
         
-        <button type="submit" class="btn btn-primary mt-6">Update</button>
+        <button type="submit" class="btn btn-primary mt-6">Submit</button>
     </form>
     
         </div>

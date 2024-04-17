@@ -6,6 +6,10 @@
     function confirmDelete() {
         return confirm('Are you sure you want to delete?');
     }
+
+    function confirmBuyform() {
+        return confirm('Are you sure you want to purchase this form?');
+    }
 </script>
 
 

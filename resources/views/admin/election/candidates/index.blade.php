@@ -65,6 +65,7 @@
       <th>Academic Session</th>
       <th>Position</th>
       <th>Name</th>
+      <th>Payment Status</th>
       <th>Votes</th>
       <th>Action</th>
       <th></th>
@@ -80,6 +81,7 @@
       <td>{{$electionCandidate['academicSession']['session_name']}}</td>
       <td>{{$electionCandidate['position']['name']}}</td>
       <td>{{$electionCandidate->name}}</td>
+      <td>{{$electionCandidate->payment_status}}</td>
       <td>{{$electionCandidate->votes}}</td>
      
 <td class="p-3 border-b border-[#ebedf2] dark:border-[#191e3a] text-center">

@@ -2,7 +2,10 @@
 
 use App\Http\Controllers\Member\TransactionController;
 use App\Http\Controllers\Auth\AuthController;
+use App\Http\Controllers\ElectionCandidateController;
+use App\Http\Controllers\ElectionPositionController;
 use App\Http\Controllers\UserController;
+use App\Models\ElectionCandidate;
 use Illuminate\Support\Facades\Route;
 
 
@@ -22,4 +25,11 @@ Route::group(['middleware' => 'auth.member'], function () {
   Route::get('/transactions/{purpose}', [TransactionController::class, 'List'])->name('member.transactions');
   Route::get('/transactions/receipt/{receipt}', [TransactionController::class, 'Receipt'])->name('member.transactions.receipt');
   Route::get('/blank', [TransactionController::class, 'Blank'])->name('member.blank');
+
+  //election position routes
+Route::get('/election/positions', [ElectionPositionController::class, 'list'])->name('member.positions.list');
+Route::get('/positions/buyform/{id}', [ElectionPositionController::class, 'buyform'])->name('member.positions.buyform');
+Route::post('/positions/buyform/{id}', [ElectionPositionController::class, 'payform'])->name('member.positions.payform');
+
+Route::get('/candidates', [ElectionCandidateController::class, 'list'])->name('member.candidates.list');
 });

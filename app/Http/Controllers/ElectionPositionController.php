@@ -2,11 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\UserRegistered;
 use App\Models\ElectionPosition;
 use App\Http\Requests\StoreElectionPositionRequest;
 use App\Http\Requests\UpdateElectionPositionRequest;
 use App\Models\AcademicSession;
 use App\Models\ElectionCandidate;
+use App\Models\Transactions;
+use GuzzleHttp\Client;
 use Illuminate\Http\Request;
 
 
@@ -126,4 +129,86 @@ class ElectionPositionController extends Controller
         
 
     }
+
+//list for member
+    public function list(Request $request)
+    {
+        if(isset($request->id) and $request->id !=""){
+            $current_academic_session_id = $request->id;
+        }else{
+            $session_id = AcademicSession::latest()->first();
+            $current_academic_session_id = $session_id->id;
+        }
+        $academic_sessions = AcademicSession::latest()->get();
+        $electionPositions = ElectionPosition::with('academicSession')->where('academic_session', $current_academic_session_id )->latest()->get();
+      return view('member.election.positions.list', compact('electionPositions', 'academic_sessions'));
+    }
+
+//member to buy form
+    public function buyform(Request $request)
+    {
+
+        $id = $request->id;
+        $ElectionPosition = ElectionPosition::findOrFail($id)->first();
+
+
+        $election_candidate = new ElectionCandidate();
+        $election_candidate->academic_session = $request->academic_session;
+        $election_candidate->position_id = $request->position_id;
+        $election_candidate->user_id = Auth()->user()->id;
+        $election_candidate->name = Auth()->user()->lastname . " " . Auth()->user()->firstname;
+        $election_candidate->payment_status ="pending";
+        $election_candidate->save();
+
+
+         // dd($ElectionPosition);
+       $callback_url = route('callback_url');
+       // send a welcome email to new member
+
+       // store transaction
+
+
+
+       //   dd('goto payment gateway');
+       $client = new Client();
+       $response = $client->post('https://api.paystack.co/transaction/initialize', [
+           'headers' => [
+               'Authorization' => 'Bearer ' .  env('PAYSTACK_SECRET_KEY'),
+               'Content-Type' => 'application/json',
+           ],
+           'json' => [
+               'amount' => $ElectionPosition->form_amt * 100,
+               'email' => Auth()->user()->email,
+               'callback_url' => $callback_url,
+               'firstname' => 'ade',
+               'lastname' => 'oriyomi',
+               'phone_no' => '08132712715',
+
+           ],
+       ]);
+       $data = json_decode($response->getBody(), true);
+       Transactions::create([
+           'user_id' => Auth()->user()->id,
+           'purpose' => 'election fee',
+           'email' =>  Auth()->user()->email,
+           'amount' => $ElectionPosition->form_amt,
+           'fullname' =>  Auth()->user()->lastname . " " . Auth()->user()->firstname,
+           'phone_number' =>  Auth()->user()->phone,
+           'callback_url' => $callback_url,
+           'reference' => $data['data']['reference'],
+           'authorization_url' => $data['data']['authorization_url'],
+       ]);
+       $payment_link = $data['data']['authorization_url'];
+
+       event(new UserRegistered(Auth()->user(), $payment_link));
+
+
+
+       return redirect($data['data']['authorization_url']);
+    
+
+
+       
+    }
+
 }

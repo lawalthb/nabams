@@ -40,54 +40,53 @@
           <a href="javascript:;" class="text-primary hover:underline">Election</a>
         </li>
         <li class="before:content-['/'] ltr:before:mr-1 rtl:before:ml-1">
-          <span>Edit Candidate</span>
+          <span>List of Aspirants</span>
         </li>
 
 
       </ul>
-      <div class="pt-5 grid grid-cols-1 lg:grid-cols-2 gap-6">
+      <div class="pt-5 grid grid-cols-1 lg:grid-cols-1 gap-6">
       <div class="panel px-0 border-[#e0e6ed] dark:border-[#1b2e4b]">
         <div class="px-5">
 
-              <!-- input text -->
-              <form action="{{route('admin.candidates.update',$electionCandidate->id )}}" method="post">
-      @csrf
-
-      <div>
-            <label for="ctnSelect1">Update Payment Status</label>
-            <select  name="payment_status" id="payment_status" class="form-select text-white-dark" required>
-                
-            <option selected value="{{$electionCandidate->payment_status}}">{{$electionCandidate->payment_status}}</option>
-               <option value="pending">Pending</option>
-               <option value="approved">Approve</option>
-            </select>
-        </div>
-        <div>
-
-
-    <div>
-            <label for="ctnSelect1">Select Session </label>
-            <select  name="academic_session" id="academic_session" class="form-select text-white-dark" required>
-                
-                
+          <select id="ctnSelect1" name="academic_session" onchange="searchBy(this)">
+            <option>Select Academic Section</option>
                 @foreach ($academic_sessions as $academic_session)
                 <option value="{{$academic_session->id}}">{{$academic_session->session_name}}</option>
                 @endforeach
-            </select>
-        </div>
-        <div>
+          </select>
         
-        <label for="ctnSelect1">Display Name</label>
-       
-        <input type="text" id="display_name" value="{{$electionCandidate->name}}" placeholder="e.g: Jagaban" name="name" class="form-input" required />
-            
-       
-        </div>
+        <table class="table-auto">
+  <thead>
+    <tr>
+      <th>SN</th>
+      <th>Academic Session</th>
+      <th>Position</th>
+      <th>Name</th>
+     
+      <th>Votes</th>
+      
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+   
+    @foreach ( $electionCandidates as  $key =>  $electionCandidate )
+        
+   
+    <tr>
+    <td> {{ $key+1 }} </td> 
+      <td>{{$electionCandidate['academicSession']['session_name']}}</td>
+      <td>{{$electionCandidate['position']['name']}}</td>
+      <td>{{$electionCandidate->name}}</td>
+     
+      <td>{{$electionCandidate->votes}}</td>
+     
 
-       
-        
-        <button type="submit" class="btn btn-primary mt-6">Update</button>
-    </form>
+    </tr>
+    @endforeach
+  </tbody>
+</table>
     
         </div>
 
@@ -100,7 +99,19 @@
   </div>
   </div>
 
-  
+  <script>
+    function searchBy(select) {
+        // Get the selected value
+        var selectedValue = select.value;
+//alert(selectedValue);
+       
+        window.location.href = "{{route('admin.positions.index')}}?id=" + selectedValue; // Replace "/your-route/" with the actual route
+    }
+</script>
 
   
     </x-layout.default>
+
+
+
+    

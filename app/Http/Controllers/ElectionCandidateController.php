@@ -24,7 +24,7 @@ $current_academic_session_id = $request->id;
             $current_academic_session_id = $session_id->id;
         }
         $academic_sessions = AcademicSession::latest()->get();
-        $electionCandidates = ElectionCandidate::with('academicSession')->where('academic_session', $current_academic_session_id )->latest()->get();
+        $electionCandidates = ElectionCandidate::with('academicSession')->where('academic_session', $current_academic_session_id )->orderBy('position_id')->latest()->get();
       return view('admin.election.candidates.index', compact('electionCandidates', 'academic_sessions'));
     }
 
@@ -51,6 +51,7 @@ $current_academic_session_id = $request->id;
         $election_candidate->position_id = $request->position_id;
         $election_candidate->user_id = $request->user_id;
         $election_candidate->name = $validatedData['name'];
+        $election_candidate->payment_status ="approved";
         $election_candidate->save();
     
       
@@ -69,17 +70,29 @@ $current_academic_session_id = $request->id;
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(ElectionCandidate $electionCandidate)
+    public function edit(ElectionCandidate $electionCandidate, Request $request)
     {
-        //
+       $id = $request->id;
+       $users = User::orderBy('lastname')->get();
+        $electionCandidate = ElectionCandidate::findOrFail($id);
+        $academic_sessions = AcademicSession::latest()->get();
+        return view('admin.election.candidates.edit', compact('academic_sessions','electionCandidate', 'users' ));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateElectionCandidateRequest $request, ElectionCandidate $electionCandidate)
+    public function update( Request $request2)
     {
-        //
+        ElectionCandidate::findOrFail($request2->id)->update([
+           
+            'payment_status' => $request2->payment_status,
+            'name' => $request2->name,
+           
+        ]);
+ 
+        return redirect()->route('admin.candidates.index')->with('success', 'Candidate updated successfully!');
+    
     }
 
     /**
@@ -101,5 +114,20 @@ $current_academic_session_id = $request->id;
 
         
         return response()->json($positions);
+    }
+    
+
+    //list for member
+    public function list(Request $request)
+    {
+        if(isset($request->id) and $request->id !=""){
+            $current_academic_session_id = $request->id;
+        }else{
+            $session_id = AcademicSession::latest()->first();
+            $current_academic_session_id = $session_id->id;
+        }
+        $academic_sessions = AcademicSession::latest()->get();
+        $electionCandidates = ElectionCandidate::with('academicSession')->where('academic_session', $current_academic_session_id )->orderBy('position_id')->latest()->get();
+      return view('member.election.candidates.list', compact('electionCandidates', 'academic_sessions'));
     }
 }
