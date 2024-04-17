@@ -15,4 +15,9 @@ class ElectionCandidate extends Model
     {
         return $this->belongsTo(ElectionPosition::class);
     }
+
+    public function academicSession()
+    {
+        return $this->belongsTo(academicSession::class, 'academic_session');
+    }
 }

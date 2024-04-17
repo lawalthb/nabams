@@ -144,7 +144,7 @@
         <a href="{{route('admin.positions.index')}}">Positions</a>
       </li>
       <li>
-        <a href="{{route('admin.blank')}}">Aspirants</a>
+        <a href="{{route('admin.candidates.index')}}">Aspirants</a>
       </li>
       <li>
         <a href="{{route('admin.blank')}}">Vote</a>

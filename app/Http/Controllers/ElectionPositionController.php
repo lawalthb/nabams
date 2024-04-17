@@ -18,7 +18,7 @@ class ElectionPositionController extends Controller
     public function index(Request $request)
     {
         if(isset($request->id) and $request->id !=""){
-$current_academic_session_id = $request->id;
+            $current_academic_session_id = $request->id;
         }else{
             $session_id = AcademicSession::latest()->first();
             $current_academic_session_id = $session_id->id;
@@ -48,6 +48,7 @@ $current_academic_session_id = $request->id;
     $election_position->name = $validatedData['name'];
     $election_position->order_no = $validatedData['order_no'];
     $election_position->academic_session = $request->academic_session;
+    $election_position->form_amt = $request->form_amt;
     
     $election_position->admin_id = auth()->user()->id;
        $election_position->save();
@@ -89,6 +90,7 @@ $current_academic_session_id = $request->id;
            'name' => $validatedData['name'],
            'order_no' => $validatedData['order_no'],
            'academic_session' => $request->academic_session,
+           'form_amt' => $request->form_amt,
            'admin_id' => auth()->user()->id,
            
        ]);

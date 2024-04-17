@@ -14,5 +14,9 @@ class AcademicSession extends Model
     {
         return $this->hasMany(ElectionPosition::class);
     }
+    public function electionCandidate()
+    {
+        return $this->hasMany(ElectionCandidate::class);
+    }
 
 }

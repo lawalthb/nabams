@@ -66,7 +66,10 @@
         <label for="ctnSelect1">Position name</label>
         <input type="text" placeholder="e.g: President" name="name" value="{{$electionPosition->name}}" class="form-input" required />
         </div>
-
+        <div>
+        <label for="ctnSelect1">Form Amount</label>
+        <input type="number" min="500" max="50000" value="{{$electionPosition->form_amt}}" name="form_amt" class="form-input" required />
+        </div>
         <div>
         <label for="ctnSelect1">Arrangement post</label>
         <input type="number" min="1" max="50" value="{{$electionPosition->order_no}}" name="order_no"  class="form-input" required />

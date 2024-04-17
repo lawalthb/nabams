@@ -40,7 +40,7 @@
           <a href="javascript:;" class="text-primary hover:underline">Election</a>
         </li>
         <li class="before:content-['/'] ltr:before:mr-1 rtl:before:ml-1">
-          <span>Add Position</span>
+          <span>Add Candidate</span>
         </li>
 
 
@@ -50,11 +50,11 @@
         <div class="px-5">
 
               <!-- input text -->
-    <form action="{{route('admin.positions.store')}}" method="post">
+    <form action="{{route('admin.candidates.store')}}" method="post">
       @csrf
     <div>
             <label for="ctnSelect1">Select Session </label>
-            <select id="ctnSelect1" name="academic_session" class="form-select text-white-dark" required>
+            <select  name="academic_session" id="academic_session" class="form-select text-white-dark" required>
                 
                 
                 @foreach ($academic_sessions as $academic_session)
@@ -64,18 +64,33 @@
         </div>
         <div>
         <label for="ctnSelect1">Position name</label>
-        <input type="text" placeholder="e.g: President" name="name" class="form-input" required />
+        <select  name="position_id" id="position_id" class="form-select text-white-dark" required>
+              <option>You need to first select session</option>
+            </select>
+       
+        </div>
+
+
+        <div>
+        <label for="ctnSelect1">Select Candidate</label>
+        <select  name="user_id" id="user_id" class="form-select text-white-dark" required>
+              <option>Pick Apsirer</option>
+              @foreach ($users as $user)
+                <option value="{{$user->id}}">{{$user->lastname}} {{$user->firstname}}</option>
+                @endforeach
+            </select>
+       
         </div>
 
         <div>
-        <label for="ctnSelect1">Form Amount</label>
-        <input type="number" min="500" max="50000" value="1000" name="form_amt" class="form-input" required />
+        <label for="ctnSelect1">Display Name</label>
+       
+        <input type="text" id="display_name" placeholder="e.g: Jagaban" name="name" class="form-input" required />
+            
+       
         </div>
 
-        <div>
-        <label for="ctnSelect1">Arrangement post</label>
-        <input type="number" min="1" max="50" value="1" name="order_no" class="form-input" required />
-        </div>
+       
         
         <button type="submit" class="btn btn-primary mt-6">Submit</button>
     </form>
@@ -90,8 +105,37 @@
     </div>
   </div>
   </div>
+  <script>
+   
+    var academic_session = document.getElementById('academic_session');
+    var position_id = document.getElementById('position_id');
 
-  
+    // Function to populate positions
+    function fillPosition() {
+        
+        position_id.innerHTML = '';
+
+        var id = academic_session.value;
+
+       
+        fetch('/admin/candidates/getPositionBySession?id=' + id)
+            .then(response => response.json())
+            .then(data => {
+               
+                data.forEach(function(positions) {
+                    var option = document.createElement('option');
+                    option.value = positions.id;
+                    option.textContent = positions.name;
+                    position_id.appendChild(option);
+                });
+            });
+    }
+
+    fillPosition();
+    academic_session.addEventListener('change', function() {
+        fillPosition();
+    });
+</script>
 
   
     </x-layout.default>

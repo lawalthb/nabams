@@ -3,7 +3,7 @@
 use App\Http\Controllers\Admin\LandingpageController;
 use App\Http\Controllers\Admin\TransactionController;
 use App\Http\Controllers\Auth\AuthController;
-
+use App\Http\Controllers\ElectionCandidateController;
 use App\Http\Controllers\ElectionPositionController;
 use App\Http\Controllers\VoteController;
 use Illuminate\Support\Facades\Route;
@@ -19,13 +19,22 @@ Route::prefix('admin')->middleware('auth.member', 'admin')->group(function () {
   Route::get('/blank', [TransactionController::class, 'Blank'])->name('admin.blank');
 
 
-
+//election position routes
 Route::get('/positions', [ElectionPositionController::class, 'index'])->name('admin.positions.index');
 Route::get('/positions/add', [ElectionPositionController::class, 'create'])->name('admin.positions.create');
 Route::post('/positions/add', [ElectionPositionController::class, 'store'])->name('admin.positions.store');
 Route::get('/positions/edit/{id}', [ElectionPositionController::class, 'edit'])->name('admin.positions.edit');
 Route::post('/positions/edit/{id}', [ElectionPositionController::class, 'update'])->name('admin.positions.update');
 Route::get('/positions/delete/{id}', [ElectionPositionController::class, 'destroy'])->name('admin.positions.delete');
+
+//election candidate routes
+Route::get('/candidates', [ElectionCandidateController::class, 'index'])->name('admin.candidates.index');
+Route::get('/candidates/add', [ElectionCandidateController::class, 'create'])->name('admin.candidates.create');
+Route::post('/candidates/add', [ElectionCandidateController::class, 'store'])->name('admin.candidates.store');
+Route::get('/candidates/edit/{id}', [ElectionCandidateController::class, 'edit'])->name('admin.candidates.edit');
+Route::post('/candidates/edit/{id}', [ElectionCandidateController::class, 'update'])->name('admin.candidates.update');
+Route::get('/candidates/delete/{id}', [ElectionCandidateController::class, 'destroy'])->name('admin.candidates.delete');
+Route::get('/candidates/getPositionBySession', [ElectionCandidateController::class, 'getPositionBySession'])->name('admin.candidates.getPositionBySession');
 
 Route::post('/vote', [VoteController::class, 'vote'])->name('vote');
 

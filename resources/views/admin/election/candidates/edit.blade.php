@@ -40,7 +40,7 @@
           <a href="javascript:;" class="text-primary hover:underline">Election</a>
         </li>
         <li class="before:content-['/'] ltr:before:mr-1 rtl:before:ml-1">
-          <span>Add Position</span>
+          <span>Edit Position</span>
         </li>
 
 
@@ -50,7 +50,7 @@
         <div class="px-5">
 
               <!-- input text -->
-    <form action="{{route('admin.positions.store')}}" method="post">
+    <form action="{{route('admin.positions.update', $electionPosition->id )}}" method="post">
       @csrf
     <div>
             <label for="ctnSelect1">Select Session </label>
@@ -64,17 +64,12 @@
         </div>
         <div>
         <label for="ctnSelect1">Position name</label>
-        <input type="text" placeholder="e.g: President" name="name" class="form-input" required />
-        </div>
-
-        <div>
-        <label for="ctnSelect1">Form Amount</label>
-        <input type="number" min="500" max="50000" value="1000" name="form_amt" class="form-input" required />
+        <input type="text" placeholder="e.g: President" name="name" value="{{$electionPosition->name}}" class="form-input" required />
         </div>
 
         <div>
         <label for="ctnSelect1">Arrangement post</label>
-        <input type="number" min="1" max="50" value="1" name="order_no" class="form-input" required />
+        <input type="number" min="1" max="50" value="{{$electionPosition->order_no}}" name="order_no"  class="form-input" required />
         </div>
         
         <button type="submit" class="btn btn-primary mt-6">Submit</button>
