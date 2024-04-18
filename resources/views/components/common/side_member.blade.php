@@ -56,7 +56,7 @@
         <a href="{{route('member.transactions', 'registration fee')}}">Registration</a>
       </li>
       <li>
-        <a href="{{route('member.blank')}}">Election</a>
+      <a href="{{route('member.transactions', 'election fee')}}">Election</a>
       </li>
       <li>
         <a href="{{route('member.blank')}}">Contest</a>

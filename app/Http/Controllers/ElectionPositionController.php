@@ -162,7 +162,7 @@ class ElectionPositionController extends Controller
 
 
          // dd($ElectionPosition);
-       $callback_url = route('callback_url');
+       $callback_url = route('member.payment_callback');
        // send a welcome email to new member
 
        // store transaction

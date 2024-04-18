@@ -141,6 +141,7 @@ class AuthController extends Controller
             echo "cURL Error #:" . $err;
         } else {
             $response;
+            //dd($response);
             $data = json_decode($response, true);
             if ($data) {
                 $updatedRecord =  Transactions::where('reference', $reference)->update([

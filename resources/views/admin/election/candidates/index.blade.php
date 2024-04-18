@@ -57,6 +57,12 @@
                 <option value="{{$academic_session->id}}">{{$academic_session->session_name}}</option>
                 @endforeach
             </select>
+            <select id="" name="academic_session" onchange="searchByPosition(this)">
+            <option>Select Position</option>
+                @foreach ($positions as $position)
+                <option value="{{$position->id}}">{{$position->name}}</option>
+                @endforeach
+            </select>
         
         <table class="table-auto">
   <thead>
@@ -133,7 +139,15 @@
         var selectedValue = select.value;
 //alert(selectedValue);
        
-        window.location.href = "{{route('admin.positions.index')}}?id=" + selectedValue; // Replace "/your-route/" with the actual route
+        window.location.href = "{{route('admin.candidates.index')}}?id=" + selectedValue; // Replace "/your-route/" with the actual route
+    }
+
+    function searchByPosition(select) {
+        // Get the selected value
+        var selectedValue = select.value;
+//alert(selectedValue);
+       
+        window.location.href = "{{route('admin.candidates.index')}}?position_id=" + selectedValue; // Replace "/your-route/" with the actual route
     }
 </script>
 

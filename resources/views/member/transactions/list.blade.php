@@ -11,7 +11,8 @@
 
                     <div class="flex items-center gap-2 mb-5">
 
-                        <h3>Registration Fee</h3>
+                        <h3>{{$purpose}}</h3>
+
                     </div>
                 </div>
             </div>

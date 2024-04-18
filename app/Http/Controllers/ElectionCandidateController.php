@@ -17,15 +17,26 @@ class ElectionCandidateController extends Controller
      */
     public function index(Request $request)
     {
-        if(isset($request->id) and $request->id !=""){
-$current_academic_session_id = $request->id;
+        if(isset($request->id) and $request->id !="")        {
+           $current_academic_session_id = $request->id;
         }else{
             $session_id = AcademicSession::latest()->first();
             $current_academic_session_id = $session_id->id;
+           
+
         }
+        $session_id2 = AcademicSession::latest()->first();
+
+         $positions =ElectionPosition::where('academic_session',$session_id2->id)->get();
+        //dd($positions);
         $academic_sessions = AcademicSession::latest()->get();
-        $electionCandidates = ElectionCandidate::with('academicSession')->where('academic_session', $current_academic_session_id )->orderBy('position_id')->latest()->get();
-      return view('admin.election.candidates.index', compact('electionCandidates', 'academic_sessions'));
+        if(isset($request->position_id) and $request->position_id !=""){
+            $electionCandidates = ElectionCandidate::with('academicSession')->where('academic_session', $current_academic_session_id )->where('position_id', $request->position_id )->orderBy('position_id')->latest()->get();
+        }else{
+            $electionCandidates = ElectionCandidate::with('academicSession')->where('academic_session', $current_academic_session_id )->orderBy('position_id')->latest()->get();
+        }
+       
+      return view('admin.election.candidates.index', compact('electionCandidates', 'academic_sessions', 'positions'));
     }
 
 
@@ -126,8 +137,20 @@ $current_academic_session_id = $request->id;
             $session_id = AcademicSession::latest()->first();
             $current_academic_session_id = $session_id->id;
         }
+
+        $session_id2 = AcademicSession::latest()->first();
+        $positions =ElectionPosition::where('academic_session',$session_id2->id)->get();
+
+        if(isset($request->position_id) and $request->position_id !=""){
+            $electionCandidates = ElectionCandidate::with('academicSession')->where('academic_session', $current_academic_session_id )->where('position_id', $request->position_id )->orderBy('position_id')->latest()->get();
+        }else{
+            $electionCandidates = ElectionCandidate::with('academicSession')->where('academic_session', $current_academic_session_id )->orderBy('position_id')->latest()->get();
+        }
+       
+
+
         $academic_sessions = AcademicSession::latest()->get();
-        $electionCandidates = ElectionCandidate::with('academicSession')->where('academic_session', $current_academic_session_id )->orderBy('position_id')->latest()->get();
-      return view('member.election.candidates.list', compact('electionCandidates', 'academic_sessions'));
+        
+      return view('member.election.candidates.list', compact('electionCandidates', 'academic_sessions', 'positions'));
     }
 }

@@ -25,7 +25,10 @@ Route::group(['middleware' => 'auth.member'], function () {
   //transactions
   Route::get('/transactions/{purpose}', [TransactionController::class, 'List'])->name('member.transactions');
   Route::get('/transactions/receipt/{receipt}', [TransactionController::class, 'Receipt'])->name('member.transactions.receipt');
+  Route::get('/payment_callback', [TransactionController::class, 'PaymentCallback'])->name('member.payment_callback');
+ 
   Route::get('/blank', [TransactionController::class, 'Blank'])->name('member.blank');
+
 
   //election position routes
 Route::get('/election/positions', [ElectionPositionController::class, 'list'])->name('member.positions.list');
