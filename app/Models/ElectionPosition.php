@@ -13,7 +13,7 @@ class ElectionPosition extends Model
     
     public function candidates()
     {
-        return $this->hasMany(ElectionCandidate::class);
+        return $this->hasMany(ElectionCandidate::class, 'position_id');
     }
 
 

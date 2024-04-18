@@ -13,11 +13,13 @@ class ElectionCandidate extends Model
     
     public function position()
     {
-        return $this->belongsTo(ElectionPosition::class);
+        return $this->belongsTo(ElectionPosition::class, 'position_id');
     }
 
     public function academicSession()
     {
         return $this->belongsTo(academicSession::class, 'academic_session');
     }
+
+   
 }

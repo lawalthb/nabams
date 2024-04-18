@@ -36,7 +36,7 @@ Route::post('/candidates/edit/{id}', [ElectionCandidateController::class, 'updat
 Route::get('/candidates/delete/{id}', [ElectionCandidateController::class, 'destroy'])->name('admin.candidates.delete');
 Route::get('/candidates/getPositionBySession', [ElectionCandidateController::class, 'getPositionBySession'])->name('admin.candidates.getPositionBySession');
 
-Route::post('/vote', [VoteController::class, 'vote'])->name('vote');
+
 
   //website
   Route::get('/website/edit', [LandingpageController::class, 'index'])->name('admin.website');

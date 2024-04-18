@@ -150,11 +150,11 @@ class ElectionPositionController extends Controller
 
         $id = $request->id;
         $ElectionPosition = ElectionPosition::findOrFail($id)->first();
-
+//dd($ElectionPosition);
 
         $election_candidate = new ElectionCandidate();
-        $election_candidate->academic_session = $request->academic_session;
-        $election_candidate->position_id = $request->position_id;
+        $election_candidate->academic_session = $ElectionPosition->academic_session;
+        $election_candidate->position_id = $id;
         $election_candidate->user_id = Auth()->user()->id;
         $election_candidate->name = Auth()->user()->lastname . " " . Auth()->user()->firstname;
         $election_candidate->payment_status ="pending";

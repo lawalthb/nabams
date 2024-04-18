@@ -140,7 +140,7 @@
         <a href="{{route('member.candidates.list')}}">Aspirants</a>
       </li>
       <li>
-        <a href="{{route('member.blank')}}">Vote</a>
+        <a href="{{route('member.election.vote')}}">Vote</a>
       </li>
       <li>
         <a href="{{route('member.blank')}}">Live Results</a>
