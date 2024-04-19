@@ -1,11 +1,11 @@
 <?php
 
+use App\Http\Controllers\Admin\TransactionController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\LandingpageController;
 use App\Http\Controllers\UserController;
-
-
+use App\Http\Controllers\VoteController;
 
 //visitors and auth
 Route::group(['middleware' => 'guest'], function () {
@@ -21,6 +21,17 @@ Route::group(['middleware' => 'guest'], function () {
 
 Route::get('/logout_new', [AuthController::class, 'Logout_new'])->name('logout_new');
 
+
+//route to vote for contestant
+Route::get('/vote/{slug}', [VoteController::class, 'ContestVote'])->name('vote');
+Route::get('payment/{contestant}', [VoteController::class, 'ContestVotePayment'])->name('payment');
+
+Route::post('vote/process', [VoteController::class, 'processPayment'])->name('vote.payment.process');
+Route::get('/payment_callback', [TransactionController::class, 'PaymentCallback'])->name('payment_callback');
+ 
+Route::get('thankyou', function () {
+    return view('thankyou');
+})->name('thankyou');
 require __DIR__ . '/admin_routes.php';
 
 require __DIR__ . '/member_routes.php';

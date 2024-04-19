@@ -38,7 +38,7 @@ class UserController extends Controller
             $manager = new ImageManager(new Driver());
             $name_gen = hexdec(uniqid()) . '.' .  $new_image->getClientOriginalExtension();
             $img = $manager->read($new_image);
-            $img = $img->resize(90, 90);
+            $img = $img->resize(500, 600);
             $img->toJpeg(80)->save(base_path('public/profile_images/' .   $name_gen));
             $save_url = 'profile_images/' .   $name_gen;
         } else {

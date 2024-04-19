@@ -3,8 +3,12 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\ContestantCandidate;
+use App\Models\ContestVote;
 use App\Models\Transactions;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class TransactionController extends Controller
 {
@@ -72,7 +76,7 @@ class TransactionController extends Controller
             echo "cURL Error #:" . $err;
         } else {
             $response;
-            dd($response);
+            //dd($response);
             $data = json_decode($response, true);
             if ($data) {
                 $updatedRecord =  Transactions::where('reference', $reference)->update([
@@ -85,6 +89,24 @@ class TransactionController extends Controller
 
 
                 ]);
+               
+                if($updatedRecord){
+                    $trans =  Transactions::where('reference', $reference)->where('purpose', 'contest fee')->first();
+                  
+                   $vote_paid=  ContestVote::where('id', $trans->purpose_id)->update([
+
+                        'payment_status' => 'approved',
+
+                    ]);
+                    if($vote_paid){
+                        $candidate =ContestVote::where('id', $trans->purpose_id)->first();
+                        $votePaid = ContestantCandidate::find( $candidate->candidate_id);
+$newVotes = $votePaid->votes + $candidate->vote_number;
+
+$votePaid->update(['votes' => $newVotes]);
+                        
+                    }
+                }
             }
         }
         $user_id = Transactions::where('reference', $reference)->value('user_id');
@@ -98,7 +120,7 @@ class TransactionController extends Controller
             // Redirect the user after successful login
             return redirect('/home');
         } else {
-            // Handle the case where the user with the specified ID does not exist
+            return redirect('/home');
         }
 
         //return redirect()->away(url('/user/order/page#no'));
