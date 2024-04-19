@@ -9,6 +9,7 @@ use App\Models\AcademicSession;
 use App\Models\ContestantPosition;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 class ContestantCandidateController extends Controller
 {
@@ -56,12 +57,15 @@ class ContestantCandidateController extends Controller
      */
     public function store(Request $request)
     {
-       
+       $slug = Str::slug($request->name);
+       $vote_link = url("vote/$slug");
         $Contestant_candidate = new ContestantCandidate();
         $Contestant_candidate->academic_session = $request->academic_session;
         $Contestant_candidate->position_id = $request->position_id;
         $Contestant_candidate->user_id = $request->user_id;
         $Contestant_candidate->name = $request->name;
+        $Contestant_candidate->slug = $slug;
+        $Contestant_candidate->vote_link = $vote_link;
         $Contestant_candidate->payment_status ="approved";
         $Contestant_candidate->save();
     

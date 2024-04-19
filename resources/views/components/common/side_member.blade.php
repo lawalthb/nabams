@@ -177,7 +177,7 @@
         <a href="{{route('member.contest.positions.list')}}">Positions</a>
       </li>
       <li>
-        <a href="{{route('member.blank')}}">Contestants</a>
+        <a href="{{route('member.contest.candidates.list')}}">Contestants</a>
       </li>
       <li>
         <a href="{{route('member.blank')}}">Vote</a>

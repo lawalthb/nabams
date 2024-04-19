@@ -71,6 +71,7 @@
       <th>Academic Session</th>
       <th>Position</th>
       <th>Name</th>
+      <th>Vote Link</th>
     
       <th>Votes</th>
       <th>Action</th>
@@ -87,6 +88,7 @@
       <td>{{$ContestantCandidate['academicSession']['session_name']}}</td>
       <td>{{$ContestantCandidate['position']['name']}}</td>
       <td>{{$ContestantCandidate->name}}</td>
+      <td>{{$ContestantCandidate->vote_link}}</td>
       
       <td>{{$ContestantCandidate->votes}}</td>
      
