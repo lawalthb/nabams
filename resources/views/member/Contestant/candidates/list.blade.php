@@ -87,9 +87,9 @@
       <td>{{$ContestantCandidate['academicSession']['session_name']}}</td>
       <td>{{$ContestantCandidate['position']['name']}}</td>
       <td>{{$ContestantCandidate->name}}</td>
-      <td>{{$ContestantCandidate->vote_link}}</td>
+      <td><a href="{{$ContestantCandidate->vote_link}}" target="_blank">{{$ContestantCandidate->vote_link}}</a></td>
       
-      <td>{{$ContestantCandidate->votes}}</td>
+      <td> {{$ContestantCandidate->votes}}</td>
      
 
     </tr>
