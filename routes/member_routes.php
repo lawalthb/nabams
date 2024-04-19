@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Member\TransactionController;
 use App\Http\Controllers\Auth\AuthController;
+use App\Http\Controllers\ContestantPositionController;
 use App\Http\Controllers\ElectionCandidateController;
 use App\Http\Controllers\ElectionPositionController;
 use App\Http\Controllers\UserController;
@@ -40,4 +41,11 @@ Route::get('/candidates', [ElectionCandidateController::class, 'list'])->name('m
 //votes
 Route::post('/election/vote', [VoteController::class, 'vote'])->name('member.election.vote');
 Route::get('/election/vote', [VoteController::class, 'index'])->name('member.election.vote');
+
+
+
+//contestants positions route
+
+Route::get('/contest/positions', [ContestantPositionController::class, 'list'])->name('member.contest.positions.list');
+
 });

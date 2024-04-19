@@ -3,6 +3,8 @@
 use App\Http\Controllers\Admin\LandingpageController;
 use App\Http\Controllers\Admin\TransactionController;
 use App\Http\Controllers\Auth\AuthController;
+use App\Http\Controllers\ContestantCandidateController;
+use App\Http\Controllers\ContestantPositionController;
 use App\Http\Controllers\ElectionCandidateController;
 use App\Http\Controllers\ElectionPositionController;
 use App\Http\Controllers\VoteController;
@@ -35,6 +37,25 @@ Route::get('/candidates/edit/{id}', [ElectionCandidateController::class, 'edit']
 Route::post('/candidates/edit/{id}', [ElectionCandidateController::class, 'update'])->name('admin.candidates.update');
 Route::get('/candidates/delete/{id}', [ElectionCandidateController::class, 'destroy'])->name('admin.candidates.delete');
 Route::get('/candidates/getPositionBySession', [ElectionCandidateController::class, 'getPositionBySession'])->name('admin.candidates.getPositionBySession');
+
+//contestants positions route
+
+Route::get('/contest/positions', [ContestantPositionController::class, 'index'])->name('admin.contest.positions.index');
+Route::get('/contest/positions/add', [ContestantPositionController::class, 'create'])->name('admin.contest.positions.create');
+Route::post('/contest/positions/add', [ContestantPositionController::class, 'store'])->name('admin.contest.positions.store');
+Route::get('/contest/positions/edit/{id}', [ContestantPositionController::class, 'edit'])->name('admin.contest.positions.edit');
+Route::post('/contest/positions/edit/{id}', [ContestantPositionController::class, 'update'])->name('admin.contest.positions.update');
+Route::get('/contest/positions/delete/{id}', [ContestantPositionController::class, 'destroy'])->name('admin.contest.positions.delete');
+
+//contest candidate routes
+Route::get('/contest/candidates', [ContestantCandidateController::class, 'index'])->name('admin.contest.candidates.index');
+Route::get('/contest/candidates/add', [ContestantCandidateController::class, 'create'])->name('admin.contest.candidates.create');
+Route::post('/contest/candidates/add', [ContestantCandidateController::class, 'store'])->name('admin.contest.candidates.store');
+Route::get('/contest/candidates/edit/{id}', [ContestantCandidateController::class, 'edit'])->name('admin.contest.candidates.edit');
+Route::post('/contest/candidates/edit/{id}', [ContestantCandidateController::class, 'update'])->name('admin.contest.candidates.update');
+Route::get('/contest/candidates/delete/{id}', [ContestantCandidateController::class, 'destroy'])->name('admin.contest.candidates.delete');
+Route::get('/contest/candidates/getPositionBySession', [ContestantCandidateController::class, 'getPositionBySession'])->name('admin.contest.candidates.getPositionBySession');
+
 
 
 
