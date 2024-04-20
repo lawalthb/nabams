@@ -36,10 +36,11 @@ class ResourceController extends Controller
         $resource->title = $request->title;
         $resource->description = $request->description;
         
-        // Save file in public/resources directory
-        $path = $request->file('file_path')->storeAs('public/resources', $request->file('file_path')->getClientOriginalName());
-        $resource->file_path = str_replace('public/', '', $path);
-        
+       
+       $fileName = time().uniqid().".".$request->file('file_path')->getClientOriginalExtension();
+       $request->file('file_path')->move(public_path('resources'), $fileName);
+       $resource->file_path = 'resources/' . $fileName;
+      
         $resource->category_id = $request->category_id;
         $resource->price = $request->price;
         $resource->save();
@@ -55,8 +56,9 @@ class ResourceController extends Controller
 
     public function edit($id)
     {
+        $categories = Category::all();
         $resource = Resource::findOrFail($id);
-        return view('resources.edit', compact('resource'));
+        return view('resources.edit', compact('resource','categories'));
     }
 
     public function update(Request $request, $id)
@@ -65,7 +67,7 @@ class ResourceController extends Controller
             'title' => 'required|string|max:255',
             'description' => 'required|string',
             'file_path' => 'nullable|file',
-            'type' => 'required|string',
+            
             'price' => 'nullable|numeric',
         ]);
 
@@ -74,10 +76,12 @@ class ResourceController extends Controller
         $resource->description = $request->description;
         
         if ($request->hasFile('file_path')) {
-            $resource->file_path = $request->file('file_path')->store('resources');
+            $fileName = time().uniqid().".".$request->file('file_path')->getClientOriginalExtension();
+            $request->file('file_path')->move(public_path('resources'), $fileName);
+            $resource->file_path = 'resources/' . $fileName;
         }
         
-        $resource->type = $request->type;
+        $resource->category_id = $request->category_id;
         $resource->price = $request->price;
         $resource->save();
 

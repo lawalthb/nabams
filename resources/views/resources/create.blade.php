@@ -56,7 +56,7 @@
     <div>
             <label for="ctnSelect1">Select Category </label>
             <select  name="category_id" id="category_id" class="form-select text-white-dark" required>
-                
+                <option>Choose Category</option>
                 
                 @foreach ($categories as $category)
                 <option value="{{$category->id}}">{{$category->name}}</option>
@@ -81,7 +81,7 @@
             <input id="ctnFile" name="file_path" type="file" class="form-input file:py-2 file:px-4 file:border-0 file:font-semibold p-0 file:bg-primary/90 ltr:file:mr-5 rtl:file:ml-5 file:text-white file:hover:bg-primary" required />
         </div>
         <div>
-        <label for="ctnSelect1">Price:</label>
+        <label for="ctnSelect1">Price (₦):</label>
        
         <input type="number" id="price" placeholder="leave blank, if is free"  name="price" class="form-input"  />
             

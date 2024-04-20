@@ -99,7 +99,7 @@
     </button>
     <ul x-cloak x-show="activeDropdown === 'resources'" x-collapse class="sub-menu text-gray-500">
       <li>
-        <a href="{{route('admin.blank')}}">Add New</a>
+        <a href="{{route('resources.create')}}">Add New</a>
       </li>
 
       <li>
