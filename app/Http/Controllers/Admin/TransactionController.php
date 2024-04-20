@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\ContestantCandidate;
 use App\Models\ContestVote;
+use App\Models\ResourcesPaid;
 use App\Models\Transactions;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -91,20 +92,32 @@ class TransactionController extends Controller
                 ]);
                
                 if($updatedRecord){
-                    $trans =  Transactions::where('reference', $reference)->where('purpose', 'contest fee')->first();
-                  
-                   $vote_paid=  ContestVote::where('id', $trans->purpose_id)->update([
+                    $contest =  Transactions::where('reference', $reference)->where('purpose', 'contest fee')->first();
+                    $resource =  Transactions::where('reference', $reference)->where('purpose', 'resource fee')->first();
+                  if($contest){
+                    $vote_paid=  ContestVote::where('id', $contest->purpose_id)->update([
 
                         'payment_status' => 'approved',
 
                     ]);
                     if($vote_paid){
-                        $candidate =ContestVote::where('id', $trans->purpose_id)->first();
+                        $candidate =ContestVote::where('id', $contest->purpose_id)->first();
                         $votePaid = ContestantCandidate::find( $candidate->candidate_id);
-$newVotes = $votePaid->votes + $candidate->vote_number;
+                            $newVotes = $votePaid->votes + $candidate->vote_number;
 
-$votePaid->update(['votes' => $newVotes]);
+                        $votePaid->update(['votes' => $newVotes]);
                         
+                    }
+                  }
+                   
+                    
+
+                    if($resource){
+                        $resource_paid=  ResourcesPaid::where('id', $resource->purpose_id)->update([
+
+                            'payment_status' => 'approved',
+    
+                        ]);
                     }
                 }
             }

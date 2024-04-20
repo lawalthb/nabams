@@ -50,15 +50,28 @@
         <div class="px-5">
         <b style="font-size:larger;"> Resources</b>
         <hr  ><br />
-        <a href="{{route('resources.create')}}"><button type="button" style="border-width: 10px;" class=" btn-primary mt-6 mb-3">Add New</button></a>
        
-            <select id="ctnSelect1" name="category" onchange="searchBy(this)">
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+            <div>
+            <select class="form-select form-select-lg text-white-dark">
             <option>Select Category</option>
             @foreach ($categories as $category)
                 <option value="{{$category->id}}">{{$category->name}}</option>
                 @endforeach
             </select>
+           
+            </div>
+           
+            <div style="margin-top: -15px;">
+            <a href="{{route('resources.create')}}">  <button type="button" class="btn btn-primary mt-6">Add New</button></a>
+            </div>
+            <div>
+            
+            </div>
+            
+        </div>
         
+      
         <table class="table-auto">
   <thead>
     <tr>
@@ -68,8 +81,11 @@
       <th>Descriptions</th>
       <th>Price</th>
       <th>Published</th>
-      
+      <th>File</th>
+      @if (auth()->user()->role =='Admin')
       <th>Action</th>
+      @endif
+      
     </tr>
   </thead>
   <tbody>
@@ -81,15 +97,20 @@
     <td> {{ $key+1 }} </td> 
     <td>{{$resource->categories->name}}</td>
       <td> {{ $resource->title }}</td>
-      <td> {{ $resource->description }}</td>
+      <td> {{$resource->description}}</td>
       <td>@if ($resource->price  == NULL)
           Free
           @else
           ₦{{ $resource->price }}
       @endif</td>
       <td> {{ $resource->published }}</td>
+      <td> @if ($resource->price  == NULL)
+      <a href="{{asset($resource->file_path)}}" target="_blank" >Download</a>
+          @else
+          <a href="{{route('resources.purchase', $resource->id )}}" onclick="return confirmBuyResource();" >Pay to download </a>
+      @endif </td>
       
-     
+      @if (auth()->user()->role =='Admin')
       <td class="p-3 border-b border-[#ebedf2] dark:border-[#191e3a] text-center">
                                             <button type="button" x-tooltip="Edit">
 
@@ -119,6 +140,7 @@
  </button>
  </form>
 </td>
+@endif
     </tr>
     @endforeach
   </tbody>

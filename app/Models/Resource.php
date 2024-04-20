@@ -16,4 +16,13 @@ class Resource extends Model
     }
     
 
+    // public function setDescriptionAttribute($value)
+    // {
+    //     $this->attributes['description'] = strlen($value) > 100 ? substr($value, 0, 100) . '...' : $value;
+    // }
+    public function getDescriptionAttribute($value)
+    {
+        return strlen($value) > 100 ? substr($value, 0, 100) . '...' : $value;
+    }
+
 }

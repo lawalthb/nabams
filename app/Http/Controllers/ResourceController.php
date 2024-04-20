@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use App\Models\Resource;
+use App\Models\ResourcesPaid;
+use App\Models\Transactions;
+use GuzzleHttp\Client;
 use Illuminate\Http\Request;
 
 class ResourceController extends Controller
@@ -94,6 +97,61 @@ class ResourceController extends Controller
         $resource->delete();
 
         return redirect()->route('resources.index')->with('success', 'Resource deleted successfully!');
+    }
+
+    public function list()
+    {
+        $categories = Category::all();
+        $resources = Resource::with('categories')->get();
+        return view('resources.index', compact('resources','categories'));
+    }
+
+    public function purchase(Request $request)
+    {
+        $id = $request->id;
+        $Resource = Resource::findOrFail($id)->first();
+
+        $ResourcesPaid = new ResourcesPaid();
+        $ResourcesPaid->amount = $Resource->price;
+        $ResourcesPaid->resources_id = $Resource->id;
+        $ResourcesPaid->user_id = Auth()->user()->id;
+        $ResourcesPaid->payment_status ="pending";
+        $ResourcesPaid->save();
+
+        $lastInsertedId = $ResourcesPaid->id;
+       $callback_url = route('payment_callback');
+      
+       $client = new Client();
+       $response = $client->post('https://api.paystack.co/transaction/initialize', [
+           'headers' => [
+               'Authorization' => 'Bearer ' .  env('PAYSTACK_SECRET_KEY'),
+               'Content-Type' => 'application/json',
+           ],
+           'json' => [
+               'amount' => $Resource->price * 100,
+               'email' => Auth()->user()->email,
+               'callback_url' => $callback_url,
+               
+
+           ],
+       ]);
+       $data = json_decode($response->getBody(), true);
+       Transactions::create([
+           'user_id' => Auth()->user()->id,
+           'purpose' => 'resource fee',
+           'purpose_id' => $lastInsertedId,
+           'email' =>  Auth()->user()->email,
+           'amount' => $Resource->price,
+           'fullname' =>  Auth()->user()->lastname . " " . Auth()->user()->firstname,
+           'phone_number' =>  Auth()->user()->phone,
+           'callback_url' => $callback_url,
+           'reference' => $data['data']['reference'],
+           'authorization_url' => $data['data']['authorization_url'],
+       ]);
+       $payment_link = $data['data']['authorization_url'];
+
+      
+       return redirect($payment_link );
     }
 
 

@@ -6,6 +6,7 @@ use App\Http\Controllers\ContestantCandidateController;
 use App\Http\Controllers\ContestantPositionController;
 use App\Http\Controllers\ElectionCandidateController;
 use App\Http\Controllers\ElectionPositionController;
+use App\Http\Controllers\ResourceController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\VoteController;
 use App\Models\ElectionCandidate;
@@ -52,5 +53,8 @@ Route::get('/contest/positions', [ContestantPositionController::class, 'list'])-
 //contest candidate routes
 Route::get('/contest/candidates', [ContestantCandidateController::class, 'list'])->name('member.contest.candidates.list');
 
+// resources
+Route::get('/resources/list', [ResourceController::class, 'list'])->name('resources.list');
+Route::get('/resources/purchase/{id}', [ResourceController::class, 'purchase'])->name('resources.purchase');
 
 });

@@ -10,6 +10,10 @@
     function confirmBuyform() {
         return confirm('Are you sure you want to purchase this form?');
     }
+
+    function confirmBuyResource() {
+        return confirm('Are you sure you want to purchase this Resource?');
+    }
 </script>
 
 

@@ -96,7 +96,7 @@
     </button>
     <ul x-cloak x-show="activeDropdown === 'resources'" x-collapse class="sub-menu text-gray-500">
       <li>
-        <a href="{{route('member.blank')}}">All</a>
+        <a href="{{route('resources.list')}}">All</a>
       </li>
       <li>
         <a href="{{route('member.blank')}}">Free</a>
@@ -105,7 +105,7 @@
         <a href="{{route('member.blank')}}">Paid For</a>
       </li>
       <li>
-        <a href="{{route('member.blank')}}">Resources</a>
+        <a href="{{route('member.blank')}}">Categories</a>
       </li>
 
     </ul>
