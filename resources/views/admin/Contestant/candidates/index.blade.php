@@ -14,10 +14,7 @@
   </button>
 </span>
 
-
-
 @endif
-
 
 @if ($errors->any())
     <div >
@@ -69,7 +66,7 @@
     <tr>
       <th>SN</th>
       <th>Academic Session</th>
-      <th>Position</th>
+      <th>Category</th>
       <th>Name</th>
       <th>Vote Link</th>
     

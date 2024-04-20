@@ -174,7 +174,7 @@
     </button>
     <ul x-cloak x-show="activeDropdown === 'contest'" x-collapse class="sub-menu text-gray-500">
       <li>
-        <a href="{{route('member.contest.positions.list')}}">Positions</a>
+        <a href="{{route('member.contest.positions.list')}}">Category</a>
       </li>
       <li>
         <a href="{{route('member.contest.candidates.list')}}">Contestants</a>

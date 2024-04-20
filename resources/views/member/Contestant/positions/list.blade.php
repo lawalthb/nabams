@@ -40,7 +40,7 @@
           <a href="javascript:;" class="text-primary hover:underline">Contestant</a>
         </li>
         <li class="before:content-['/'] ltr:before:mr-1 rtl:before:ml-1">
-          <span>List of Constants</span>
+          <span>List of Categories</span>
         </li>
 
 

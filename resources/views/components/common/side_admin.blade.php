@@ -103,7 +103,7 @@
       </li>
 
       <li>
-        <a href="{{route('admin.blank')}}">All</a>
+        <a href="{{route('resources.index')}}">All</a>
       </li>
       <li>
         <a href="{{route('admin.blank')}}">Free</a>
@@ -112,7 +112,7 @@
         <a href="{{route('admin.blank')}}">Paid For</a>
       </li>
       <li>
-        <a href="{{route('admin.blank')}}">Resources</a>
+        <a href="{{route('admin.blank')}}">Categories</a>
       </li>
 
     </ul>
@@ -156,13 +156,6 @@
     </ul>
   </li>
 
-
-
-
-
-
-
-
   <li class="menu nav-item">
     <button type="button" class="nav-link group" :class="{ 'active': activeDropdown === 'contest' }" @click="activeDropdown === 'contest' ? activeDropdown = null : activeDropdown = 'contest'">
       <div class="flex items-center">
@@ -181,7 +174,7 @@
     </button>
     <ul x-cloak x-show="activeDropdown === 'contest'" x-collapse class="sub-menu text-gray-500">
       <li>
-        <a href="{{route('admin.contest.positions.index')}}">Positions</a>
+        <a href="{{route('admin.contest.positions.index')}}">Category</a>
       </li>
       <li>
         <a href="{{route('admin.contest.candidates.index')}}">Contestants</a>

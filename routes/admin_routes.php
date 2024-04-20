@@ -7,6 +7,7 @@ use App\Http\Controllers\ContestantCandidateController;
 use App\Http\Controllers\ContestantPositionController;
 use App\Http\Controllers\ElectionCandidateController;
 use App\Http\Controllers\ElectionPositionController;
+use App\Http\Controllers\ResourceController;
 use App\Http\Controllers\VoteController;
 use Illuminate\Support\Facades\Route;
 
@@ -56,7 +57,14 @@ Route::post('/contest/candidates/edit/{id}', [ContestantCandidateController::cla
 Route::get('/contest/candidates/delete/{id}', [ContestantCandidateController::class, 'destroy'])->name('admin.contest.candidates.delete');
 Route::get('/contest/candidates/getPositionBySession', [ContestantCandidateController::class, 'getPositionBySession'])->name('admin.contest.candidates.getPositionBySession');
 
-
+//resources routes
+Route::get('/resources/create', [ResourceController::class, 'create'])->name('resources.create');
+Route::post('/resources', [ResourceController::class, 'store'])->name('resources.store');
+Route::get('/resources/{id}', [ResourceController::class, 'show'])->name('resources.show');
+Route::get('/resources/{id}/edit', [ResourceController::class, 'edit'])->name('resources.edit');
+Route::put('/resources/{id}', [ResourceController::class, 'update'])->name('resources.update');
+Route::delete('/resources/{id}', [ResourceController::class, 'destroy'])->name('resources.destroy');
+Route::get('/resources', [ResourceController::class, 'index'])->name('resources.index');
 
 
   //website
