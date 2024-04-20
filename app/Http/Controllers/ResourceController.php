@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use App\Models\Resource;
 use Illuminate\Http\Request;
 
@@ -9,14 +10,16 @@ class ResourceController extends Controller
 {
     public function index()
     {
-        $resources = Resource::all();
-        return view('resources.index', compact('resources'));
+        $categories = Category::all();
+        $resources = Resource::with('categories')->get();
+        return view('resources.index', compact('resources','categories'));
     }
 
 
     public function create()
-    {
-        return view('resources.create');
+    {  
+         $categories = Category::all();
+        return view('resources.create', compact('categories'));
     }
 
     public function store(Request $request)
@@ -25,15 +28,19 @@ class ResourceController extends Controller
             'title' => 'required|string|max:255',
             'description' => 'required|string',
             'file_path' => 'required|file',
-            'type' => 'required|string',
+           
             'price' => 'nullable|numeric',
         ]);
 
         $resource = new Resource();
         $resource->title = $request->title;
         $resource->description = $request->description;
-        $resource->file_path = $request->file('file_path')->store('resources');
-        $resource->type = $request->type;
+        
+        // Save file in public/resources directory
+        $path = $request->file('file_path')->storeAs('public/resources', $request->file('file_path')->getClientOriginalName());
+        $resource->file_path = str_replace('public/', '', $path);
+        
+        $resource->category_id = $request->category_id;
         $resource->price = $request->price;
         $resource->save();
 
