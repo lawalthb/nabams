@@ -8,6 +8,7 @@ use App\Http\Controllers\ContestantPositionController;
 use App\Http\Controllers\ElectionCandidateController;
 use App\Http\Controllers\ElectionPositionController;
 use App\Http\Controllers\ResourceController;
+use App\Http\Controllers\UserController;
 use App\Http\Controllers\VoteController;
 use Illuminate\Support\Facades\Route;
 
@@ -21,6 +22,9 @@ Route::prefix('admin')->middleware('auth.member', 'admin')->group(function () {
   Route::get('/transactions', [TransactionController::class, 'List'])->name('admin.transactions');
   Route::get('/blank', [TransactionController::class, 'Blank'])->name('admin.blank');
 
+
+    //users management routes
+    Route::get('/users', [UserController::class, 'index'])->name('admin.users.index');
 
 //election position routes
 Route::get('/positions', [ElectionPositionController::class, 'index'])->name('admin.positions.index');

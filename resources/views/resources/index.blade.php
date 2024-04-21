@@ -61,12 +61,12 @@
             </select>
            
             </div>
-           
+            @if (auth()->user()->role =='Admin')
             <div style="margin-top: -15px;">
             <a href="{{route('resources.create')}}">  <button type="button" class="btn btn-primary mt-6">Add New</button></a>
             </div>
             <div>
-            
+            @endif
             </div>
             
         </div>

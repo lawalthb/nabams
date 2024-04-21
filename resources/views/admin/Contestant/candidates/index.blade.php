@@ -55,7 +55,7 @@
                 @endforeach
             </select>
             <select id="" name="academic_session" onchange="searchByPosition(this)">
-            <option>Select Position</option>
+            <option>Select Category</option>
                 @foreach ($positions as $position)
                 <option value="{{$position->id}}">{{$position->name}}</option>
                 @endforeach
@@ -139,7 +139,7 @@
         var selectedValue = select.value;
 //alert(selectedValue);
        
-        window.location.href = "{{route('admin.candidates.index')}}?id=" + selectedValue; // Replace "/your-route/" with the actual route
+        window.location.href = "{{route('admin.contest.candidates.index')}}?id=" + selectedValue; // Replace "/your-route/" with the actual route
     }
 
     function searchByPosition(select) {
@@ -147,7 +147,7 @@
         var selectedValue = select.value;
 //alert(selectedValue);
        
-        window.location.href = "{{route('admin.candidates.index')}}?position_id=" + selectedValue; // Replace "/your-route/" with the actual route
+        window.location.href = "{{route('admin.contest.candidates.index')}}?position_id=" + selectedValue; // Replace "/your-route/" with the actual route
     }
 </script>
 

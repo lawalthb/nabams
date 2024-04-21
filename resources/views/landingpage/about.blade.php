@@ -1,14 +1,14 @@
 
 @php
 $abouts = App\Models\Webabouts::where('id', 1)->first();
-
+$header = App\Models\WebHeaders::where('id', 1)->first();
 @endphp
 <!-- ======= About Us Section ======= -->
 <section id="about" class="about">
   <div class="container" data-aos="fade-up">
 
     <div class="section-title">
-      <h2>About Association Name</h2>
+      <h2>About {{$header->site_name}}</h2>
       <p>{{$abouts->text}}</p>
     </div>
 
@@ -20,6 +20,8 @@ $abouts = App\Models\Webabouts::where('id', 1)->first();
       {!!$abouts->body!!}
       </div>
     </div>
-
+    
+    {!!$abouts->custom!!}
   </div>
+  
 </section><!-- End About Us Section -->

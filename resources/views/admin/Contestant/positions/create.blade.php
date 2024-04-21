@@ -67,10 +67,15 @@
         <input type="text" placeholder="e.g: Most Playful" name="name" class="form-input" required />
         </div>
 
+        <div>
+        <label for="ctnSelect1">one vote Price</label>
+        <input type="number"  name="price" value="300" mim="100" class="form-input" required />
+        </div>
+
        
 
         <div>
-        <label for="ctnSelect1">Arrangement post</label>
+        <label for="ctnSelect1">Order</label>
         <input type="number" min="1" max="50" value="1" name="order_no" class="form-input" required />
         </div>
         

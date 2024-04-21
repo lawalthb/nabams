@@ -135,6 +135,7 @@ class ContestantCandidateController extends Controller
     //list for member
     public function list(Request $request)
     {
+        
         if(isset($request->id) and $request->id !=""){
             $current_academic_session_id = $request->id;
         }else{

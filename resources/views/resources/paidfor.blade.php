@@ -40,45 +40,80 @@
           <a href="javascript:;" class="text-primary hover:underline">Contestant</a>
         </li>
         <li class="before:content-['/'] ltr:before:mr-1 rtl:before:ml-1">
-          <span>List of Categories</span>
+          <span>My Resources</span>
         </li>
 
 
       </ul>
      
-      <div class="panel px-0 border-[#e0e6ed] dark:border-[#1b2e4b]">
+      <div class="panel px-0 border-[#e0e6ed] dark:border-[#1b2e4b]" style="overflow: auto;">
         <div class="px-5">
-
-      
+        <b style="font-size:larger;"> My Resources</b>
+        <hr  ><br />
        
-            <select id="ctnSelect1" name="academic_session" onchange="searchBy(this)">
-            <option>Select Academic Section</option>
-                @foreach ($academic_sessions as $academic_session)
-                <option value="{{$academic_session->id}}">{{$academic_session->session_name}}</option>
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+            <div>
+            <select class="form-select form-select-lg text-white-dark">
+            <option>Select Category</option>
+            @foreach ($categories as $category)
+                <option value="{{$category->id}}">{{$category->name}}</option>
                 @endforeach
             </select>
+           
+            </div>
+           
+           
+            <div>
+            
+            </div>
+            
+        </div>
         
+      
         <table class="table-auto">
   <thead>
     <tr>
       <th>SN</th>
-      <th>Academic Session</th>
-      <th>Category</th>
-      
     
+      <th>Title</th>
+      <th>Amount</th>
+      <th>Payment Status</th>
+     
+      <th>Download</th>
+      @if (auth()->user()->role =='Admin')
+      <th>Action</th>
+      @endif
+      
     </tr>
   </thead>
   <tbody>
    
-    @foreach ( $ContestantPositions as  $key =>  $ContestantPosition )
+    @foreach ( $resources_paids as  $key =>  $resources_paid )
         
    
     <tr>
     <td> {{ $key+1 }} </td> 
-      <td>{{$ContestantPosition['academicSession']['session_name']}}</td>
-      <td>{{$ContestantPosition->name}}</td>
-     
+    <td>{{$resources_paid->resources->title}}</td>
+    <td>₦{{$resources_paid->amount}}</td>
+    <td>{{$resources_paid->payment_status}}</td>
+   
+    
       
+      
+    
+      <td class="p-3 border-b border-[#ebedf2] dark:border-[#191e3a] text-center">
+                                          
+                                            <form method="POST" action="{{ route('resources.download', $resources_paid->id) }}">
+                    @csrf
+                 <input type="hidden" name="token" value="{{$resources_paid->token}}">
+                                            <button  type="submit" x-tooltip="Click to download">
+                                           
+     Download
+ </a>
+ </button>
+ </form>
+</td>
+
     </tr>
     @endforeach
   </tbody>

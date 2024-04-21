@@ -55,6 +55,8 @@ Route::get('/contest/candidates', [ContestantCandidateController::class, 'list']
 
 // resources
 Route::get('/resources/list', [ResourceController::class, 'list'])->name('resources.list');
+Route::get('/resources/my_resources', [ResourceController::class, 'paidfor'])->name('resources.paidfor');
 Route::get('/resources/purchase/{id}', [ResourceController::class, 'purchase'])->name('resources.purchase');
+Route::post('/resources/download/{id}', [ResourceController::class, 'download'])->name('resources.download');
 
 });

@@ -10,4 +10,12 @@ class ResourcesPaid extends Model
     use HasFactory;
 
     protected $guarded = [];
+
+
+    public function resources()
+    {
+        return $this->belongsTo(Resource::class, 'resources_id');
+    }
+
+
 }

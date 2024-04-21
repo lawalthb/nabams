@@ -99,11 +99,9 @@
         <a href="{{route('resources.list')}}">All</a>
       </li>
       <li>
-        <a href="{{route('member.blank')}}">Free</a>
+        <a href="{{route('resources.paidfor')}}">My Resouces</a>
       </li>
-      <li>
-        <a href="{{route('member.blank')}}">Paid For</a>
-      </li>
+    
       <li>
         <a href="{{route('member.blank')}}">Categories</a>
       </li>
@@ -245,7 +243,7 @@
 
 
 
-  <li class="menu nav-item">
+  <!-- <li class="menu nav-item">
     <button type="button" class="nav-link group" :class="{ 'active': activeDropdown === 'invoice' }" @click="activeDropdown === 'invoice' ? activeDropdown = null : activeDropdown = 'invoice'">
       <div class="flex items-center">
         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -263,11 +261,11 @@
 
     </button>
 
-  </li>
+  </li> -->
 
 
 
-  <li class="menu nav-item">
+  <!-- <li class="menu nav-item">
     <button type="button" class="nav-link group" :class="{ 'active': activeDropdown === 'invoice' }" @click="activeDropdown === 'invoice' ? activeDropdown = null : activeDropdown = 'invoice'">
       <div class="flex items-center">
         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -288,11 +286,11 @@
 
     </button>
 
-  </li>
+  </li> -->
 
 
 
-  <li class="menu nav-item">
+  <!-- <li class="menu nav-item">
     <button type="button" class="nav-link group" :class="{ 'active': activeDropdown === 'invoice' }" @click="activeDropdown === 'invoice' ? activeDropdown = null : activeDropdown = 'invoice'">
       <div class="flex items-center">
         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -309,7 +307,7 @@
 
     </button>
 
-  </li>
+  </li> -->
 
 
 

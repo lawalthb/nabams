@@ -202,7 +202,7 @@
         </svg>
 
 
-        <span class="ltr:pl-3 rtl:pr-3 text-black dark:text-[#506690] dark:group-hover:text-white-dark">Manage Admins</span>
+        <span class="ltr:pl-3 rtl:pr-3 text-black dark:text-[#506690] dark:group-hover:text-white-dark">Manage Users</span>
       </div>
       <div class="rtl:rotate-180" :class="{ '!rotate-90': activeDropdown === 'admins' }">
 
@@ -213,13 +213,13 @@
     </button>
     <ul x-cloak x-show="activeDropdown === 'admins'" x-collapse class="sub-menu text-gray-500">
       <li>
-        <a href="{{route('admin.blank')}}">All Admins</a>
+        <a href="{{route('admin.users.index')}}">Members & Admins</a>
       </li>
       <li>
-        <a href="{{route('admin.blank')}}">Banned Admins</a>
+        <a href="{{route('admin.blank')}}">Banned Users</a>
       </li>
       <li>
-        <a href="{{route('admin.blank')}}">Inactive Admins</a>
+        <a href="{{route('admin.blank')}}">Inactive Users</a>
       </li>
 
 
@@ -227,42 +227,7 @@
   </li>
 
 
-  <li class="menu nav-item">
-    <button type="button" class="nav-link group" :class="{ 'active': activeDropdown === 'members' }" @click="activeDropdown === 'members' ? activeDropdown = null : activeDropdown = 'members'">
-      <div class="flex items-center">
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <circle cx="12" cy="6" r="4" stroke="#1C274C" stroke-width="1.5" />
-          <path d="M18 9C19.6569 9 21 7.88071 21 6.5C21 5.11929 19.6569 4 18 4" stroke="#1C274C" stroke-width="1.5" stroke-linecap="round" />
-          <path d="M6 9C4.34315 9 3 7.88071 3 6.5C3 5.11929 4.34315 4 6 4" stroke="#1C274C" stroke-width="1.5" stroke-linecap="round" />
-          <ellipse cx="12" cy="17" rx="6" ry="4" stroke="#1C274C" stroke-width="1.5" />
-          <path d="M20 19C21.7542 18.6153 23 17.6411 23 16.5C23 15.3589 21.7542 14.3847 20 14" stroke="#1C274C" stroke-width="1.5" stroke-linecap="round" />
-          <path d="M4 19C2.24575 18.6153 1 17.6411 1 16.5C1 15.3589 2.24575 14.3847 4 14" stroke="#1C274C" stroke-width="1.5" stroke-linecap="round" />
-        </svg>
-
-        <span class="ltr:pl-3 rtl:pr-3 text-black dark:text-[#506690] dark:group-hover:text-white-dark">Manage Members</span>
-      </div>
-      <div class="rtl:rotate-180" :class="{ '!rotate-90': activeDropdown === 'members' }">
-
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M9 5L15 12L9 19" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-        </svg>
-      </div>
-    </button>
-    <ul x-cloak x-show="activeDropdown === 'members'" x-collapse class="sub-menu text-gray-500">
-      <li>
-        <a href="{{route('admin.blank')}}">All Members</a>
-      </li>
-      <li>
-        <a href="{{route('admin.blank')}}">Banned Members</a>
-      </li>
-      <li>
-        <a href="{{route('admin.blank')}}">Inactive Member</a>
-      </li>
-
-
-    </ul>
-  </li>
-
+ 
 
   <li class="menu nav-item">
     <button type="button" class="nav-link group" :class="{ 'active': activeDropdown === 'website' }" @click="activeDropdown === 'website' ? activeDropdown = null : activeDropdown = 'website'">
@@ -274,7 +239,7 @@
         </svg>
 
 
-        <span class="ltr:pl-3 rtl:pr-3 text-black dark:text-[#506690] dark:group-hover:text-white-dark">Website</span>
+        <span class="ltr:pl-3 rtl:pr-3 text-black dark:text-[#506690] dark:group-hover:text-white-dark">Website Managment</span>
       </div>
       <div class="rtl:rotate-180" :class="{ '!rotate-90': activeDropdown === 'website' }">
 
@@ -358,7 +323,7 @@
 
 
 
-  <li class="menu nav-item">
+  <!-- <li class="menu nav-item">
     <button type="button" class="nav-link group" :class="{ 'active': activeDropdown === 'invoice' }" @click="activeDropdown === 'invoice' ? activeDropdown = null : activeDropdown = 'invoice'">
       <div class="flex items-center">
         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -376,7 +341,7 @@
 
     </button>
 
-  </li>
+  </li> -->
 
   <li class="menu nav-item">
     <button type="button" class="nav-link group" :class="{ 'active': activeDropdown === 'invoice' }" @click="activeDropdown === 'invoice' ? activeDropdown = null : activeDropdown = 'invoice'">
@@ -397,7 +362,7 @@
 
 
 
-  <li class="menu nav-item">
+  <!-- <li class="menu nav-item">
     <button type="button" class="nav-link group" :class="{ 'active': activeDropdown === 'invoice' }" @click="activeDropdown === 'invoice' ? activeDropdown = null : activeDropdown = 'invoice'">
       <div class="flex items-center">
         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -418,11 +383,11 @@
 
     </button>
 
-  </li>
+  </li> -->
 
 
 
-  <li class="menu nav-item">
+  <!-- <li class="menu nav-item">
     <button type="button" class="nav-link group" :class="{ 'active': activeDropdown === 'invoice' }" @click="activeDropdown === 'invoice' ? activeDropdown = null : activeDropdown = 'invoice'">
       <div class="flex items-center">
         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -439,7 +404,7 @@
 
     </button>
 
-  </li>
+  </li> -->
 
 
 

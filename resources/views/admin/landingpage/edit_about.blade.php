@@ -23,16 +23,15 @@
           <form method="post" action="{{route('admin.website.update.about')}}" enctype="multipart/form-data">
             @csrf
             <h1>Title: </h1>
-            <input type="text" class="form-control" value="{{$about->text}}" name="text" >
+            <input type="text" class="input-form" value="{{$about->text}}" name="text" >
             @error('text')
                     <p class="error_msg">{{ $message }}</p>
                     @enderror
             <br/>
             
             <h1>Text: </h1>
+            <textarea id="body"  name="body" rows="5" class="form-textarea"  required></textarea>
            
-            <div id="editor1" cols="30" rows="10">{!!$about->body!!}</div>
-            <input type="hidden" id="quill_html" name="body"></input>
             @error('body')
                     <p class="error_msg">{{ $message }}</p>
                     @enderror
@@ -42,6 +41,16 @@
             <input type="hidden" value="{{$about->image}}" name="old_image" >
 
             <br />
+            <h1>Custom Content: </h1>
+           
+           <div id="editor2" cols="30" rows="20">{!!$about->custom!!}</div>
+           <input type="hidden" id="quill_html2" name="custom"></input>
+           @error('custom')
+                   <p class="error_msg">{{ $message }}</p>
+                   @enderror
+           <br />
+
+
             <button type="submit" class="bbt">Update About</button>
 
 
@@ -117,6 +126,42 @@
         toolbar.querySelector('button.ql-clean').setAttribute('title', 'Clear Formatting');
         toolbar.querySelector('[value=ordered]').setAttribute('title', 'Ordered List');
         toolbar.querySelector('[value=bullet]').setAttribute('title', 'Bullet List');
+    </script>
+
+
+<script>
+       
+    
+    var toolbarOptions = [
+                ['bold', 'italic', 'underline', 'strike'],        // toggled buttons
+                ['blockquote', 'code-block'],
+
+                [{ 'header': 1 }, { 'header': 2 }],               // custom button values
+                [{ 'list': 'ordered'}, { 'list': 'bullet' }],
+                [{ 'script': 'sub'}, { 'script': 'super' }],      // superscript/subscript
+                [{ 'indent': '-1'}, { 'indent': '+1' }],          // outdent/indent
+                [{ 'direction': 'rtl' }],                         // text direction
+
+                [{ 'size': ['small', false, 'large', 'huge'] }],  // custom dropdown
+                [{ 'header': [1, 2, 3, 4, 5, 6, false] }],
+                [ 'link', 'image', 'video', 'formula' ],          // add's image support
+                [{ 'color': [] }, { 'background': [] }],          // dropdown with defaults from theme
+                [{ 'font': [] }],
+                [{ 'align': [] }],
+
+                ['clean']                                         // remove formatting button
+            ];
+
+        var quill = new Quill('#editor2', {
+            modules: {
+                toolbar: toolbarOptions
+            },
+
+            theme: 'snow'
+        });
+        quill.on('text-change', function(delta, oldDelta, source) {
+        document.getElementById("quill_html2").value = quill.root.innerHTML;
+    });
     </script>
     
 </x-layout.default>

@@ -266,9 +266,16 @@ if ($request->logo != "") {
         $validatedData = $request->validate([
           
             'text' => 'string|max:500',
-            'body' => 'max:5000'
+            'body' => 'max:5000',
+            // 'custom' => ['required', 'string', function ($attribute, $value, $fail) {
+              
+            //     if ($value !== strip_tags($value)) {
+            //         $fail('The :attribute field contains disallowed HTML tags.');
+            //     }
+            // }],
         ]);
 
+            
         if ($request->image != "") {
            
             $new_image = $request->file('image');
@@ -285,6 +292,7 @@ if ($request->logo != "") {
             'image' => $save_url,
             'text' => $validatedData['text'],
             'body' => $validatedData['body'],
+            'custom' => $request->custom,
             'updated_by' => auth()->user()->id,
         ]);
 

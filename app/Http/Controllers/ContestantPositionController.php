@@ -49,7 +49,7 @@ class ContestantPositionController extends Controller
     $Contestant_position->name = $request->name;
     $Contestant_position->order_no = $request->order_no;
     $Contestant_position->academic_session = $request->academic_session;
-    $Contestant_position->form_amt = 0;
+    $Contestant_position->price = $request->price;
     
     $Contestant_position->admin_id = auth()->user()->id;
        $Contestant_position->save();
@@ -131,12 +131,24 @@ class ContestantPositionController extends Controller
 //list for member
     public function list(Request $request)
     {
+        dd(1);
         if(isset($request->id) and $request->id !=""){
             $current_academic_session_id = $request->id;
         }else{
             $session_id = AcademicSession::latest()->first();
             $current_academic_session_id = $session_id->id;
         }
+        $session_id2 = AcademicSession::latest()->first();
+
+        $positions =ContestantPosition::where('academic_session',$session_id2->id)->get();
+       //dd($positions);
+       $academic_sessions = AcademicSession::latest()->get();
+       if(isset($request->contestant_id) and $request->contestant_id !=""){
+           $ContestantPosition = ContestantPosition::with('academicSession')->where('academic_session', $current_academic_session_id )->where('contestant_id', $request->contestant_id )->orderBy('position_id')->latest()->get();
+       }else{
+           $ContestantPosition = ContestantPosition::with('academicSession')->where('academic_session', $current_academic_session_id )->orderBy('contestant_id')->latest()->get();
+       }
+
         $academic_sessions = AcademicSession::latest()->get();
         $ContestantPositions = ContestantPosition::with('academicSession')->where('academic_session', $current_academic_session_id )->latest()->get();
       return view('member.Contestant.positions.list', compact('ContestantPositions', 'academic_sessions'));

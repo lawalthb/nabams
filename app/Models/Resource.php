@@ -14,6 +14,11 @@ class Resource extends Model
     {
         return $this->belongsTo(Category::class, 'category_id');
     }
+
+    public function resources_paid()
+    {
+        return $this->hasMany(ResourcesPaid::class);
+    }
     
 
     // public function setDescriptionAttribute($value)

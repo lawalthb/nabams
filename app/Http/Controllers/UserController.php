@@ -13,6 +13,52 @@ use Illuminate\Support\Facades\Hash;
 class UserController extends Controller
 {
 
+
+    public function index2(){
+        $users = User::select(
+           
+       	"id",
+           'email',
+            "firstname"	,
+            "lastname"	,
+            "nickname"	,
+            "email"	,
+
+            "matno"	,
+            "phone"	,
+            "level"	,
+          
+
+            "role"	,
+            "image"	,
+        )->get();
+        $total_admins = User::where('role', "Admin")->count();
+        $total_members = User::where('role', "Member")->count();
+        return view("admin.users.index", [
+            'users' => $users,
+            'total_admins' => $total_admins,
+            'total_members' => $total_members
+        ]);
+        
+    }
+
+    public function index(Request $request)
+    {
+        $total_admins = User::where('role', "Admin")->count();
+        $total_members = User::where('role', "Member")->count();
+
+        $search = $request->input('search');
+
+        $users = User::when($search, function ($query, $search) {
+            $query->where('firstname', 'like', "%$search%")
+                  ->orWhere('email', 'like', "%$search%");
+        })->paginate(10);
+
+        return view('admin.users.index', compact('users', 'search','total_members', 'total_admins'));
+    }
+
+
+
     public function EditProfile($id)
     {
         $user = User::findOrFail($id);
