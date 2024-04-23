@@ -67,11 +67,11 @@ $header = App\Models\WebHeaders::where('id', 1)->first();
 
   <div class="container">
     <div class="copyright">
-      &copy; 2024 Copyright <strong><span> {{$header->site_name}}</span></strong>. All Rights Reserved
+      &copy; 2024 Copyright <strong><span> {{$header->site_name}}</span></strong>. 
     </div>
     <div class="credits">
 
-     
+    Legacy 2024 Excos
     </div>
   </div>
 </footer><!-- End Footer -->

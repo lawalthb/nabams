@@ -96,7 +96,7 @@
                             {
                                 select: 2,
                                 render: function(data, cell, row) {
-                                    return `<div class="flex items-center font-semibold"><div class="p-0.5 bg-white-dark/30 rounded-full w-max ltr:mr-2 rtl:ml-2"><img class="h-8 w-8 rounded-full object-cover" src="/assets/images/profile-${row.dataIndex + 1}.jpeg" /></div>${data}</div>`;
+                                    return `<div class="flex items-center font-semibold"><div class="p-0.5 bg-white-dark/30 rounded-full w-max ltr:mr-2 rtl:ml-2"></div>${data}</div>`;
                                 }
                             },
                             {

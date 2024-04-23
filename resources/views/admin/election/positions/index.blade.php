@@ -46,7 +46,7 @@
 
       </ul>
      
-      <div class="panel px-0 border-[#e0e6ed] dark:border-[#1b2e4b]">
+      <div class="panel px-0 border-[#e0e6ed] dark:border-[#1b2e4b]" style="overflow: auto;">
         <div class="px-5">
 
         <a href="{{route('admin.positions.create')}}"><button type="button" style="border-width: 10px;" class=" btn-primary mt-6 mb-3">Add New</button></a>
@@ -58,7 +58,7 @@
                 @endforeach
             </select>
         
-        <table class="table-auto">
+        <table class="table-auto" >
   <thead>
     <tr>
       <th>SN</th>

@@ -25,6 +25,11 @@ Route::prefix('admin')->middleware('auth.member', 'admin')->group(function () {
 
     //users management routes
     Route::get('/users', [UserController::class, 'index'])->name('admin.users.index');
+    Route::get('/users/add', [UserController::class, 'create'])->name('admin.users.create');
+    Route::post('/users/store', [UserController::class, 'store'])->name('admin.users.store');
+    Route::get('/users/{user}/edit', [UserController::class, 'edit'])->name('admin.users.edit');
+Route::get('/users/{user}/ban', [UserController::class, 'ban'])->name('admin.users.ban');
+Route::delete('/users/{user}', [UserController::class, 'destroy'])->name('admin.users.destroy');
 
 //election position routes
 Route::get('/positions', [ElectionPositionController::class, 'index'])->name('admin.positions.index');

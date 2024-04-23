@@ -59,11 +59,51 @@ class UserController extends Controller
 
 
 
+    public function create()
+    {
+        
+        return view('admin.users.create');
+    }
+
+    
     public function EditProfile($id)
     {
         $user = User::findOrFail($id);
         return view('users.member-profile', compact('user'));
     }
+
+
+
+    public function store(Request $request)
+    {
+        $validatedData = $request->validate([
+            'firstname' => 'required|string|max:50',
+            'lastname' => 'required|string|max:50',
+            'phone' => 'nullable|string|max:11',
+            'email' => 'required|string|email|unique:users|max:60',
+            'password' => 'required|string|min:6',
+            'role' => 'required',
+        ]);
+        // Create and save the user
+        $user = User::create([
+            'firstname' => $validatedData['firstname'],
+            'lastname' => $validatedData['lastname'],
+            'phone' => $validatedData['phone'],
+           
+            'role' => $validatedData['role'],
+           
+            'email' => $validatedData['email'],
+           
+            'password' => bcrypt($validatedData['password']),
+        ]);
+
+
+       
+
+        session()->flash('success', 'User Added successfully.');
+        return redirect()->route('admin.users.index');
+    }
+
 
     public function UpdateProfile(Request $request, $id)
     {

@@ -46,7 +46,7 @@
 
       </ul>
      
-      <div class="panel px-0 border-[#e0e6ed] dark:border-[#1b2e4b]">
+      <div class="panel px-0 border-[#e0e6ed] dark:border-[#1b2e4b]" style="overflow: auto;">
         <div class="px-5">
 
       

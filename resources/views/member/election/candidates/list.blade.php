@@ -46,7 +46,7 @@
 
       </ul>
       <div class="pt-5 grid grid-cols-1 lg:grid-cols-1 gap-6">
-      <div class="panel px-0 border-[#e0e6ed] dark:border-[#1b2e4b]">
+      <div class="panel px-0 border-[#e0e6ed] dark:border-[#1b2e4b]" style="overflow: auto;">
         <div class="px-5">
 
           <select id="ctnSelect1" name="academic_session" onchange="searchBy(this)">
