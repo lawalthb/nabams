@@ -33,4 +33,10 @@ class LandingpageController extends Controller
 
         return view('landingpage.contest', compact('contestants','categories'));
     }
+
+    public function thankyou()
+    {
+       
+ return view('landingpage.thankyou');
+    }
 }

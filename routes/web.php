@@ -11,14 +11,20 @@ use App\Http\Controllers\VoteController;
 Route::group(['middleware' => 'guest'], function () {
   Route::get('/loginPage', [AuthController::class, 'LoginPage'])->name('login.page');
   Route::post('/register', [AuthController::class, 'register'])->name('register');
-  Route::get('/payment_url', [AuthController::class, 'PaymentCallback'])->name('callback_url');
+
 
   Route::post('/login', [AuthController::class, 'login'])->name('login');
 
   //landing page
- 
+
+
 });
+
+Route::get('/payment_url', [AuthController::class, 'PaymentCallback'])->name('callback_url');
+
+
 Route::get('/contest', [LandingpageController::class, 'contest'])->name('contest');
+Route::get('/thankyou', [LandingpageController::class, 'thankyou'])->name('thankyou');
 Route::get('/', [LandingpageController::class, 'LandingPage'])->name('index');
 
 Route::get('/logout_new', [AuthController::class, 'Logout_new'])->name('logout_new');
@@ -31,9 +37,7 @@ Route::get('payment/{contestant}', [VoteController::class, 'ContestVotePayment']
 Route::post('vote/process', [VoteController::class, 'processPayment'])->name('vote.payment.process');
 Route::get('/payment_callback', [TransactionController::class, 'PaymentCallback'])->name('payment_callback');
  
-Route::get('thankyou', function () {
-    return view('thankyou');
-})->name('thankyou');
+
 require __DIR__ . '/admin_routes.php';
 
 require __DIR__ . '/member_routes.php';
