@@ -253,10 +253,10 @@
         <a href="{{route('admin.website')}}">Edit Website</a>
       </li>
       <li>
-        <a href="{{route('admin.blank')}}">Setting</a>
+        <a href="{{route('admin.website.setting.index')}}">Settings</a>
       </li>
       <li>
-        <a href="{{route('admin.blank')}}">Maintenaince Mode</a>
+        <a href="{{route('admin.website.setting.maintenance')}}">Maintenaince Mode</a>
       </li>
 
 
@@ -303,7 +303,7 @@
 
 
 
-  <li class="menu nav-item">
+  <!-- <li class="menu nav-item">
     <button type="button" class="nav-link group" :class="{ 'active': activeDropdown === 'article' }" @click="activeDropdown === 'article' ? activeDropdown = null : activeDropdown = 'article'">
       <div class="flex items-center">
         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -317,7 +317,7 @@
 
     </button>
 
-  </li>
+  </li> -->
 
 
 

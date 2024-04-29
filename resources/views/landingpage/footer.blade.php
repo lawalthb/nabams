@@ -54,7 +54,7 @@ $header = App\Models\WebHeaders::where('id', 1)->first();
 
         <div class="col-lg-4 col-md-6 footer-newsletter">
           <h4>Visitor's Newsletter</h4>
-          <p>Ut velit est quam dolor ad a aliquid qui aliquid. Sequi ea ut et est </p>
+          
           <form action="" method="post">
             <input type="email" name="email"><input type="submit" value="Subscribe">
           </form>

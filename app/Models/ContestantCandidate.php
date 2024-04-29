@@ -16,6 +16,11 @@ class ContestantCandidate extends Model
         return $this->belongsTo(ContestantPosition::class, 'position_id');
     }
 
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'user_id');
+    }
+
     public function academicSession()
     {
         return $this->belongsTo(academicSession::class, 'academic_session');

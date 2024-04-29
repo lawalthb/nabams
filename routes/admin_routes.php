@@ -10,6 +10,7 @@ use App\Http\Controllers\ElectionPositionController;
 use App\Http\Controllers\ResourceController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\VoteController;
+use App\Http\Controllers\WebSettingController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -95,6 +96,11 @@ Route::get('/resources', [ResourceController::class, 'index'])->name('resources.
   Route::post('/website/edit/gallery', [LandingpageController::class, 'UpdateGallery'])->name('admin.website.update.gallery');
   Route::post('/website/edit/contact', [LandingpageController::class, 'UpdateContact'])->name('admin.website.update.contact');
   Route::post('/website/edit/excos', [LandingpageController::class, 'UpdateExcos'])->name('admin.website.update.excos');
+
+  Route::get('/website/settings/index', [WebSettingController::class, 'index'])->name('admin.website.setting.index');
+  Route::post('/website/settings/index', [WebSettingController::class, 'update'])->name('admin.website.setting.update');
+  Route::get('/website/settings/maintenance', [WebSettingController::class, 'maintenance'])->name('admin.website.setting.maintenance');
+  Route::post('/website/settings/maintenance', [WebSettingController::class, 'maintenance_update'])->name('admin.website.setting.maintenance_update');
 
 
   

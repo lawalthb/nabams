@@ -16,8 +16,10 @@ Route::group(['middleware' => 'guest'], function () {
   Route::post('/login', [AuthController::class, 'login'])->name('login');
 
   //landing page
-  Route::get('/', [LandingpageController::class, 'LandingPage'])->name('index');
+ 
 });
+Route::get('/contest', [LandingpageController::class, 'contest'])->name('contest');
+Route::get('/', [LandingpageController::class, 'LandingPage'])->name('index');
 
 Route::get('/logout_new', [AuthController::class, 'Logout_new'])->name('logout_new');
 

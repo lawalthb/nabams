@@ -17,6 +17,7 @@ $header = App\Models\WebHeaders::where('id', 1)->first();
         <li><a class="nav-link scrollto" href="#excos">Excos</a></li>
         <li class="dropdown"><a href="#"><span>Membership</span> <i class="bi bi-chevron-down"></i></a>
           <ul>
+          <li><a href="#registration">Registration</a></li>
             <li><a href="#benefit">Benefits</a></li>
             <li><a href="#registration">Registration</a></li>
             <li><a href="/executives">Executives</a></li>
@@ -28,7 +29,7 @@ $header = App\Models\WebHeaders::where('id', 1)->first();
         <!-- <li><a class="nav-link scrollto" href="#services">Services</a></li> -->
 
         <li><a class="nav-link scrollto" href="#services">Resources</a></li>
-        <li><a class="nav-link scrollto" href="#services">Articles</a></li>
+        <li><a class="nav-link scrollto" href="{{route('contest')}}">Contest</a></li>
 
 
         <li><a class="nav-link scrollto" href="#contact">Support</a></li>

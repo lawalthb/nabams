@@ -120,9 +120,8 @@
 
   <script>
     function searchBy(select) {
-        // Get the selected value
         var selectedValue = select.value;
-//alert(selectedValue);
+
        
         window.location.href = "{{route('admin.positions.index')}}?id=" + selectedValue; // Replace "/your-route/" with the actual route
     }
