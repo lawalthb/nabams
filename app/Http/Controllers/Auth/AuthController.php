@@ -35,10 +35,87 @@ class AuthController extends Controller
         return view("index");
     }
 
+  
+//nomba payment function
+    public function nomba_checkout($customerId, $email, $amount,  $callback_url){
+        $NOMBA_CLIENT_ID = env('NOMBA_CLIENT_ID');
+        $NOMBA_CLIENT_SECRET = env('NOMBA_CLIENT_SECRET');
+        $NOMBA_ACCOUNT_ID = env('NOMBA_ACCOUNT_ID');
+        
+        $curl = curl_init();
+
+        curl_setopt_array($curl, [
+            CURLOPT_URL => "https://api.nomba.com/v1/auth/token/issue",
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_ENCODING => "",
+            CURLOPT_MAXREDIRS => 10,
+            CURLOPT_TIMEOUT => 30,
+            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+            CURLOPT_CUSTOMREQUEST => "POST",
+            CURLOPT_POSTFIELDS => "{\n  \"grant_type\": \"client_credentials\",\n  \"client_id\": \"$NOMBA_CLIENT_ID\",\n  \"client_secret\": \"$NOMBA_CLIENT_SECRET\"\n}",
+            CURLOPT_HTTPHEADER => [
+                "Content-Type: application/json",
+                "accountId: $NOMBA_ACCOUNT_ID"
+            ],
+        ]);
+
+        $response = curl_exec($curl);
+        $err = curl_error($curl);
+
+        curl_close($curl);
+
+        if ($err) {
+            echo "cURL Error #:" . $err;
+        } else {
+            echo $response;
+        }
+
+        // dd($response);
+        $auth_data = json_decode($response, true);
+         $access_token = $auth_data['data']['access_token'];
+       
+         $reference = 'REF' . uniqid();
+        
+
+          
+            //dd($access_token);
+            $curl = curl_init();
+            curl_setopt_array($curl, [
+                CURLOPT_URL => "https://api.nomba.com/v1/checkout/order",
+                CURLOPT_RETURNTRANSFER => true,
+                CURLOPT_ENCODING => "",
+                CURLOPT_MAXREDIRS => 10,
+                CURLOPT_TIMEOUT => 30,
+                CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+                CURLOPT_CUSTOMREQUEST => "POST",
+                CURLOPT_POSTFIELDS => "{\n  \"order\": {\n    \"orderReference\": \"$reference\",\n    \"customerId\": \"$customerId\",\n    \"callbackUrl\": \"$callback_url\",\n    \"customerEmail\": \"$email\",\n    \"amount\": \"$amount\",\n    \"currency\": \"NGN\"\n  },\n  \"tokenizeCard\": \"false\"\n}",
+                
+                CURLOPT_HTTPHEADER => [
+                    "Authorization: Bearer $access_token",
+                    "Content-Type: application/json",
+                    "Cache-Control: no-cache",
+                    "accountId: $NOMBA_ACCOUNT_ID",
+                ],
+            ]);
+
+            $result  = curl_exec($curl);
+            $err = curl_error($curl);
+
+            curl_close($curl);
+
+            if ($err) {
+                echo "cURL Error #:" . $err;
+            } else {
+               
+                $result;
+            }
+            
+          return  $data = json_decode($result, true);
+    }
 
     public function register(Request $request)
     {
-        // id	firstname	lastname	nickname	email	password	matno	phone	level	member_type	expectation_msg	reg_amount
+       
         // Validation
         $validatedData = $request->validate([
             'firstname' => 'required|string|max:50',
@@ -66,30 +143,9 @@ class AuthController extends Controller
             'password' => bcrypt($validatedData['password']),
         ]);
         $callback_url = route('callback_url');
-        // send a welcome email to new member
-
-        // store transaction
-
-
-
-        //   dd('goto payment gateway');
-        $client = new Client();
-        $response = $client->post('https://api.paystack.co/transaction/initialize', [
-            'headers' => [
-                'Authorization' => 'Bearer ' .  env('PAYSTACK_SECRET_KEY'),
-                'Content-Type' => 'application/json',
-            ],
-            'json' => [
-                'amount' => $reg_fee * 100,
-                'email' => $validatedData['email'],
-                'callback_url' => $callback_url,
-                'firstname' => 'ade',
-                'lastname' => 'oriyomi',
-                'phone_no' => '08132712715',
-
-            ],
-        ]);
-        $data = json_decode($response->getBody(), true);
+        
+        $data = $this->nomba_checkout($user->id, $validatedData['email'], $reg_fee,  $callback_url );
+      
         Transactions::create([
             'user_id' => $user->id,
             'purpose' => 'registration fee',
@@ -98,39 +154,77 @@ class AuthController extends Controller
             'fullname' =>   $validatedData['lastname'] . " " . $validatedData['firstname'],
             'phone_number' =>  $validatedData['phone'],
             'callback_url' => $callback_url,
-            'reference' => $data['data']['reference'],
-            'authorization_url' => $data['data']['authorization_url'],
+            'reference' => $data['data']['orderReference'],
+            'authorization_url' => $data['data']['checkoutLink'],
         ]);
-        $payment_link = $data['data']['authorization_url'];
+        $payment_link = $data['data']['checkoutLink'];
 
         event(new UserRegistered($user, $payment_link));
 
 
 
-        return redirect($data['data']['authorization_url']);
+        return redirect($data['data']['checkoutLink']);
     }
 
     public function PaymentCallback(Request $request)
     {
 
+        $reference = $request->orderReference;
+        $orderId = $request->orderId;
+        //dd($reference);
         $reference = $request->input('reference');
-        $s_key = env('PAYSTACK_SECRET_KEY');
-        // Verify payment
+        $NOMBA_CLIENT_ID = env('NOMBA_CLIENT_ID');
+        $NOMBA_CLIENT_SECRET = env('NOMBA_CLIENT_SECRET');
+        $NOMBA_ACCOUNT_ID = env('NOMBA_ACCOUNT_ID');
+
+
         $curl = curl_init();
 
-        curl_setopt_array($curl, array(
-            CURLOPT_URL => "https://api.paystack.co/transaction/verify/" . $reference,
+        curl_setopt_array($curl, [
+            CURLOPT_URL => "https://api.nomba.com/v1/auth/token/issue",
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_ENCODING => "",
             CURLOPT_MAXREDIRS => 10,
-            CURLOPT_TIMEOUT => 60,
+            CURLOPT_TIMEOUT => 30,
+            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+            CURLOPT_CUSTOMREQUEST => "POST",
+            CURLOPT_POSTFIELDS => "{\n  \"grant_type\": \"client_credentials\",\n  \"client_id\": \"$NOMBA_CLIENT_ID\",\n  \"client_secret\": \"$NOMBA_CLIENT_SECRET\"\n}",
+            CURLOPT_HTTPHEADER => [
+                "Content-Type: application/json",
+                "accountId: $NOMBA_ACCOUNT_ID"
+            ],
+        ]);
+
+        $response = curl_exec($curl);
+        $err = curl_error($curl);
+
+        curl_close($curl);
+
+        if ($err) {
+            echo "cURL Error #:" . $err;
+        } else {
+            echo $response;
+        }
+
+       
+        $auth_data = json_decode($response, true);
+        $access_token = $auth_data['data']['access_token'];
+
+        $curl = curl_init();
+
+        curl_setopt_array($curl, [
+            CURLOPT_URL => "https://api.nomba.com/v1/checkout/transaction?idType=ORDER_ID&id=$orderId",
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_ENCODING => "",
+            CURLOPT_MAXREDIRS => 10,
+            CURLOPT_TIMEOUT => 30,
             CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
             CURLOPT_CUSTOMREQUEST => "GET",
-            CURLOPT_HTTPHEADER => array(
-                "Authorization: Bearer $s_key",
-                "Cache-Control: no-cache",
-            ),
-        ));
+            CURLOPT_HTTPHEADER => [
+                "Authorization: Bearer $access_token",
+                "accountId: $NOMBA_ACCOUNT_ID"
+            ],
+        ]);
 
         $response = curl_exec($curl);
         $err = curl_error($curl);
@@ -141,22 +235,30 @@ class AuthController extends Controller
             echo "cURL Error #:" . $err;
         } else {
             $response;
-            //dd($response);
+          // dd($response);
             $data = json_decode($response, true);
             if ($data) {
-                $updatedRecord =  Transactions::where('reference', $reference)->update([
+               
+                if($data['data']['message'] == 'PAYMENT SUCCESSFUL'){
+                    $status  = 'Success';
+                }else{
+                    $status  = 'Pending';
+                }
+               // dd($status);
+                $updatedRecord =  Transactions::where('reference', $orderId)->update([
 
-                    'gateway_response' => $data['data']['gateway_response'],
-                    'channel' => $data['data']['channel'],
-                    'paid_at' => $data['data']['paid_at'],
+                    'gateway_response' => '',
+                    'channel' => '',
+                    'paid_at' => now(),
                     'other_info' => $response,
-                    'status' => 'success',
+                    'status' =>  $status,
+                    'message' => $data['data']['message'],
 
 
                 ]);
             }
         }
-        $user_id = Transactions::where('reference', $reference)->value('user_id');
+        $user_id = Transactions::where('reference', $orderId)->value('user_id');
         // Validation
         $user_record = User::where('id', $user_id)->first(['email', 'password']);
 
