@@ -288,15 +288,22 @@ class AuthController extends Controller
             'email' => 'required|string|email',
             'password' => 'required|string',
         ]);
-
+$reg_pay = Transactions::where('email',$request->email )->where('purpose', 'registration fee')->where('status', 'Success')->count();
+//dd($reg_pay );
         // Attempt to authenticate the user
-        if (Auth::attempt($credentials)) {
+        if($reg_pay >= 1){
+                if (Auth::attempt($credentials)) {
 
-            return redirect('/home');
+                    return redirect('/home');
+                }else{
+  // Authentication failed
+  return back()->withErrors(['email' => 'Invalid credentials ']);
+                }
+        }else{
+  
+  return back()->withErrors(['email' => 'You have not make payment ']);
         }
-
-        // Authentication failed
-        return back()->withErrors(['email' => 'Invalid credentials']);
+      
     }
 
     public function Logout_new()
