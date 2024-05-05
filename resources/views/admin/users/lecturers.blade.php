@@ -3,52 +3,55 @@
 
     <div x-data="invoiceList">
         <script src="/assets/js/simple-datatables.js"></script>
-        <h5 class="font-semibold text-lg dark:text-white-light">Transactions</h5>
+        <h5 class="font-semibold text-lg dark:text-white-light">Lecturers / Supervisors </h5>
         <div class="panel px-0 border-[#e0e6ed] dark:border-[#1b2e4b]">
             <div class="px-5">
 
                 <div class="md:absolute md:top-5 ltr:md:left-5 rtl:md:right-5">
 
                     <div class="flex items-center gap-2 mb-5">
-
-                        <button type="button" class="btn btn-danger gap-2">
-                            Total Pending:
-                            ₦{{ number_format($total_pending,0)}} </button>
-                        <a href="javascript:;" class="btn btn-primary gap-2">
-                            Total Success:
-                            ₦{{ number_format($total_success,0)}}</a>
+                    <a href="{{route('admin.users.create')}}"> <button type="button" class="btn btn-success gap-2">
+                           Add New</button></a>
+                        <button type="button" class="btn btn-info gap-2">
+                            Total Lecturer:
+                            {{ $total_lecturers}} </button>
+                      
+                       
+                            <form method="GET" action="{{ route('admin.users.index') }}">
+            <input type="text" name="search" value="{{ $search }}" placeholder="Search by name or email">
+            <button type="submit">Search</button>
+        </form>
                     </div>
+                   
+
                 </div>
             </div>
-            <div class="invoice-table">
-            <table style="margin-top:50px">
+            <div class="invoice-table"  style="overflow: auto;">
+          <br /><br />
+        <table>
             <thead>
                 <tr>
                     <th>SN</th>
-                    <th>Purpose</th>
                     <th>Email</th>
-                    <th>Amount</th>
-                    <th>Reference</th>
-                    <th>status</th>
-                    <th>Reconfirm</th>
+                    <th>Fullname</th>
+
+                    <th>Phone</th>
+                    <th>Number Students </th>
+                    
+                    <th>Click to Assign</th>
                     <th>Action</th>
                 </tr>
             </thead>
             <tbody>
-           
-                @foreach ($transactions as  $key => $transaction)
+                @foreach ($users as  $key => $user)
                     <tr>
-                        <td>{{ $transactions->firstItem() + $key }}</td>
-                      
-                        <td>{{ $transaction->purpose }}</td>
-                        <td>{{ $transaction->email }}</td>
-                        <td>{{ $transaction->amount }}</td>
-                        <td>{{ $transaction->reference }}</td>
-                        <td>{{ $transaction->status }}</td>
-                        <td>
-                        <a href="/admin/transaction/reconfirm?orderId={{$transaction->reference}}&orderReference=REF66365c62e037a" class="btn btn-primary gap-2">
-                           ReConfirm</a>
-                        </td>
+                        <td>{{ $users->firstItem() + $key }}</td>
+                        <td>{{ $user->email }}</td>
+                        <td>{{ $user->firstname }} {{ $user->lastname }}</td>
+                        
+                        <td>{{ $user->phone }}</td>
+                        <td>0</td>
+                        <td>Assign</td>
                         <td>
                         <div class="flex gap-4 items-center">
                                                 
@@ -106,7 +109,7 @@
                                                 </button>
                                             </div>
                            
-                            <!-- <form method="POST") }}" style="display: inline;">
+                            <!-- <form method="POST" action="{{ route('admin.users.destroy', $user->id) }}" style="display: inline;">
                                 @csrf
                                 @method('DELETE')
                                 <button type="submit">Delete</button>
@@ -117,11 +120,12 @@
             </tbody>
         </table>
 
-        {{ $transactions->links() }}
+        {{ $users->links() }}
+    </div>
             </div>
 
         </div>
     </div>
 
-    
+   
 </x-layout.default>

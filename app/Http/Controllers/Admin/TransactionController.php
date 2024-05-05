@@ -15,18 +15,7 @@ class TransactionController extends Controller
 {
     public function List()
     {
-        $transactions = Transactions::select(
-            'id',
-            'purpose',
-            'email',
-            'amount',
-            'fullname',
-            'reference',
-            'status',
-            'paid_at',
-            'channel',
-            'gateway_response',
-        )->get();
+        $transactions = Transactions::paginate(100);
         $total_success = Transactions::where('status', "Success")->sum('amount');
         $total_pending = Transactions::where('status', "Pending")->sum('amount');
         return view("admin.transactions.list", [
@@ -137,5 +126,109 @@ class TransactionController extends Controller
         }
 
         //return redirect()->away(url('/user/order/page#no'));
+    }
+
+
+
+
+
+    public function Reconfirm(Request $request)
+    {
+
+        $reference = $request->orderReference;
+        $orderId = $request->orderId;
+        //dd($reference);
+        $reference = $request->input('reference');
+        $NOMBA_CLIENT_ID = env('NOMBA_CLIENT_ID');
+        $NOMBA_CLIENT_SECRET = env('NOMBA_CLIENT_SECRET');
+        $NOMBA_ACCOUNT_ID = env('NOMBA_ACCOUNT_ID');
+
+
+        $curl = curl_init();
+
+        curl_setopt_array($curl, [
+            CURLOPT_URL => "https://api.nomba.com/v1/auth/token/issue",
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_ENCODING => "",
+            CURLOPT_MAXREDIRS => 10,
+            CURLOPT_TIMEOUT => 30,
+            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+            CURLOPT_CUSTOMREQUEST => "POST",
+            CURLOPT_POSTFIELDS => "{\n  \"grant_type\": \"client_credentials\",\n  \"client_id\": \"$NOMBA_CLIENT_ID\",\n  \"client_secret\": \"$NOMBA_CLIENT_SECRET\"\n}",
+            CURLOPT_HTTPHEADER => [
+                "Content-Type: application/json",
+                "accountId: $NOMBA_ACCOUNT_ID"
+            ],
+        ]);
+
+        $response = curl_exec($curl);
+        $err = curl_error($curl);
+
+        curl_close($curl);
+
+        if ($err) {
+            echo "cURL Error #:" . $err;
+        } else {
+            echo $response;
+        }
+
+       
+        $auth_data = json_decode($response, true);
+        $access_token = $auth_data['data']['access_token'];
+
+        $curl = curl_init();
+
+        curl_setopt_array($curl, [
+            CURLOPT_URL => "https://api.nomba.com/v1/checkout/transaction?idType=ORDER_ID&id=$orderId",
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_ENCODING => "",
+            CURLOPT_MAXREDIRS => 10,
+            CURLOPT_TIMEOUT => 30,
+            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+            CURLOPT_CUSTOMREQUEST => "GET",
+            CURLOPT_HTTPHEADER => [
+                "Authorization: Bearer $access_token",
+                "accountId: $NOMBA_ACCOUNT_ID"
+            ],
+        ]);
+
+        $response = curl_exec($curl);
+        $err = curl_error($curl);
+
+        curl_close($curl);
+
+        if ($err) {
+            echo "cURL Error #:" . $err;
+        } else {
+            $response;
+          // dd($response);
+            $data = json_decode($response, true);
+            if ($data) {
+               
+                if($data['data']['message'] == 'PAYMENT SUCCESSFUL'){
+                    $status  = 'Success';
+                }else{
+                    $status  = 'Pending';
+                }
+               // dd($status);
+                $updatedRecord =  Transactions::where('reference', $orderId)->update([
+
+                    'gateway_response' => '',
+                    'channel' => '',
+                    'paid_at' => now(),
+                    'other_info' => $response,
+                    'status' =>  $status,
+                    'message' => $data['data']['message'],
+
+
+                ]);
+            }
+        }
+        $user_id = Transactions::where('reference', $orderId)->value('user_id');
+        // Validation
+        $user_record = User::where('id', $user_id)->first(['email', 'password']);
+
+        
+        return redirect()->route('admin.transactions');
     }
 }

@@ -2,8 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\ProjectAllocation;
+use App\Models\Supervisor;
+use App\Models\SupervisorUser;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use Intervention\Image\ImageManager;
 use Intervention\Image\Drivers\Gd\Driver;
@@ -55,6 +59,21 @@ class UserController extends Controller
         })->paginate(10);
 
         return view('admin.users.index', compact('users', 'search','total_members', 'total_admins'));
+    }
+
+    public function lecturers(Request $request)
+    {
+        $total_lecturers = User::where('role', "Lecturer")->count();
+       
+
+        $search = $request->input('search');
+
+        $users = User::when($search, function ($query, $search) {
+            $query->where('firstname', 'like', "%$search%")
+                  ->orWhere('email', 'like', "%$search%");
+        })->where('role', 'Lecturer')->paginate(10);
+
+        return view('admin.users.lecturers', compact('users', 'search','total_lecturers'));
     }
 
 
@@ -193,5 +212,49 @@ class UserController extends Controller
         $usere = auth()->user();
         session()->flash('success', 'Password updated successfully.');
         return redirect()->route('member.edit.profile', ['id' => $usere->id]);
+    }
+    function allocate(Request $request)  {
+      
+        
+        if($request->lecturer_id && $request->level ){
+       
+            $lecturers = Supervisor::where('is_active', 'Yes')->get();
+            $supervisor = Supervisor::where('id',$request->lecturer_id )->latest()->first();
+        
+            $members = User::where('role', 'Member')->where('level', $request->level)->paginate(1000);
+         
+            return view('admin.users.allocate', compact('lecturers', 'members','supervisor'));
+        }else{
+            $lecturers = Supervisor::where('is_active', 'Yes')->get();
+            //dd($lecturers);
+            return view('admin.users.allocate', compact('lecturers'));
+        }
+        
+    }
+
+    function allocate_students(Request $request){
+       // dd($request);
+        $supervisor_id = $request->input('supervisor_id');
+        $members = $request->input('members');
+    
+
+  $input = $request->all();
+            $data = [];
+            if (is_array($input['members'])) {
+                foreach ($input['members'] as $item) {
+                    DB::table('supervisor_users')->where('user_id',$item )->delete();
+                    array_push($data, [
+                        'user_id' => $item,
+                        'admin_id' => auth()->id(),
+                        'supervisor_id' => $supervisor_id,
+                    ]);
+                }
+            }
+
+            SupervisorUser::insert($data);
+
+
+        session()->flash('success', 'Students allocated to Supervisor successfully.');
+        return redirect()->route('admin.lecturers.allocate');
     }
 }

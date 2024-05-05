@@ -18,7 +18,10 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $guarded = [];
-
+    public function supervisors()
+    {
+        return $this->belongsToMany(Supervisor::class);
+    }
 
     /**
      * The attributes that should be hidden for serialization.
@@ -44,4 +47,6 @@ class User extends Authenticatable
     {
         return $this->role === 'admin';
     }
+
+    
 }

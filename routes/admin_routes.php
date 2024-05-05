@@ -11,8 +11,9 @@ use App\Http\Controllers\ResourceController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\VoteController;
 use App\Http\Controllers\WebSettingController;
+use Illuminate\Routing\Events\Routing;
 use Illuminate\Support\Facades\Route;
-
+use PhpParser\Node\Stmt\Foreach_;
 
 //admin
 Route::prefix('admin')->middleware('auth.member', 'admin')->group(function () {
@@ -21,11 +22,15 @@ Route::prefix('admin')->middleware('auth.member', 'admin')->group(function () {
 
   //transactions
   Route::get('/transactions', [TransactionController::class, 'List'])->name('admin.transactions');
+  Route::get('/transaction/reconfirm', [TransactionController::class, 'Reconfirm']);
   Route::get('/blank', [TransactionController::class, 'Blank'])->name('admin.blank');
 
 
     //users management routes
     Route::get('/users', [UserController::class, 'index'])->name('admin.users.index');
+    Route::get('/lecturers', [UserController::class, 'lecturers'])->name('admin.lecturers.index');
+    Route::get('/allocate', [UserController::class, 'allocate'])->name('admin.lecturers.allocate');
+    Route::post('/allocate/list_student', [UserController::class, 'allocate_students'])->name('admin.allocate.list_student');
     Route::get('/users/add', [UserController::class, 'create'])->name('admin.users.create');
     Route::post('/users/store', [UserController::class, 'store'])->name('admin.users.store');
     Route::get('/users/{user}/edit', [UserController::class, 'edit'])->name('admin.users.edit');
@@ -50,7 +55,6 @@ Route::get('/candidates/delete/{id}', [ElectionCandidateController::class, 'dest
 Route::get('/candidates/getPositionBySession', [ElectionCandidateController::class, 'getPositionBySession'])->name('admin.candidates.getPositionBySession');
 
 //contestants positions route
-
 Route::get('/contest/positions', [ContestantPositionController::class, 'index'])->name('admin.contest.positions.index');
 Route::get('/contest/positions/add', [ContestantPositionController::class, 'create'])->name('admin.contest.positions.create');
 Route::post('/contest/positions/add', [ContestantPositionController::class, 'store'])->name('admin.contest.positions.store');

@@ -215,12 +215,49 @@
       <li>
         <a href="{{route('admin.users.index')}}">Members & Admins</a>
       </li>
+    
       <li>
         <a href="{{route('admin.blank')}}">Banned Users</a>
       </li>
       <li>
         <a href="{{route('admin.blank')}}">Inactive Users</a>
       </li>
+
+
+    </ul>
+  </li>
+
+
+  <li class="menu nav-item">
+    <button type="button" class="nav-link group" :class="{ 'active': activeDropdown === 'allocate' }" @click="activeDropdown === 'allocate' ? activeDropdown = null : activeDropdown = 'allocate'">
+      <div class="flex items-center">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="9" cy="6" r="4" stroke="#1C274C" stroke-width="1.5" />
+          <path d="M15 9C16.6569 9 18 7.65685 18 6C18 4.34315 16.6569 3 15 3" stroke="#1C274C" stroke-width="1.5" stroke-linecap="round" />
+          <ellipse cx="9" cy="17" rx="7" ry="4" stroke="#1C274C" stroke-width="1.5" />
+          <path d="M18 14C19.7542 14.3847 21 15.3589 21 16.5C21 17.5293 19.9863 18.4229 18.5 18.8704" stroke="#1C274C" stroke-width="1.5" stroke-linecap="round" />
+        </svg>
+
+
+        <span class="ltr:pl-3 rtl:pr-3 text-black dark:text-[#506690] dark:group-hover:text-white-dark">Allocate Project</span>
+      </div>
+      <div class="rtl:rotate-180" :class="{ '!rotate-90': activeDropdown === 'allocate' }">
+
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M9 5L15 12L9 19" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+        </svg>
+      </div>
+    </button>
+    <ul x-cloak x-show="activeDropdown === 'allocate'" x-collapse class="sub-menu text-gray-500">
+    <li>
+        <a href="{{route('admin.lecturers.index')}}">Supervisors</a>
+      </li>
+      <li>
+        <a href="{{route('admin.lecturers.allocate')}}">Allocate</a>
+      </li>
+    
+      
+     
 
 
     </ul>
