@@ -1,6 +1,6 @@
 
 @php
-$abouts = App\Models\Webabouts::where('id', 1)->first();
+$abouts = App\Models\WebAbouts::where('id', 1)->first();
 $header = App\Models\WebHeaders::where('id', 1)->first();
 @endphp
 <!-- ======= About Us Section ======= -->

@@ -2,7 +2,7 @@
 
 
 
-@section('title', 'OGITECH NAPAS - Contest')
+@section('title', config('app.name').'- Contest'  )
 
 @section('content')
 

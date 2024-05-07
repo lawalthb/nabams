@@ -23,6 +23,8 @@ Route::prefix('admin')->middleware('auth.member', 'admin')->group(function () {
   //transactions
   Route::get('/transactions', [TransactionController::class, 'List'])->name('admin.transactions');
   Route::get('/transaction/reconfirm', [TransactionController::class, 'Reconfirm']);
+  Route::get('/transaction/clear_member', [TransactionController::class, 'clear_member'])->name('admin.clear');
+  Route::post('/transaction/clear_member', [TransactionController::class, 'CashPayment'])->name('admin.collect.cash');
   Route::get('/blank', [TransactionController::class, 'Blank'])->name('admin.blank');
 
 

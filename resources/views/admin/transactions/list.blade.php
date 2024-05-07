@@ -8,7 +8,19 @@
             <div class="px-5">
 
                 <div class="md:absolute md:top-5 ltr:md:left-5 rtl:md:right-5">
+                @if(session()->has('success'))
 
+
+<span class="flex items-center p-3.5 rounded text-primary bg-primary-light dark:bg-primary-dark-light">
+  <span class="ltr:pr-2 rtl:pl-2"><strong class="ltr:mr-1 rtl:ml-1">Success!</strong>{{ session('success') }}</span>
+  <button type="button" class="ltr:ml-auto rtl:mr-auto hover:opacity-80">
+
+  </button>
+</span>
+
+
+
+@endif
                     <div class="flex items-center gap-2 mb-5">
 
                         <button type="button" class="btn btn-danger gap-2">

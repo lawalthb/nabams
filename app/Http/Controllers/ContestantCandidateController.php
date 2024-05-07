@@ -113,9 +113,19 @@ class ContestantCandidateController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(ContestantCandidate $ContestantCandidate)
+    public function destroy($id)
     {
-        //
+   
+        ContestantCandidate::findOrFail($id)->delete();
+
+        $notification = array(
+           'success' => 'Contestant Deleted Successfully',
+           'alert-type' => 'success'
+       );
+    
+      
+       return redirect()->back()->with($notification);
+        
     }
 
 

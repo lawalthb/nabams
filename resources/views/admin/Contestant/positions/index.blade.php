@@ -48,9 +48,9 @@
      
       <div class="panel px-0 border-[#e0e6ed] dark:border-[#1b2e4b]">
         <div class="px-5">
-
+        @if (auth()->user()->role =='Admin')
         <a href="{{route('admin.contest.positions.create')}}"><button type="button" style="border-width: 10px;" class=" btn-primary mt-6 mb-3">Add New</button></a>
-       
+       @endif
             <select id="ctnSelect1" name="academic_session" onchange="searchBy(this)">
             <option>Select Academic Section</option>
                 @foreach ($academic_sessions as $academic_session)
@@ -65,8 +65,9 @@
       <th>Academic Session</th>
       <th>Category</th>
       <th>1 vote price</th>
-      
+      @if (auth()->user()->role =='Admin')
       <th>Action</th>
+      @endif
     </tr>
   </thead>
   <tbody>
@@ -79,7 +80,7 @@
       <td>{{$ContestantPosition['academicSession']['session_name']}}</td>
       <td>{{$ContestantPosition->name}}</td>
       <td>{{$ContestantPosition->price}}</td>
-     
+      @if (auth()->user()->role =='Admin')
       <td class="p-3 border-b border-[#ebedf2] dark:border-[#191e3a] text-center">
                                             <button type="button" x-tooltip="Edit">
 
@@ -107,6 +108,7 @@
 
                                             </button>
                                         </td>
+                                        @endif
     </tr>
     @endforeach
   </tbody>

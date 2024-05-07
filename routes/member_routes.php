@@ -39,7 +39,7 @@ Route::get('/positions/buyform/{id}', [ElectionPositionController::class, 'buyfo
 Route::post('/positions/buyform/{id}', [ElectionPositionController::class, 'payform'])->name('member.positions.payform');
 
 Route::get('/candidates', [ElectionCandidateController::class, 'list'])->name('member.candidates.list');
-
+Route::get('/contest/category', [ContestantPositionController::class, 'index'])->name('member.contest.category.index');
 //votes
 Route::post('/election/vote', [VoteController::class, 'vote'])->name('member.election.vote');
 Route::get('/election/vote', [VoteController::class, 'index'])->name('member.election.vote');

@@ -146,12 +146,12 @@
       <li>
         <a href="{{route('admin.candidates.index')}}">Aspirants</a>
       </li>
-      <li>
+      <!-- <li>
         <a href="{{route('admin.blank')}}">Vote</a>
       </li>
       <li>
         <a href="{{route('admin.blank')}}">Live Results</a>
-      </li>
+      </li> -->
 
     </ul>
   </li>
@@ -179,12 +179,12 @@
       <li>
         <a href="{{route('admin.contest.candidates.index')}}">Contestants</a>
       </li>
-      <li>
+      <!-- <li>
         <a href="{{route('admin.blank')}}">Vote</a>
       </li>
       <li>
         <a href="{{route('admin.blank')}}">Live Results</a>
-      </li>
+      </li> -->
 
     </ul>
   </li>
@@ -216,12 +216,12 @@
         <a href="{{route('admin.users.index')}}">Members & Admins</a>
       </li>
     
-      <li>
+      <!-- <li>
         <a href="{{route('admin.blank')}}">Banned Users</a>
       </li>
       <li>
         <a href="{{route('admin.blank')}}">Inactive Users</a>
-      </li>
+      </li> -->
 
 
     </ul>
@@ -302,7 +302,7 @@
 
 
 
-  <li class="menu nav-item">
+  <!-- <li class="menu nav-item">
     <button type="button" class="nav-link group" :class="{ 'active': activeDropdown === 'events' }" @click="activeDropdown === 'events' ? activeDropdown = null : activeDropdown = 'events'">
       <div class="flex items-center">
 
@@ -335,7 +335,7 @@
       </li>
 
     </ul>
-  </li>
+  </li> -->
 
 
 

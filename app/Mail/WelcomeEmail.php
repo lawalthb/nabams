@@ -15,13 +15,15 @@ class WelcomeEmail extends Mailable
     use Queueable, SerializesModels;
     public $user;
     public $payment_link;
+    public $password;
     /**
      * Create a new message instance.
      */
-    public function __construct(User $user,  $payment_link)
+    public function __construct(User $user,  $payment_link, $password)
     {
         $this->user = $user;
         $this->payment_link = $payment_link;
+        $this->password = $password;
     }
 
 
@@ -31,7 +33,7 @@ class WelcomeEmail extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'Welcome Email',
+            subject: config('app.name'). '-Welcome Email',
         );
     }
 

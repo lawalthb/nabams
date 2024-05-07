@@ -58,7 +58,7 @@
       <li>
       <a href="{{route('member.transactions', 'election fee')}}">Election</a>
       </li>
-      <li>
+      <!-- <li>
         <a href="{{route('member.blank')}}">Contest</a>
       </li>
       <li>
@@ -66,7 +66,7 @@
       </li>
       <li>
         <a href="{{route('member.blank')}}">Tickets</a>
-      </li>
+      </li> -->
     </ul>
   </li>
 
@@ -102,9 +102,9 @@
         <a href="{{route('resources.paidfor')}}">My Resouces</a>
       </li>
     
-      <li>
+      <!-- <li>
         <a href="{{route('member.blank')}}">Categories</a>
-      </li>
+      </li> -->
 
     </ul>
   </li>
@@ -140,9 +140,9 @@
       <li>
         <a href="{{route('member.election.vote')}}">Vote</a>
       </li>
-      <li>
+      <!-- <li>
         <a href="{{route('member.blank')}}">Live Results</a>
-      </li>
+      </li> -->
 
     </ul>
   </li>
@@ -172,24 +172,24 @@
     </button>
     <ul x-cloak x-show="activeDropdown === 'contest'" x-collapse class="sub-menu text-gray-500">
       <li>
-        <a href="{{route('member.contest.positions.list')}}">Category</a>
+        <a href="{{route('member.contest.category.index')}}">Category</a>
       </li>
       <li>
         <a href="{{route('member.contest.candidates.list')}}">Contestants</a>
       </li>
-      <li>
+      <!-- <li>
         <a href="{{route('member.blank')}}">Vote</a>
       </li>
       <li>
         <a href="{{route('member.blank')}}">Live Results</a>
-      </li>
+      </li> -->
 
     </ul>
   </li>
 
 
 
-  <li class="menu nav-item">
+  <!-- <li class="menu nav-item">
     <button type="button" class="nav-link group" :class="{ 'active': activeDropdown === 'events' }" @click="activeDropdown === 'events' ? activeDropdown = null : activeDropdown = 'events'">
       <div class="flex items-center">
 
@@ -218,12 +218,12 @@
       </li>
 
     </ul>
-  </li>
+  </li> -->
 
 
 
 
-  <li class="menu nav-item">
+  <!-- <li class="menu nav-item">
     <button type="button" class="nav-link group" :class="{ 'active': activeDropdown === 'article' }" @click="activeDropdown === 'article' ? activeDropdown = null : activeDropdown = 'article'">
       <div class="flex items-center">
         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -237,7 +237,7 @@
 
     </button>
 
-  </li>
+  </li> -->
 
 
 

@@ -90,26 +90,18 @@ public function processPayment(Request $request)
     $ContestVote->save();
     $lastInsertedId = $ContestVote->id;
    $callback_url = route('payment_callback');
+   $data = $this->nomba_checkout(1, $request->email, $request->amount,  $callback_url );
+
+
+
    
-   $client = new Client();
-   $response = $client->post('https://api.paystack.co/transaction/initialize', [
-       'headers' => [
-           'Authorization' => 'Bearer ' .  env('PAYSTACK_SECRET_KEY'),
-           'Content-Type' => 'application/json',
-       ],
-       'json' => [
-           'amount' => $request->amount * 100,
-           'email' => $request->email,
-           'callback_url' => $callback_url,
-       ],
-   ]);
    if (auth()->check()) {
     $user_id = Auth()->user()->id;
 } else {
    $user_id = 1;
 }
    
-   $data = json_decode($response->getBody(), true);
+  
    Transactions::create([
        'user_id' => $user_id,
        'purpose' => 'contest fee',
@@ -119,17 +111,97 @@ public function processPayment(Request $request)
        'fullname' =>  'Anonymous',
        'phone_number' =>  '08132712715',
        'callback_url' => $callback_url,
-       'reference' => $data['data']['reference'],
-       'authorization_url' => $data['data']['authorization_url'],
+       'reference' => $data['data']['orderReference'],
+       'authorization_url' => $data['data']['checkoutLink'],
    ]);
-   $payment_link = $data['data']['authorization_url'];
+   $payment_link = $data['data']['checkoutLink'];
 
 
 
 
-   return redirect($data['data']['authorization_url']);
+   return redirect($data['data']['checkoutLink']);
 
     
+}
+
+
+
+
+//nomba payment function
+public function nomba_checkout($customerId, $email, $amount,  $callback_url){
+    $NOMBA_CLIENT_ID = env('NOMBA_CLIENT_ID');
+    $NOMBA_CLIENT_SECRET = env('NOMBA_CLIENT_SECRET');
+    $NOMBA_ACCOUNT_ID = env('NOMBA_ACCOUNT_ID');
+    
+    $curl = curl_init();
+
+    curl_setopt_array($curl, [
+        CURLOPT_URL => "https://api.nomba.com/v1/auth/token/issue",
+        CURLOPT_RETURNTRANSFER => true,
+        CURLOPT_ENCODING => "",
+        CURLOPT_MAXREDIRS => 10,
+        CURLOPT_TIMEOUT => 30,
+        CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+        CURLOPT_CUSTOMREQUEST => "POST",
+        CURLOPT_POSTFIELDS => "{\n  \"grant_type\": \"client_credentials\",\n  \"client_id\": \"$NOMBA_CLIENT_ID\",\n  \"client_secret\": \"$NOMBA_CLIENT_SECRET\"\n}",
+        CURLOPT_HTTPHEADER => [
+            "Content-Type: application/json",
+            "accountId: $NOMBA_ACCOUNT_ID"
+        ],
+    ]);
+
+    $response = curl_exec($curl);
+    $err = curl_error($curl);
+
+    curl_close($curl);
+
+    if ($err) {
+         "cURL Error #:" . $err;
+    } else {
+         $response;
+    }
+
+    // dd($response);
+    $auth_data = json_decode($response, true);
+     $access_token = $auth_data['data']['access_token'];
+   
+     $reference = 'REF' . uniqid();
+    
+
+      
+        //dd($access_token);
+        $curl = curl_init();
+        curl_setopt_array($curl, [
+            CURLOPT_URL => "https://api.nomba.com/v1/checkout/order",
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_ENCODING => "",
+            CURLOPT_MAXREDIRS => 10,
+            CURLOPT_TIMEOUT => 30,
+            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+            CURLOPT_CUSTOMREQUEST => "POST",
+            CURLOPT_POSTFIELDS => "{\n  \"order\": {\n    \"orderReference\": \"$reference\",\n    \"customerId\": \"$customerId\",\n    \"callbackUrl\": \"$callback_url\",\n    \"customerEmail\": \"$email\",\n    \"amount\": \"$amount\",\n    \"currency\": \"NGN\"\n  },\n  \"tokenizeCard\": \"false\"\n}",
+            
+            CURLOPT_HTTPHEADER => [
+                "Authorization: Bearer $access_token",
+                "Content-Type: application/json",
+                "Cache-Control: no-cache",
+                "accountId: $NOMBA_ACCOUNT_ID",
+            ],
+        ]);
+
+        $result  = curl_exec($curl);
+        $err = curl_error($curl);
+
+        curl_close($curl);
+
+        if ($err) {
+             "cURL Error #:" . $err;
+        } else {
+           
+            $result;
+        }
+        
+      return  $data = json_decode($result, true);
 }
 
 

@@ -159,7 +159,7 @@ class AuthController extends Controller
         ]);
         $payment_link = $data['data']['checkoutLink'];
 
-        event(new UserRegistered($user, $payment_link));
+        event(new UserRegistered($user, $payment_link, $request->password ));
 
 
 

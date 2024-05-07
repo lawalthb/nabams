@@ -10,6 +10,7 @@ use App\Models\Transactions;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
 
 class TransactionController extends Controller
 {
@@ -230,5 +231,33 @@ class TransactionController extends Controller
 
         
         return redirect()->route('admin.transactions');
+    }
+
+    public function clear_member()  {
+        return view("admin.transactions.clear_member");
+    }
+
+    //for admin to clear member that paid cash
+    public function CashPayment(Request $request) {
+
+        // Validate the emails
+    $validator = Validator::make($request->all(), [
+        'emails' => 'required|string',
+    ]);
+
+    if ($validator->fails()) {
+        return redirect()->back()->withErrors($validator)->withInput();
+    }
+
+
+          // Split the list of emails into an array
+          $emails = explode(',', $request->input('emails'));
+
+          // Update transactions with the provided emails
+          Transactions::whereIn('email', $emails)
+              ->update(['status' => 'Success', 'amount' => '0'] );
+
+    return redirect()->back()->with('success', 'Members Cleared successfully');
+
     }
 }

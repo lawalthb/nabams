@@ -31,7 +31,7 @@
 <main id="main ">
 
 @php
-$abouts = App\Models\Webabouts::where('id', 1)->first();
+$abouts = App\Models\WebAbouts::where('id', 1)->first();
 
 @endphp
 <div class="container" data-aos="fade-up">
