@@ -37,7 +37,7 @@
     <div x-data="sales">
       <ul class="flex space-x-4 rtl:space-x-reverse">
         <li>
-          <a href="javascript:;" class="text-primary hover:underline">Election</a>
+          <a href="javascript:;" class="text-primary hover:underline">Contest</a>
         </li>
         <li class="before:content-['/'] ltr:before:mr-1 rtl:before:ml-1">
           <span>Edit Candidate</span>
@@ -50,43 +50,51 @@
         <div class="px-5">
 
               <!-- input text -->
-              <form action="{{route('admin.candidates.update',$electionCandidate->id )}}" method="post">
+    <form action="{{route('admin.contest.candidates.update', $ContestantCandidate->id )}}" method="post">
       @csrf
-
-      <div>
-            <label for="ctnSelect1">Update Payment Status</label>
-            <select  name="payment_status" id="payment_status" class="form-select text-white-dark" required>
-                
-            <option selected value="{{$electionCandidate->payment_status}}">{{$electionCandidate->payment_status}}</option>
-               <option value="pending">Pending</option>
-               <option value="approved">Approve</option>
-            </select>
-        </div>
-        <div>
-
-
     <div>
             <label for="ctnSelect1">Select Session </label>
             <select  name="academic_session" id="academic_session" class="form-select text-white-dark" required>
                 
-                
+            <option value="{{$ContestantCandidate->academic_session}}">{{$ContestantCandidate->academicSession->session_name}}</option>
                 @foreach ($academic_sessions as $academic_session)
+               
                 <option value="{{$academic_session->id}}">{{$academic_session->session_name}}</option>
                 @endforeach
             </select>
         </div>
         <div>
-        
+        <label for="ctnSelect1">Category name</label>
+        <select  name="position_id" id="position_id" class="form-select text-white-dark" required>
+          <option value="{{$ContestantCandidate->position_id}}"> {{$ContestantCandidate->position->name}} </option>
+              <option>You need to first select session</option>
+            </select>
+       
+        </div>
+
+
+        <div>
+        <label for="ctnSelect1">Select Candidate</label>
+        <select  name="user_id" id="user_id" class="form-select text-white-dark" required>
+        <option value="{{$ContestantCandidate->user_id}}"> {{$ContestantCandidate->user->lastname}} {{$ContestantCandidate->user->firstname}} {{$ContestantCandidate->user->matno}}</option>
+              @foreach ($users as $user)
+                <option value="{{$user->id}}">{{$user->lastname}} {{$user->firstname}} - {{$user->matno}}</option>
+                @endforeach
+            </select>
+       
+        </div>
+
+        <div>
         <label for="ctnSelect1">Display Name</label>
        
-        <input type="text" id="display_name" value="{{$electionCandidate->name}}" placeholder="e.g: Jagaban" name="name" class="form-input" required />
+        <input type="text" id="display_name" placeholder="e.g: Jagaban" name="name" value="{{$ContestantCandidate->name}}" class="form-input" required />
             
        
         </div>
 
        
         
-        <button type="submit" class="btn btn-primary mt-6">Update</button>
+        <button type="submit" class="btn btn-primary mt-6">Submit</button>
     </form>
     
         </div>
@@ -99,8 +107,37 @@
     </div>
   </div>
   </div>
+  <script>
+   
+    var academic_session = document.getElementById('academic_session');
+    var position_id = document.getElementById('position_id');
 
-  
+    // Function to populate positions
+    function fillPosition() {
+        
+        position_id.innerHTML = '';
+
+        var id = academic_session.value;
+
+       
+        fetch('/admin/contest/candidates/getPositionBySession?id=' + id)
+            .then(response => response.json())
+            .then(data => {
+               
+                data.forEach(function(positions) {
+                    var option = document.createElement('option');
+                    option.value = positions.id;
+                    option.textContent = positions.name;
+                    position_id.appendChild(option);
+                });
+            });
+    }
+
+    fillPosition();
+    academic_session.addEventListener('change', function() {
+        fillPosition();
+    });
+</script>
 
   
     </x-layout.default>

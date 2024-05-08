@@ -88,6 +88,7 @@ class ContestantCandidateController extends Controller
     public function edit(ContestantCandidate $ContestantCandidate, Request $request)
     {
        $id = $request->id;
+       //dd($id);
        $users = User::orderBy('lastname')->get();
         $ContestantCandidate = ContestantCandidate::findOrFail($id);
         $academic_sessions = AcademicSession::latest()->get();
@@ -99,14 +100,21 @@ class ContestantCandidateController extends Controller
      */
     public function update( Request $request2)
     {
+        
+        $slug = Str::slug($request2->name);
+        $vote_link = url("vote/$slug");
         ContestantCandidate::findOrFail($request2->id)->update([
            
-            'payment_status' => $request2->payment_status,
+            'academic_session' => $request2->academic_session,
+            'position_id' => $request2->position_id,
+            'user_id' => $request2->user_id,
             'name' => $request2->name,
+            'slug' => $slug,
+            'vote_link' =>   $vote_link,
            
         ]);
  
-        return redirect()->route('admin.candidates.index')->with('success', 'Candidate updated successfully!');
+        return redirect()->route('admin.contest.candidates.index')->with('success', 'Candidate updated successfully!');
     
     }
 

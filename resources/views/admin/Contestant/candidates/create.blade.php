@@ -37,10 +37,10 @@
     <div x-data="sales">
       <ul class="flex space-x-4 rtl:space-x-reverse">
         <li>
-          <a href="javascript:;" class="text-primary hover:underline">Election</a>
+          <a href="javascript:;" class="text-primary hover:underline">Contestant</a>
         </li>
         <li class="before:content-['/'] ltr:before:mr-1 rtl:before:ml-1">
-          <span>Add Candidate</span>
+          <span>Add Nominee</span>
         </li>
 
 
@@ -63,7 +63,7 @@
             </select>
         </div>
         <div>
-        <label for="ctnSelect1">Position name</label>
+        <label for="ctnSelect1">Category name</label>
         <select  name="position_id" id="position_id" class="form-select text-white-dark" required>
               <option>You need to first select session</option>
             </select>
@@ -76,7 +76,7 @@
         <select  name="user_id" id="user_id" class="form-select text-white-dark" required>
               <option>Pick Apsirer</option>
               @foreach ($users as $user)
-                <option value="{{$user->id}}">{{$user->lastname}} {{$user->firstname}}</option>
+                <option value="{{$user->id}}">{{$user->lastname}} {{$user->firstname}} - {{$user->matno}}</option>
                 @endforeach
             </select>
        
