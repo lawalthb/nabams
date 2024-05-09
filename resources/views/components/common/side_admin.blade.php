@@ -179,12 +179,10 @@
       <li>
         <a href="{{route('admin.contest.candidates.index')}}">Contestants</a>
       </li>
-      <!-- <li>
-        <a href="{{route('admin.blank')}}">Vote</a>
-      </li>
+      
       <li>
-        <a href="{{route('admin.blank')}}">Live Results</a>
-      </li> -->
+        <a href="{{route('admin.contest.liveresult')}}">Live Results</a>
+      </li>
 
     </ul>
   </li>

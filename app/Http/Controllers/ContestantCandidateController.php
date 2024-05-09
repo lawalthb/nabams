@@ -176,4 +176,20 @@ class ContestantCandidateController extends Controller
         
       return view('member.Contestant.candidates.list', compact('ContestantCandidates', 'academic_sessions', 'positions'));
     }
+
+    public function live_result(){
+        $session_id = AcademicSession::latest()->first();
+        $current_academic_session_id = $session_id->id;
+        $categories = ContestantPosition::has('candidates')->where('academic_session',  $current_academic_session_id)->with('candidates')->get();
+      
+        return view('admin.Contestant.live_results', compact('categories'));
+    }
+
+    public function live_content(){
+        $session_id = AcademicSession::latest()->first();
+        $current_academic_session_id = $session_id->id;
+        $categories = ContestantPosition::has('candidates')->where('academic_session',  $current_academic_session_id)->with('candidates')->get();
+      
+        return view('admin.Contestant.live_content', compact('categories'));
+    }
 }

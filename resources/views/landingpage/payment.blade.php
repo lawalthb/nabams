@@ -1,6 +1,6 @@
 @extends('landingpage.layout')
 
-@section('title', 'Home')
+@section('title', 'NACOS -'. $contestant->name )
 
 @section('content')
 
@@ -58,10 +58,10 @@ $abouts = App\Models\WebAbouts::where('id', 1)->first();
     <h4> Number of Votes:</h4>
 
     <input type="number" id="vote_number" name="num_votes" min="1" value="1" required><br /><br />
-    <input type="hidden" id="amount" name="amount" min="1" value="300" required>
+    <input type="hidden" id="amount" name="amount" min="1" value="{{ $position->price }}" required>
     <h4> Your Email:</h4>
     <input type="email" name="email" required /><br /><br />
-    Amount: ₦<span id="amt">300</span><br />
+    Amount: ₦<span id="amt">{{ $contestant->price }}</span><br />
     <button class="button" type="submit" style="background-color:green;">Pay to Vote</button><br />
     <br />
     <img src="{{asset('website/cards_images.webp')}}" width="200px" height="100px"  />

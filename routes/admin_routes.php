@@ -72,7 +72,8 @@ Route::get('/contest/candidates/edit/{id}', [ContestantCandidateController::clas
 Route::post('/contest/candidates/edit/{id}', [ContestantCandidateController::class, 'update'])->name('admin.contest.candidates.update');
 Route::get('/contest/candidates/delete/{id}', [ContestantCandidateController::class, 'destroy'])->name('admin.contest.candidates.delete');
 Route::get('/contest/candidates/getPositionBySession', [ContestantCandidateController::class, 'getPositionBySession'])->name('admin.contest.candidates.getPositionBySession');
-
+Route::get('/contest/liveresults', [ContestantCandidateController::class, 'live_result'])->name('admin.contest.liveresult');
+Route::get('/contest/live_content', [ContestantCandidateController::class, 'live_content'])->name('admin.contest.live_content');
 //resources routes
 Route::get('/resources/create', [ResourceController::class, 'create'])->name('resources.create');
 Route::post('/resources', [ResourceController::class, 'store'])->name('resources.store');

@@ -35,6 +35,7 @@ Route::get('/vote/{slug}', [VoteController::class, 'ContestVote'])->name('vote')
 Route::get('payment/{contestant}', [VoteController::class, 'ContestVotePayment'])->name('payment');
 
 Route::post('vote/process', [VoteController::class, 'processPayment'])->name('vote.payment.process');
+Route::get('/payment_callback_forvote', [TransactionController::class, 'PaymentCallbackVote'])->name('payment_callback_vote');
 Route::get('/payment_callback', [TransactionController::class, 'PaymentCallback'])->name('payment_callback');
  
 
