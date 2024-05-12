@@ -8,6 +8,7 @@ use App\Http\Controllers\ContestantPositionController;
 use App\Http\Controllers\ElectionCandidateController;
 use App\Http\Controllers\ElectionPositionController;
 use App\Http\Controllers\ResourceController;
+use App\Http\Controllers\SupervisorController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\VoteController;
 use App\Http\Controllers\WebSettingController;
@@ -30,9 +31,6 @@ Route::prefix('admin')->middleware('auth.member', 'admin')->group(function () {
 
     //users management routes
     Route::get('/users', [UserController::class, 'index'])->name('admin.users.index');
-    Route::get('/lecturers', [UserController::class, 'lecturers'])->name('admin.lecturers.index');
-    Route::get('/allocate', [UserController::class, 'allocate'])->name('admin.lecturers.allocate');
-    Route::post('/allocate/list_student', [UserController::class, 'allocate_students'])->name('admin.allocate.list_student');
     Route::get('/users/add', [UserController::class, 'create'])->name('admin.users.create');
     Route::post('/users/store', [UserController::class, 'store'])->name('admin.users.store');
     Route::get('/users/{user}/edit', [UserController::class, 'edit'])->name('admin.users.edit');
@@ -109,36 +107,19 @@ Route::get('/resources', [ResourceController::class, 'index'])->name('resources.
   Route::get('/website/settings/maintenance', [WebSettingController::class, 'maintenance'])->name('admin.website.setting.maintenance');
   Route::post('/website/settings/maintenance', [WebSettingController::class, 'maintenance_update'])->name('admin.website.setting.maintenance_update');
 
-
+  //supervsior and project allocation
+  Route::get('/lecturers', [SupervisorController::class, 'index'])->name('admin.lecturers.index');
+  Route::get('/lecturers/create', [SupervisorController::class, 'create'])->name('admin.lecturers.create');
+  Route::post('/lecturers/store', [SupervisorController::class, 'store'])->name('admin.lecturers.store');
+  Route::get('/lecturers/edit/{id}', [SupervisorController::class, 'edit'])->name('admin.supervisor.edit');
+  Route::post('/lecturers/update/{id}', [SupervisorController::class, 'update'])->name('admin.lecturers.update');
+  Route::get('/lecturers/delete/{id}', [SupervisorController::class, 'destroy'])->name('admin.lecturers.delete');
+  Route::get('/allocate', [SupervisorController::class, 'allocate'])->name('admin.lecturers.allocate');
+  Route::post('/allocate/list_student', [SupervisorController::class, 'allocate_students'])->name('admin.allocate.list_student');
+ 
   
   
   
-  Route::view('/elements/alerts', 'elements.alerts');
-  Route::view('/components/notifications', 'ui-components.notifications');
-  Route::view('/forms/basic',
-    'forms.basic'
-  );
-  Route::view('/forms/input-group', 'forms.input-group');
-  Route::view('/forms/layouts', 'forms.layouts');
-  Route::view('/forms/validation', 'forms.validation');
-  Route::view('/forms/input-mask', 'forms.input-mask');
-  Route::view('/forms/select2', 'forms.select2');
-  Route::view('/forms/touchspin', 'forms.touchspin');
-  Route::view('/forms/checkbox-radio', 'forms.checkbox-radio');
-  Route::view('/forms/switches',
-    'forms.switches'
-  );
-  Route::view('/forms/wizards', 'forms.wizards');
-  Route::view('/forms/file-upload', 'forms.file-upload');
-  Route::view('/forms/quill-editor', 'forms.quill-editor');
-  Route::view('/forms/markdown-editor', 'forms.markdown-editor');
-  Route::view('/forms/date-picker', 'forms.date-picker');
-  Route::view('/forms/clipboard', 'forms.clipboard');
-
-
-
-  Route::view('/forms/file-upload', 'forms.file-upload');
-Route::view('/forms/quill-editor', 'forms.quill-editor');
-Route::view('/forms/markdown-editor', 'forms.markdown-editor');
+ 
 
 });
