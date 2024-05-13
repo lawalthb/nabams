@@ -2,7 +2,7 @@
 
 
 
-@section('title', 'OGITECH NAPAS - Contest')
+@section('title', 'Thank You - Contest')
 
 @section('content')
 

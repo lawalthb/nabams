@@ -33,33 +33,33 @@ $header = App\Models\WebHeaders::where('id', 1)->first();
         <div class="col-lg-2 col-md-6 footer-links">
           <h4>Menu</h4>
           <ul>
-            <li><i class="bx bx-chevron-right"></i> <a href="#">Home</a></li>
-            <li><i class="bx bx-chevron-right"></i> <a href="#">About us</a></li>
-            <li><i class="bx bx-chevron-right"></i> <a href="#">Resources</a></li>
-            <li><i class="bx bx-chevron-right"></i> <a href="#">Membership</a></li>
-            <li><i class="bx bx-chevron-right"></i> <a href="#">Events</a></li>
+            <li><i class="bx bx-chevron-right"></i> <a href="/">Home</a></li>
+            <li><i class="bx bx-chevron-right"></i> <a href="#about">About us</a></li>
+            <li><i class="bx bx-chevron-right"></i> <a href="#services">Resources</a></li>
+            <li><i class="bx bx-chevron-right"></i> <a href="#registration">Membership</a></li>
+            <li><i class="bx bx-chevron-right"></i> <a href="#events">Events</a></li>
           </ul>
         </div>
 
         <div class="col-lg-3 col-md-6 footer-links">
           <h4>Account</h4>
           <ul>
-            <li><i class="bx bx-chevron-right"></i> <a href="#">Login</a></li>
-            <li><i class="bx bx-chevron-right"></i> <a href="#">Registration</a></li>
-            <li><i class="bx bx-chevron-right"></i> <a href="#">My Profile</a></li>
-            <li><i class="bx bx-chevron-right"></i> <a href="#">Election</a></li>
-            <li><i class="bx bx-chevron-right"></i> <a href="#">Contests</a></li>
+            <li><i class="bx bx-chevron-right"></i> <a href="/loginPage">Login</a></li>
+            <li><i class="bx bx-chevron-right"></i> <a href="/loginPage">Registration</a></li>
+            <li><i class="bx bx-chevron-right"></i> <a href="/loginPage">My Profile</a></li>
+            <li><i class="bx bx-chevron-right"></i> <a href="/loginPage">Election</a></li>
+            <li><i class="bx bx-chevron-right"></i> <a href="/loginPage">Contests</a></li>
           </ul>
         </div>
 
-        <div class="col-lg-4 col-md-6 footer-newsletter">
+        <!-- <div class="col-lg-4 col-md-6 footer-newsletter">
           <h4>Visitor's Newsletter</h4>
           
           <form action="" method="post">
             <input type="email" name="email"><input type="submit" value="Subscribe">
           </form>
 
-        </div>
+        </div> -->
 
       </div>
     </div>
