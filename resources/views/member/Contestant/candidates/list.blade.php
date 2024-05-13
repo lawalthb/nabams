@@ -72,7 +72,7 @@
       <th>Name</th>
       <th>Vote Link</th>
     
-      <th>Votes</th>
+    
       
       <th></th>
     </tr>
@@ -89,7 +89,7 @@
       <td>{{$ContestantCandidate->name}}</td>
       <td><a href="{{$ContestantCandidate->vote_link}}" target="_blank">{{$ContestantCandidate->vote_link}}</a></td>
       
-      <td> {{$ContestantCandidate->votes}}</td>
+    
      
 
     </tr>
