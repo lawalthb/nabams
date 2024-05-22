@@ -72,8 +72,12 @@ class AuthController extends Controller
 
         // dd($response);
         $auth_data = json_decode($response, true);
-         $access_token = $auth_data['data']['access_token'];
        
+       if($auth_data){
+        $access_token = $auth_data['data']['access_token'];
+       }else{
+        return view("landingpage.login");
+       }
          $reference = 'REF' . uniqid();
         
 
@@ -145,7 +149,7 @@ class AuthController extends Controller
         $callback_url = route('callback_url');
         
         $data = $this->nomba_checkout($user->id, $validatedData['email'], $reg_fee,  $callback_url );
-      
+      if( $data){
         Transactions::create([
             'user_id' => $user->id,
             'purpose' => 'registration fee',
@@ -160,6 +164,11 @@ class AuthController extends Controller
         $payment_link = $data['data']['checkoutLink'];
 
         event(new UserRegistered($user, $payment_link, $request->password ));
+      }else{
+        User::findOrFail($user->id)->delete();
+        return view("landingpage.login");
+      }
+        
 
 
 

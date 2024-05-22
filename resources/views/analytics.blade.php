@@ -4,11 +4,15 @@
 @php 
        $userID = auth()->user()->id;
         $supervisor_id = App\Models\SupervisorUser::where('user_id',$userID )->latest()->value('supervisor_id');
-    $supervisor_name = App\Models\Supervisor::where('id',$supervisor_id )->value('name');
+    $supervisor = App\Models\Supervisor::where('id',$supervisor_id )->first();
 
-                                                
+        if($supervisor->name){
+echo "Your supervisor is ". $supervisor->name .", His Email is: ".$supervisor->email;
+        }else{
+           echo "No supervisor assign yet."; 
+        }                                        
  @endphp
- Your supervisor is {{$supervisor_name}}
+
     <script defer src="/assets/js/apexcharts.js"></script>
     <div x-data="analytics">
         <ul class="flex space-x-2 rtl:space-x-reverse">

@@ -115,6 +115,14 @@ $reg = App\Models\WebRegistrations::where('id', 1)->first();
 
   </div>
   <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const form = document.querySelector('form');
+            const submitButton = form.querySelector('button[type="submit"]');
 
-  </script>
+            form.addEventListener('submit', function () {
+                submitButton.disabled = true;
+                submitButton.innerText = 'Submitting...'; // Optional: Change the button text to indicate the form is being submitted
+            });
+        });
+    </script>
 </section><!-- End Registration Section -->
