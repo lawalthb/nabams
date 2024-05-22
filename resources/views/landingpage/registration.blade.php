@@ -121,7 +121,7 @@ $reg = App\Models\WebRegistrations::where('id', 1)->first();
 
             form.addEventListener('submit', function () {
                 submitButton.disabled = true;
-                submitButton.innerText = 'Submitting...'; // Optional: Change the button text to indicate the form is being submitted
+                submitButton.innerText = 'Redirecting to Payment Page...';
             });
         });
     </script>
