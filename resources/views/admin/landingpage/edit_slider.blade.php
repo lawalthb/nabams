@@ -15,7 +15,15 @@
             <div class="panel">
                 <div class="flex items-center justify-between mb-5">
                     <h5 class="font-semibold text-lg dark:text-white-light">Update Sliders and Texts</h5><br />
-                    
+                    @if ($errors->any())
+                                        <div class="alert alert-danger">
+                                            <ul>
+                                                @foreach ($errors->all() as $error)
+                                                <li>{{ $error }}</li>
+                                                @endforeach
+                                            </ul>
+                                        </div>
+                                        @endif
                 </div>
                 <code style="color:red">NB.: Image size should be W1920 X H1152</code>
                 <div class="mb-5">
