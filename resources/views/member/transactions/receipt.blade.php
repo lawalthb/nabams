@@ -1,6 +1,7 @@
 @php
 $header = App\Models\WebHeaders::where('id', 1)->first();
 $contact = App\Models\WebContacts::where('id', 1)->first();
+
 @endphp
 
 
@@ -89,7 +90,7 @@ $contact = App\Models\WebContacts::where('id', 1)->first();
             </div>
             <div class="ltr:text-right rtl:text-left px-4">
                 <div class="space-y-1 mt-6 text-white-dark">
-                    <div>{{$contact->address}}</div>
+                    <!-- <div>{{$contact->address}}</div> -->
                     <div>{{$contact->email1}}</div>
                     <div>{{$contact->phone1}}</div>
                 </div>
@@ -100,10 +101,10 @@ $contact = App\Models\WebContacts::where('id', 1)->first();
                 <div class="flex-1">
                     <div class="space-y-1 text-white-dark">
                         <div>Issue For:</div>
-                        <div class="text-black dark:text-white font-semibold">John Doe</div>
-                        <div>Lawalthb@gmail.com</div>
-                        <div>08132712715</div>
-                        <div>12/45/0214</div>
+                        <div class="text-black dark:text-white font-semibold">{{$transactions->fullname}}</div>
+                        <div>{{$transactions->email}}</div>
+                        <div>{{$transactions->phone}}</div>
+                        
                     </div>
                 </div>
                 <div class="flex justify-between sm:flex-row flex-col gap-6 lg:w-2/3">
@@ -128,19 +129,19 @@ $contact = App\Models\WebContacts::where('id', 1)->first();
                     <div class="xl:1/3 lg:w-2/5 sm:w-1/2">
                     <div class="flex items-center w-full justify-between mb-2">
                             <div class="text-white-dark">Receipt No :</div>
-                            <div> 10056</div>
+                            <div> {{$transactions->id}}</div>
                         </div>
                         <div class="flex items-center w-full justify-between mb-2">
                             <div class="text-white-dark">Payment Date :</div>
-                            <div>13 April 2024</div>
+                            <div>{{$transactions->updated_at}}</div>
                         </div>
                         <div class="flex items-center w-full justify-between mb-2">
                             <div class="text-white-dark">Mode of Payment :</div>
-                            <div>Card</div>
+                            <div>Online</div>
                         </div>
                         <div class="flex items-center w-full justify-between">
                             <div class="text-white-dark">Payment Status :</div>
-                            <div>Success</div>
+                            <div>{{$transactions->status}}</div>
                         </div>
                     </div>
                 </div>
@@ -168,12 +169,12 @@ $contact = App\Models\WebContacts::where('id', 1)->first();
                 </table>
             </div>
             <div class="grid sm:grid-cols-2 grid-cols-1 px-4 mt-6">
-                <div>Amount in Words:</div>
+                <div>&nbsp;</div>
                 <div class="ltr:text-right rtl:text-left space-y-2">
                   
                     <div class="flex items-center font-semibold text-lg">
                         <div class="flex-1">Grand Total</div>
-                        <div class="w-[37%]">₦3,945</div>
+                        <div class="w-[37%]">₦{{$transactions->amount}}</div>
                     </div>
                     <div class="ltr:text-right">
                         <br >
@@ -189,10 +190,10 @@ $contact = App\Models\WebContacts::where('id', 1)->first();
             Alpine.data('invoicePreview', () => ({
                 items: [{
                         id: 1,
-                        title: 'Registration Fee',
-                        quantity: '2023-2024',
+                        title: `{{$transactions->purpose}}`,
+                        quantity: `{{$transactions->reference}}`,
                         session: 'Success',
-                        amount: '3,000'
+                        amount: '{{$transactions->amount}}'
                     },
                     
                 ],
@@ -206,7 +207,7 @@ $contact = App\Models\WebContacts::where('id', 1)->first();
                     },
                     {
                         key: 'quantity',
-                        label: 'SESSION'
+                        label: 'REFERENCE'
                     },
                     {
                         key: 'price',

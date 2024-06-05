@@ -2,15 +2,15 @@
 
 
 @php 
-       $userID = auth()->user()->id;
-        $supervisor_id = App\Models\SupervisorUser::where('user_id',$userID )->latest()->value('supervisor_id');
-    $supervisor = App\Models\Supervisor::where('id',$supervisor_id )->first();
+       //$userID = auth()->user()->id;
+       // $supervisor_id = App\Models\SupervisorUser::where('user_id',$userID )->latest()->value('supervisor_id');
+   // $supervisor = App\Models\Supervisor::where('id',$supervisor_id )->first();
 
-        if($supervisor->name){
-echo "Your supervisor is ". $supervisor->name .", His Email is: ".$supervisor->email;
-        }else{
-           echo "No supervisor assign yet."; 
-        }                                        
+       // if($supervisor->name){
+//echo "Your supervisor is ". $supervisor->name .", His Email is: ".$supervisor->email;
+      //  }else{
+     //      echo "No supervisor assign yet."; 
+     //   }                                        
  @endphp
 
     <script defer src="/assets/js/apexcharts.js"></script>

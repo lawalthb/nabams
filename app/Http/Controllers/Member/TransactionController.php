@@ -40,19 +40,9 @@ class TransactionController extends Controller
     {
         $ref = $request->receipt;
         $user_id = auth()->user()->id;
-        $transactions = Transactions::select(
-            'id',
-            'purpose',
-            'email',
-            'amount',
-
-            'reference',
-            'status',
-            'paid_at',
-
-            'gateway_response',
-        )->where('purpose', $request->purpose)->where('user_id', $user_id)->get();
-
+       // dd( $ref );
+        $transactions = Transactions::where('reference', $ref)->where('user_id', $user_id)->first();
+//sdd($transactions);
         return view("member.transactions.receipt", [
             'transactions' => $transactions,
 

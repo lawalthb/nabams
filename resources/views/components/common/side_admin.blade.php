@@ -214,12 +214,12 @@
         <a href="{{route('admin.users.index')}}">Members & Admins</a>
       </li>
     
-      <!-- <li>
+      <li>
         <a href="{{route('admin.blank')}}">Banned Users</a>
       </li>
       <li>
         <a href="{{route('admin.blank')}}">Inactive Users</a>
-      </li> -->
+      </li>
 
 
     </ul>
@@ -300,7 +300,7 @@
 
 
 
-  <!-- <li class="menu nav-item">
+  <li class="menu nav-item">
     <button type="button" class="nav-link group" :class="{ 'active': activeDropdown === 'events' }" @click="activeDropdown === 'events' ? activeDropdown = null : activeDropdown = 'events'">
       <div class="flex items-center">
 
@@ -333,7 +333,7 @@
       </li>
 
     </ul>
-  </li> -->
+  </li>
 
 
 
@@ -397,7 +397,7 @@
 
 
 
-  <!-- <li class="menu nav-item">
+  <li class="menu nav-item">
     <button type="button" class="nav-link group" :class="{ 'active': activeDropdown === 'invoice' }" @click="activeDropdown === 'invoice' ? activeDropdown = null : activeDropdown = 'invoice'">
       <div class="flex items-center">
         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -413,12 +413,12 @@
         </svg>
 
 
-        <span class="ltr:pl-3 rtl:pr-3 text-black dark:text-[#506690] dark:group-hover:text-white-dark">Discussion board</span>
+        <span class="ltr:pl-3 rtl:pr-3 text-black dark:text-[#506690] dark:group-hover:text-white-dark">Webmail</span>
       </div>
 
     </button>
 
-  </li> -->
+  </li>
 
 
 
@@ -444,6 +444,7 @@
 
 
   <li class="menu nav-item">
+  <a href="{{route('member.edit.profile', auth()->user()->id)}}" target="_blank" class="nav-link group">
     <button type="button" class="nav-link group" :class="{ 'active': activeDropdown === 'invoice' }" @click="activeDropdown === 'invoice' ? activeDropdown = null : activeDropdown = 'invoice'">
       <div class="flex items-center">
         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -457,7 +458,7 @@
       </div>
 
     </button>
-
+  </a>
   </li>
 
 
