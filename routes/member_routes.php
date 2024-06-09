@@ -6,6 +6,7 @@ use App\Http\Controllers\ContestantCandidateController;
 use App\Http\Controllers\ContestantPositionController;
 use App\Http\Controllers\ElectionCandidateController;
 use App\Http\Controllers\ElectionPositionController;
+use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\ResourceController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\VoteController;
@@ -58,5 +59,16 @@ Route::get('/resources/list', [ResourceController::class, 'list'])->name('resour
 Route::get('/resources/my_resources', [ResourceController::class, 'paidfor'])->name('resources.paidfor');
 Route::get('/resources/purchase/{id}', [ResourceController::class, 'purchase'])->name('resources.purchase');
 Route::post('/resources/download/{id}', [ResourceController::class, 'download'])->name('resources.download');
+
+
+// projects
+Route::get('/project/list', [ProjectController::class, 'list'])->name('project.list');
+Route::get('/project/my_project', [ProjectController::class, 'paidfor'])->name('project.paidfor');
+Route::get('/project/propose_topic', [ProjectController::class, 'propose_topic'])->name('project.propose_topic');
+Route::get('/project/approved_topic', [ProjectController::class, 'approved_topic'])->name('project.approved_topic');
+Route::post('/project/store', [ProjectController::class, 'store'])->name('project.store');
+
+
+Route::post('/project/download/{id}', [ProjectController::class, 'download'])->name('project.download');
 
 });

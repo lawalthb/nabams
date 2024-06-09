@@ -253,6 +253,9 @@
       <li>
         <a href="{{route('admin.lecturers.allocate')}}">Allocate</a>
       </li>
+      <li>
+        <a href="{{route('admin.project.topics_list')}}">Project Topics</a>
+      </li>
     
       
      

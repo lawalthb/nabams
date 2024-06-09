@@ -70,7 +70,11 @@ class SupervisorController extends Controller
      */
     public function show(string $id)
     {
-        //
+   // dd($id);
+   $supervisor = ModelsSupervisor::where('id', $id)->first();
+    $supervisor_details = SupervisorUser::with(['user.projects'])->where('supervisor_id', $id)->get();
+   // return  $supervisor_details;
+    return view('admin.supervisor.supervisor_details', compact('supervisor_details', 'supervisor'));
     }
 
     /**

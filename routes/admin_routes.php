@@ -7,6 +7,7 @@ use App\Http\Controllers\ContestantCandidateController;
 use App\Http\Controllers\ContestantPositionController;
 use App\Http\Controllers\ElectionCandidateController;
 use App\Http\Controllers\ElectionPositionController;
+use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\ResourceController;
 use App\Http\Controllers\SupervisorController;
 use App\Http\Controllers\UserController;
@@ -113,13 +114,21 @@ Route::get('/resources', [ResourceController::class, 'index'])->name('resources.
   Route::post('/lecturers/store', [SupervisorController::class, 'store'])->name('admin.lecturers.store');
   Route::get('/lecturers/edit/{id}', [SupervisorController::class, 'edit'])->name('admin.supervisor.edit');
   Route::post('/lecturers/update/{id}', [SupervisorController::class, 'update'])->name('admin.lecturers.update');
+  Route::get('/lecturers/{id}', [SupervisorController::class, 'show'])->name('admin.lecturers.show');
+
   Route::get('/lecturers/delete/{id}', [SupervisorController::class, 'destroy'])->name('admin.lecturers.delete');
   Route::get('/allocate', [SupervisorController::class, 'allocate'])->name('admin.lecturers.allocate');
   Route::post('/allocate/list_student', [SupervisorController::class, 'allocate_students'])->name('admin.allocate.list_student');
+  Route::get('/project/topics', [ProjectController::class, 'topics_list'])->name('admin.project.topics_list');
+  Route::get('/project/pick_level', [ProjectController::class, 'pick_level'])->name('admin.project.pick_level');
+
+  Route::post('/project/pick_level', [ProjectController::class, 'picked_level'])->name('admin.project.picked_level');
+
+  Route::post('/project/set_level', [ProjectController::class, 'set_level'])->name('admin.project.set_level');
+  Route::get('/project/set_topic', [ProjectController::class, 'set_topic'])->name('admin.project.set_topic');
  
-  
-  
-  
  
 
 });
+Route::get('/project/store_picked', [ProjectController::class, 'store_picked'])->name('admin.project.store_picked');
+Route::get('/project/give_topic', [ProjectController::class, 'give_topic'])->name('admin.project.give_topic');

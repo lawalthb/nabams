@@ -71,7 +71,7 @@
                 @foreach ($users as  $key => $user)
                     <tr>
                         <td>{{ $users->firstItem() + $key }}</td>
-                        <td>{{ $user->name }} </td>
+                        <td><a href="{{route('admin.lecturers.show' , $user->id) }}" target="_blank" >{{ $user->name }} </a> </td>
                         <td>{{ $user->email }}</td>
                         <td>{{ $user->phone }}</td>
                        
