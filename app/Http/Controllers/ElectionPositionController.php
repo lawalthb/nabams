@@ -126,7 +126,7 @@ class ElectionPositionController extends Controller
            );
        }
        return redirect()->back()->with($notification);
-        
+       
 
     }
 
@@ -150,8 +150,7 @@ class ElectionPositionController extends Controller
 
         $id = $request->id;
         $ElectionPosition = ElectionPosition::findOrFail($id)->first();
-//dd($ElectionPosition);
-
+        //dd($ElectionPosition);
         $election_candidate = new ElectionCandidate();
         $election_candidate->academic_session = $ElectionPosition->academic_session;
         $election_candidate->position_id = $id;
@@ -160,14 +159,11 @@ class ElectionPositionController extends Controller
         $election_candidate->payment_status ="pending";
         $election_candidate->save();
 
-
-         // dd($ElectionPosition);
+        // dd($ElectionPosition);
        $callback_url = route('member.payment_callback');
        // send a welcome email to new member
 
        // store transaction
-
-
 
        //   dd('goto payment gateway');
        $client = new Client();
@@ -201,14 +197,8 @@ class ElectionPositionController extends Controller
        $payment_link = $data['data']['authorization_url'];
 
        event(new UserRegistered(Auth()->user(), $payment_link));
-
-
-
        return redirect($data['data']['authorization_url']);
-    
-
-
-       
+ 
     }
 
 }
