@@ -14,6 +14,8 @@ Route::group(['middleware' => 'guest'], function () {
 
 
   Route::post('/login', [AuthController::class, 'login'])->name('login');
+  Route::get('/forgot_password', [AuthController::class, 'forgot_password'])->name('forgot_password');
+  Route::post('/forgot_password_update', [AuthController::class, 'forgot_password_update'])->name('forgot_password_update');
 
   //landing page
 

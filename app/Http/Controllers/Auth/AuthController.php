@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Events\UserPassword;
 use App\Events\UserRegistered;
 use App\Http\Controllers\Controller;
 use App\Models\PriceSettings;
@@ -10,6 +11,7 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use GuzzleHttp\Client;
+use Illuminate\Support\Str;
 
 class AuthController extends Controller
 {
@@ -320,5 +322,29 @@ $reg_pay = Transactions::where('email',$request->email )->where('purpose', 'regi
         //dd("i will logout out pls wait");
         Auth::logout();
         return redirect('/');
+    }
+
+    public function forgot_password()
+    {
+        return view('landingpage.forgot_password');
+    }
+
+    public function forgot_password_update(Request $request)
+    {
+        $request_validated = $request->validate([
+            'email' => 'required|string|email'
+          ]);
+       $email = $request->email;
+       $new_password = Str::random(6);
+      // dd( $new_password);
+       $updatedPassword =  User::where('email',  $email)->update([
+        'password' =>  bcrypt($new_password),
+    ]);
+   // dd( $updatedPassword );
+    if($updatedPassword){
+        event(new UserPassword($email, $new_password ));
+        return view('landingpage.login');
+    }
+       
     }
 }
