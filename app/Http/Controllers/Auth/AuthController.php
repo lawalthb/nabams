@@ -37,13 +37,13 @@ class AuthController extends Controller
         return view("index");
     }
 
-  
+
 //nomba payment function
     public function nomba_checkout($customerId, $email, $amount,  $callback_url){
         $NOMBA_CLIENT_ID = env('NOMBA_CLIENT_ID');
         $NOMBA_CLIENT_SECRET = env('NOMBA_CLIENT_SECRET');
         $NOMBA_ACCOUNT_ID = env('NOMBA_ACCOUNT_ID');
-        
+
         $curl = curl_init();
 
         curl_setopt_array($curl, [
@@ -74,16 +74,16 @@ class AuthController extends Controller
 
         // dd($response);
         $auth_data = json_decode($response, true);
-       
+
        if($auth_data){
         $access_token = $auth_data['data']['access_token'];
        }else{
         return view("landingpage.login");
        }
          $reference = 'REF' . uniqid();
-        
 
-          
+
+
             //dd($access_token);
             $curl = curl_init();
             curl_setopt_array($curl, [
@@ -95,7 +95,7 @@ class AuthController extends Controller
                 CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
                 CURLOPT_CUSTOMREQUEST => "POST",
                 CURLOPT_POSTFIELDS => "{\n  \"order\": {\n    \"orderReference\": \"$reference\",\n    \"customerId\": \"$customerId\",\n    \"callbackUrl\": \"$callback_url\",\n    \"customerEmail\": \"$email\",\n    \"amount\": \"$amount\",\n    \"currency\": \"NGN\"\n  },\n  \"tokenizeCard\": \"false\"\n}",
-                
+
                 CURLOPT_HTTPHEADER => [
                     "Authorization: Bearer $access_token",
                     "Content-Type: application/json",
@@ -112,16 +112,16 @@ class AuthController extends Controller
             if ($err) {
                 echo "cURL Error #:" . $err;
             } else {
-               
+
                 $result;
             }
-            
+
           return  $data = json_decode($result, true);
     }
 
     public function register(Request $request)
     {
-       
+
         // Validation
         $validatedData = $request->validate([
             'firstname' => 'required|string|max:50',
@@ -149,7 +149,7 @@ class AuthController extends Controller
             'password' => bcrypt($validatedData['password']),
         ]);
         $callback_url = route('callback_url');
-        
+
         $data = $this->nomba_checkout($user->id, $validatedData['email'], $reg_fee,  $callback_url );
       if( $data){
         Transactions::create([
@@ -165,12 +165,12 @@ class AuthController extends Controller
         ]);
         $payment_link = $data['data']['checkoutLink'];
 
-        event(new UserRegistered($user, $payment_link, $request->password ));
+       // event(new UserRegistered($user, $payment_link, $request->password ));
       }else{
         User::findOrFail($user->id)->delete();
         return view("landingpage.login");
       }
-        
+
 
 
 
@@ -217,7 +217,7 @@ class AuthController extends Controller
             echo $response;
         }
 
-       
+
         $auth_data = json_decode($response, true);
         $access_token = $auth_data['data']['access_token'];
 
@@ -249,7 +249,7 @@ class AuthController extends Controller
           // dd($response);
             $data = json_decode($response, true);
             if ($data) {
-               
+
                 if($data['data']['message'] == 'PAYMENT SUCCESSFUL'){
                     $status  = 'Success';
                 }else{
@@ -311,10 +311,10 @@ $reg_pay = Transactions::where('email',$request->email )->where('purpose', 'regi
   return back()->withErrors(['email' => 'Invalid credentials ']);
                 }
         }else{
-  
+
   return back()->withErrors(['email' => 'You have not make payment ']);
         }
-      
+
     }
 
     public function Logout_new()
@@ -345,6 +345,6 @@ $reg_pay = Transactions::where('email',$request->email )->where('purpose', 'regi
         event(new UserPassword($email, $new_password ));
         return view('landingpage.login');
     }
-       
+
     }
 }

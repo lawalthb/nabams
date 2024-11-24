@@ -16,4 +16,7 @@ class Category extends Model
         return $this->hasMany(Resource::class);
     }
 
+    //laravel code to relate users table to categories table
+    
 }
+
